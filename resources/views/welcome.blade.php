@@ -28,16 +28,7 @@
 <body class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
     <!-- APP HEADER -->
-    <header class="h-14 flex items-center justify-between px-4 border-b border-zinc-800">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-zinc-800"></div>
-            <span class="text-sm font-medium text-zinc-300">
-                {{ config('app.name', 'Arena') }}
-            </span>
-        </div>
-
-        <div class="w-6 h-6 rounded-full bg-zinc-700"></div>
-    </header>
+    @include('partials.header')
 
     <!-- CONTENT -->
     <main class="flex-1 flex items-center justify-center px-4">
@@ -119,9 +110,8 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-zinc-800 text-center text-xs text-zinc-500 py-4">
-        © {{ date('Y') }} {{ config('app.name', 'Arena') }}
-    </footer>
+    @include('partials.footer')
+
 
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
