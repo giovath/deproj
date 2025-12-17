@@ -14,11 +14,10 @@ Route::view('/privacy', 'legal.privacy')->name('privacy');
 Route::get('/auth/tiktok/redirect', [TikTokAuthController::class, 'redirect'])
     ->name('auth.tiktok.redirect');
 
-Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
-    ->name('auth.tiktok.callback');
+Route::get('/auth/tiktok/callback', function () {
+    return redirect('/');
+});
 
-Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
-    ->name('auth.tiktok.callback');
 
 Route::get('/ping', function () {
     return response('ok', 200);
