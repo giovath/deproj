@@ -5,13 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Game Arena') }}</title>
+    <title>{{ config('app.name', 'Arena') }}</title>
 
-    <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
-    <!-- Tailwind CDN (temporário, sem build) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -25,140 +23,169 @@
             document.getElementById('loginModal').classList.remove('flex');
         }
     </script>
-
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-display">
+<body class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
-    <!-- HEADER -->
-    <header class="border-b border-slate-800">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight text-emerald-400">
-                    {{ config('app.name', 'ClickPrêmio') }}
-                </h1>
-                <span class="text-xs text-slate-400">
-                    disputas 1v1 · partidas rápidas · ranking
-                </span>
-            </div>
-
-            <nav class="space-x-6 text-sm text-slate-400">
-                <a href="#" class="hover:text-white transition">Ranking</a>
-                <a href="#" class="hover:text-white transition">Como funciona</a>
-            </nav>
+    <!-- APP HEADER -->
+    <header class="h-14 flex items-center justify-between px-4 border-b border-zinc-800">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-zinc-800"></div>
+            <span class="text-sm font-medium text-zinc-300">
+                {{ config('app.name', 'Arena') }}
+            </span>
         </div>
+
+        <div class="w-6 h-6 rounded-full bg-zinc-700"></div>
     </header>
 
-    <!-- MAIN -->
-    <main class="flex-1 flex items-center justify-center">
-        <div class="max-w-5xl w-full px-6">
+    <!-- CONTENT -->
+    <main class="flex-1 flex items-center justify-center px-4">
 
-            <!-- LOBBY CARD -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 shadow-2xl">
+        <div class="w-full max-w-sm flex flex-col gap-8">
 
-                <h2 class="text-3xl font-bold text-center mb-3 tracking-tight">
-                    Arena 1v1
-                </h2>
+            <!-- ARENA -->
+            <div class="flex flex-col gap-5">
 
-                <p class="text-center text-slate-400 mb-12">
-                    Entre na arena, enfrente um oponente e avance no ranking.
-                </p>
+                <!-- Slots -->
+                <div class="grid grid-cols-2 gap-4">
 
-                <!-- SLOTS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div onclick="openLoginModal()"
+                        class="aspect-square rounded-2xl border border-zinc-800 bg-zinc-900
+                               flex flex-col items-center justify-center
+                               hover:border-amber-400 transition cursor-pointer">
 
-                    <!-- SLOT JOGADOR 1 -->
-                    <div
-                        class="border border-slate-800 rounded-2xl p-8 text-center
-                               cursor-pointer transition group
-                               hover:border-emerald-400 hover:bg-emerald-400/5"
-                        onclick="openLoginModal()">
-
-                        <div class="text-xs uppercase tracking-widest text-slate-400 mb-3">
-                            Jogador 1
-                        </div>
-
-                        <div class="text-lg font-semibold text-slate-300 group-hover:text-white">
-                            Vaga disponível
-                        </div>
-
-                        <div class="mt-2 text-xs text-slate-500">
-                            Clique para entrar
-                        </div>
+                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                        <span class="text-xs text-zinc-400">slot livre</span>
                     </div>
 
-                    <!-- SLOT JOGADOR 2 -->
-                    <div
-                        class="border border-slate-800 rounded-2xl p-8 text-center
-                               cursor-pointer transition group
-                               hover:border-amber-400 hover:bg-amber-400/5"
-                        onclick="openLoginModal()">
+                    <div onclick="openLoginModal()"
+                        class="aspect-square rounded-2xl border border-zinc-800 bg-zinc-900
+                               flex flex-col items-center justify-center
+                               hover:border-amber-400 transition cursor-pointer">
 
-                        <div class="text-xs uppercase tracking-widest text-slate-400 mb-3">
-                            Jogador 2
-                        </div>
-
-                        <div class="text-lg font-semibold text-slate-300 group-hover:text-white">
-                            Vaga disponível
-                        </div>
-
-                        <div class="mt-2 text-xs text-slate-500">
-                            Clique para entrar
-                        </div>
+                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                        <span class="text-xs text-zinc-400">slot livre</span>
                     </div>
 
                 </div>
+
+                <!-- Status neutro -->
+                <div class="flex items-center justify-center gap-2 text-zinc-500 text-xs">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    aguardando jogadores
+                </div>
+
             </div>
 
-            <!-- RANKING PREVIEW -->
-            <div class="mt-12 bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-                    🏆 Ranking em destaque
-                </h3>
+            <!-- RANKING -->
+            <div class="flex flex-col gap-3">
 
-                <ul class="space-y-3 text-sm text-slate-400">
-                    <li>#1 — Jogador Alpha</li>
-                    <li>#2 — Jogador Beta</li>
-                    <li>#3 — Jogador Gamma</li>
-                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase tracking-widest text-zinc-500">
+                        Ranking
+                    </span>
+                    <span class="text-xs text-zinc-600">
+                        Top 3
+                    </span>
+                </div>
+
+                <div class="space-y-2">
+
+                    <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2">
+                        <span class="text-xs text-zinc-500 w-4">#1</span>
+                        <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
+                        <div class="flex-1 h-2 rounded bg-zinc-800"></div>
+                    </div>
+
+                    <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2">
+                        <span class="text-xs text-zinc-500 w-4">#2</span>
+                        <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
+                        <div class="flex-1 h-2 rounded bg-zinc-800"></div>
+                    </div>
+
+                    <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2">
+                        <span class="text-xs text-zinc-500 w-4">#3</span>
+                        <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
+                        <div class="flex-1 h-2 rounded bg-zinc-800"></div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
+
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-800 text-center text-xs text-slate-500 py-5">
-        © {{ date('Y') }} {{ config('app.name', 'ClickPrêmio') }} ·
-        <a href="{{ route('terms') }}" class="hover:text-white">Termos</a> ·
-        <a href="{{ route('privacy') }}" class="hover:text-white">Privacidade</a>
+    <footer class="border-t border-zinc-800 text-center text-xs text-zinc-500 py-4">
+        © {{ date('Y') }} {{ config('app.name', 'Arena') }}
     </footer>
 
     <!-- LOGIN MODAL -->
-    <div id="loginModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div id="loginModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
 
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 max-w-md w-full text-center shadow-2xl">
-            <h3 class="text-2xl font-bold mb-2">
-                Entrar na Arena
+        <div
+            class="bg-zinc-900 border border-zinc-800 rounded-2xl
+               p-6 max-w-sm w-full mx-4
+               text-center shadow-xl">
+
+            <!-- Título -->
+            <h3 class="text-lg font-semibold text-zinc-100 mb-1">
+                Entrar na arena
             </h3>
 
-            <p class="text-sm text-slate-400 mb-8">
-                Faça login com sua conta TikTok para ocupar um slot e iniciar a partida.
+            <!-- Texto -->
+            <p class="text-xs text-zinc-400 mb-6">
+                Entre com sua conta TikTok para ocupar um slot.
             </p>
 
+            <!-- LOGIN TIKTOK -->
             <a href="{{ route('auth.tiktok.redirect') }}"
-                class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-                       bg-emerald-500 hover:bg-emerald-400 transition
-                       text-slate-900 font-semibold">
-                🎵 Entrar com TikTok
+                class="w-full inline-flex items-center justify-center gap-3
+                  px-4 py-3 rounded-xl
+                  bg-amber-400 hover:bg-amber-300 transition
+                  text-zinc-900 font-semibold text-sm">
+
+                <img src="/images/TikTok.webp" alt="TikTok" class="w-5 h-5" />
+
+                Entrar com TikTok
             </a>
 
-            <button onclick="closeLoginModal()" class="mt-5 text-xs text-slate-500 hover:text-white">
-                Cancelar
+            <!-- DIVISOR -->
+            <div class="flex items-center gap-3 my-5">
+                <div class="flex-1 h-px bg-zinc-800"></div>
+                <span class="text-[10px] uppercase tracking-widest text-zinc-500">
+                    ou
+                </span>
+                <div class="flex-1 h-px bg-zinc-800"></div>
+            </div>
+
+            <!-- REFERRAL -->
+            <p class="text-[11px] text-zinc-500 mb-3 leading-relaxed">
+                Ainda não tem TikTok?
+                Crie sua conta pelo convite e participe das recompensas.
+            </p>
+
+            <a href="https://www.tiktok.com/d/J4878898528" target="_blank" rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center
+                  px-4 py-2 rounded-xl
+                  border border-zinc-700
+                  hover:border-amber-400 hover:text-amber-400
+                  transition text-xs font-medium text-zinc-300">
+
+                Criar conta no TikTok
+            </a>
+
+            <!-- CANCELAR -->
+            <button onclick="closeLoginModal()" class="mt-5 text-xs text-zinc-500 hover:text-zinc-300 transition">
+                cancelar
             </button>
         </div>
     </div>
 
-</body>
 
+</body>
 
 </html>
