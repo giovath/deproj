@@ -19,3 +19,7 @@ Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
 
 Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
     ->name('auth.tiktok.callback');
+
+Route::get('/ping', function () {
+    return response('ok', 200);
+});
