@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Services\EnterArenaService;
+use Illuminate\Support\Facades\Log;
 
 
 class TikTokAuthController extends Controller
@@ -38,7 +39,6 @@ class TikTokAuthController extends Controller
      * Callback do TikTok
      */
     public function callback(Request $request, EnterArenaService $arena)
-
     {
         // 1️⃣ Proteção CSRF
         if ($request->state !== session('tiktok_oauth_state')) {
@@ -64,15 +64,33 @@ class TikTokAuthController extends Controller
         )->json();
 
         if (!isset($tokenResponse['access_token'])) {
-            abort(500, 'TikTok token error');
+            Log::error('TikTok token error', $tokenResponse);
+            abort(500, 'Erro ao obter token do TikTok');
         }
 
+        $accessToken = $tokenResponse['access_token'];
+
         // 3️⃣ Buscar dados do usuário
-        $userResponse = Http::withToken($tokenResponse['access_token'])
-            ->get('https://open.tiktokapis.com/v2/user/info/', [
+        $userResponse = Http::withToken($accessToken)->get(
+            'https://open.tiktokapis.com/v2/user/info/',
+            [
                 'fields' => 'open_id,username,avatar_url',
-            ])
-            ->json();
+            ]
+        )->json();
+
+        // 🔍 Validação real e segura
+        if (
+            !isset($userResponse['data']) ||
+            !isset($userResponse['data']['user'])
+        ) {
+            Log::error('TikTok user data missing', [
+                'token' => $tokenResponse,
+                'user_response' => $userResponse
+            ]);
+
+            return redirect('/')
+                ->withErrors('Permissão insuficiente para acessar dados do TikTok. Conceda as permissões novamente.');
+        }
 
         $ttUser = $userResponse['data']['user'];
 
@@ -97,7 +115,7 @@ class TikTokAuthController extends Controller
                 'provider_user_id' => $ttUser['open_id'],
                 'nickname'         => $ttUser['username'] ?? null,
                 'avatar_url'       => $ttUser['avatar_url'] ?? null,
-                'access_token'     => $tokenResponse['access_token'],
+                'access_token'     => $accessToken,
                 'refresh_token'    => $tokenResponse['refresh_token'] ?? null,
                 'token_expires_at' => now()->addSeconds($tokenResponse['expires_in'] ?? 0),
                 'raw_payload'      => $userResponse,
