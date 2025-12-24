@@ -26,10 +26,11 @@ class TikTokAuthController extends Controller
         $query = http_build_query([
             'client_key'    => config('services.tiktok.client_key'),
             'response_type' => 'code',
-            'scope'         => 'user.info.basic,openid',
+            'scope'         => 'user.info.basic',
             'redirect_uri'  => route('auth.tiktok.callback'),
             'state'         => $state,
-            'force_verify'  => 'true', // força nova permissão sempre
+            'prompt'        => 'consent',     // força exibir permissão
+            'force_verify'  => 'true',        // impede usar consentimentos antigos
         ]);
 
         return redirect('https://www.tiktok.com/v2/auth/authorize/?' . $query);
