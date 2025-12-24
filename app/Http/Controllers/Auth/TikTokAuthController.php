@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use App\Services\EnterArenaService;
+
 
 class TikTokAuthController extends Controller
 {
@@ -34,7 +36,8 @@ class TikTokAuthController extends Controller
     /**
      * Callback do TikTok
      */
-    public function callback(Request $request)
+    public function callback(Request $request, EnterArenaService $arena)
+
     {
         // 1️⃣ Proteção CSRF
         if ($request->state !== session('tiktok_oauth_state')) {
@@ -100,9 +103,8 @@ class TikTokAuthController extends Controller
             ]
         );
 
-        // 6️⃣ Login local
         Auth::login($user);
 
-        return redirect('/'); // depois pode virar lobby
+        return redirect('/');
     }
 }

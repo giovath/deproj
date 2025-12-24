@@ -41,31 +41,60 @@
                 <!-- Slots -->
                 <div class="grid grid-cols-2 gap-4">
 
-                    <div onclick="openLoginModal()"
-                        class="aspect-square rounded-2xl border border-zinc-800 bg-zinc-900
-                               flex flex-col items-center justify-center
-                               hover:border-amber-400 transition cursor-pointer">
+                    @php
+                        $slot1User = $match?->slot1User ?? null;
+                    @endphp
 
-                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                        <span class="text-xs text-zinc-400">slot livre</span>
+
+                    <div @if (!$slot1User) @guest onclick="openLoginModal()" @endguest @endif
+                        class="aspect-square rounded-2xl border
+    {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
+    bg-zinc-900 flex flex-col items-center justify-center transition">
+
+                        @if ($slot1User)
+                            <img src="{{ $slot1User->avatar_url ?? '/images/avatar.png' }}"
+                                class="w-16 h-16 rounded-full mb-3">
+                            <span class="text-xs text-zinc-300">
+                                {{ $slot1User->name }}
+                            </span>
+                        @else
+                            <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                            <span class="text-xs text-zinc-400">slot livre</span>
+                        @endif
                     </div>
 
-                    <div onclick="openLoginModal()"
-                        class="aspect-square rounded-2xl border border-zinc-800 bg-zinc-900
-                               flex flex-col items-center justify-center
-                               hover:border-amber-400 transition cursor-pointer">
 
-                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                        <span class="text-xs text-zinc-400">slot livre</span>
+                    <div @if (!$slot1User) @guest onclick="openLoginModal()" @endguest @endif
+                        class="aspect-square rounded-2xl border
+    {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
+    bg-zinc-900 flex flex-col items-center justify-center transition">
+
+                        @if ($slot1User)
+                            <img src="{{ $slot1User->avatar_url ?? '/images/avatar.png' }}"
+                                class="w-16 h-16 rounded-full mb-3">
+                            <span class="text-xs text-zinc-300">
+                                {{ $slot1User->name }}
+                            </span>
+                        @else
+                            <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                            <span class="text-xs text-zinc-400">slot livre</span>
+                        @endif
                     </div>
+
 
                 </div>
 
                 <!-- Status neutro -->
-                <div class="flex items-center justify-center gap-2 text-zinc-500 text-xs">
-                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                    aguardando jogadores
+                <div class="flex items-center justify-center gap-2 text-xs">
+                    @if ($match && $match->slot1_user_id && $match->slot2_user_id)
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        pronto para jogar
+                    @else
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                        aguardando jogadores
+                    @endif
                 </div>
+
 
             </div>
 
