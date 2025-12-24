@@ -26,12 +26,13 @@ class TikTokAuthController extends Controller
             'client_key'    => config('services.tiktok.client_key'),
             'response_type' => 'code',
             'scope'         => 'user.info.basic',
-            'redirect_uri'  => route('auth.tiktok.callback'),
+            'redirect_uri'  => 'https://premio.click/auth/tiktok/callback',
             'state'         => $state,
         ]);
 
         return redirect('https://www.tiktok.com/v2/auth/authorize/?' . $query);
     }
+
 
     /**
      * Callback do TikTok
