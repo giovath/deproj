@@ -1,3 +1,10 @@
+@php
+    $match = null;
+    if (session('match_id')) {
+        $match = \App\Models\GameMatch::with(['slot1User', 'slot2User'])->find(session('match_id'));
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 

@@ -25,15 +25,16 @@ class GameMatch extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function slot1()
+    public function slot1User()
     {
         return $this->belongsTo(User::class, 'slot_1_user_id');
     }
 
-    public function slot2()
+    public function slot2User()
     {
         return $this->belongsTo(User::class, 'slot_2_user_id');
     }
+
 
     /*
     |--------------------------------------------------------------------------

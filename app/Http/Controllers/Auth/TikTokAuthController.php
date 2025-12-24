@@ -122,8 +122,12 @@ class TikTokAuthController extends Controller
             ]
         );
 
+        
         Auth::login($user);
 
-        return redirect('/');
+        $match = $arena->handle($user);
+
+        return redirect('/')
+            ->with('match_id', $match->id);
     }
 }
