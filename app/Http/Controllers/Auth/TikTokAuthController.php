@@ -29,9 +29,8 @@ class TikTokAuthController extends Controller
             'scope'         => 'user.info.basic',
             'redirect_uri'  => route('auth.tiktok.callback'),
             'state'         => $state,
-            'prompt'        => 'consent',     // força exibir permissão
-            'force_verify'  => 'true',        // impede usar consentimentos antigos
         ]);
+
 
         return redirect('https://www.tiktok.com/v2/auth/authorize/?' . $query);
     }
