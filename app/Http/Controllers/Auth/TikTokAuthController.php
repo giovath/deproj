@@ -73,12 +73,17 @@ class TikTokAuthController extends Controller
         $accessToken = $tokenResponse['access_token'];
 
         // 3️⃣ Buscar dados do usuário
-        $userResponse = Http::withToken($accessToken)->get(
+        $userResponse = Http::withToken($accessToken)->post(
             'https://open.tiktokapis.com/v2/user/info/',
             [
-                'fields' => 'open_id,username,avatar_url',
+                'fields' => [
+                    'open_id',
+                    'username',
+                    'avatar_url',
+                ],
             ]
         )->json();
+
 
         // 🔍 Validação real e segura
         if (
