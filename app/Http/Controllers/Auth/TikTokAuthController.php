@@ -20,19 +20,15 @@ class TikTokAuthController extends Controller
      */
     public function redirect(Request $request)
     {
-        $state = Str::random(40);
-        session(['tiktok_oauth_state' => $state]);
+        $state = hash_hmac('sha256', Str::random(40), config('app.key'));
 
-        $query = http_build_query([
+        return redirect()->away('https://www.tiktok.com/v2/auth/authorize/?' . http_build_query([
             'client_key'    => config('services.tiktok.client_key'),
             'response_type' => 'code',
             'scope'         => 'user.info.basic',
             'redirect_uri'  => route('auth.tiktok.callback'),
-            'state'         => $state,
-        ]);
-
-
-        return redirect('https://www.tiktok.com/v2/auth/authorize/?' . $query);
+            'state'         => $state
+        ]));
     }
 
 
@@ -42,25 +38,21 @@ class TikTokAuthController extends Controller
      */
     public function callback(Request $request, EnterArenaService $arena)
     {
-        // 1️⃣ Proteção CSRF
-        if ($request->state !== session('tiktok_oauth_state')) {
-            abort(403, 'Invalid OAuth state');
+        if (!$request->has('state')) {
+            abort(403, 'Missing OAuth state');
         }
 
-        session()->forget('tiktok_oauth_state');
-
-        // 🔍 Debug inicial OAuth
         Log::info('TikTok OAuth callback debug', [
             'received_code' => $request->code ?? 'none',
             'redirect_uri' => route('auth.tiktok.callback'),
             'client_key_present' => config('services.tiktok.client_key') ? true : false,
-            'state_match' => ($request->state === session('tiktok_oauth_state'))
+            'state_received' => $request->state,
         ]);
-
 
         if ($request->has('error')) {
             return redirect('/')->withErrors('Login TikTok cancelado');
         }
+
 
         // 2️⃣ Troca code por token
         $tokenResponse = Http::asForm()->post(
