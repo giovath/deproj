@@ -25,7 +25,7 @@ class TikTokAuthController extends Controller
         return redirect()->away('https://www.tiktok.com/v2/auth/authorize/?' . http_build_query([
             'client_key'    => config('services.tiktok.client_key'),
             'response_type' => 'code',
-            'scope'         => 'user.info.basic',
+            'scope' => 'user.info.profile',
             'redirect_uri'  => route('auth.tiktok.callback'),
             'state'         => $state
         ]));
