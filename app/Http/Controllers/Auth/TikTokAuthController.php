@@ -78,17 +78,16 @@ class TikTokAuthController extends Controller
             [
                 'fields' => [
                     'open_id',
-                    'username',
                     'avatar_url',
+                    'display_name',
                 ],
             ]
         )->json();
 
-
-        // 🔍 Validação real e segura
+        // 🔍 Validação real
         if (
             !isset($userResponse['data']) ||
-            !isset($userResponse['data']['user'])
+            empty($userResponse['data']['open_id'])
         ) {
             Log::error('TikTok user data missing', [
                 'token' => $tokenResponse,
@@ -99,20 +98,20 @@ class TikTokAuthController extends Controller
                 ->withErrors('Permissão insuficiente para acessar dados do TikTok. Conceda as permissões novamente.');
         }
 
-        $ttUser = $userResponse['data']['user'];
+        $ttUser = $userResponse['data'];
 
-        // 4️⃣ Criar ou recuperar usuário local
+
         $user = User::firstOrCreate(
             [
                 'email' => $ttUser['open_id'] . '@tiktok.local',
             ],
             [
-                'name'     => $ttUser['username'] ?? 'TikTok User',
+                'name'     => $ttUser['display_name'] ?? 'TikTok User',
                 'password' => bcrypt(Str::random(32)),
             ]
         );
 
-        // 5️⃣ Vincular provider
+        // Vincular provider
         UserProvider::updateOrCreate(
             [
                 'user_id'  => $user->id,
@@ -120,7 +119,7 @@ class TikTokAuthController extends Controller
             ],
             [
                 'provider_user_id' => $ttUser['open_id'],
-                'nickname'         => $ttUser['username'] ?? null,
+                'nickname'         => $ttUser['display_name'] ?? null,
                 'avatar_url'       => $ttUser['avatar_url'] ?? null,
                 'access_token'     => $accessToken,
                 'refresh_token'    => $tokenResponse['refresh_token'] ?? null,
@@ -128,6 +127,7 @@ class TikTokAuthController extends Controller
                 'raw_payload'      => $userResponse,
             ]
         );
+
 
 
         Auth::login($user);
