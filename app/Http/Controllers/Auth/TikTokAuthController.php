@@ -49,6 +49,15 @@ class TikTokAuthController extends Controller
 
         session()->forget('tiktok_oauth_state');
 
+        // 🔍 Debug inicial OAuth
+        Log::info('TikTok OAuth callback debug', [
+            'received_code' => $request->code ?? 'none',
+            'redirect_uri' => route('auth.tiktok.callback'),
+            'client_key_present' => config('services.tiktok.client_key') ? true : false,
+            'state_match' => ($request->state === session('tiktok_oauth_state'))
+        ]);
+
+
         if ($request->has('error')) {
             return redirect('/')->withErrors('Login TikTok cancelado');
         }
@@ -66,9 +75,16 @@ class TikTokAuthController extends Controller
         )->json();
 
         if (!isset($tokenResponse['access_token'])) {
-            Log::error('TikTok token error', $tokenResponse);
-            abort(500, 'Erro ao obter token do TikTok');
+            Log::error('TikTok token exchange failed', [
+                'token_response' => $tokenResponse,
+                'request_code' => $request->code ?? 'none',
+                'redirect_uri' => route('auth.tiktok.callback')
+            ]);
+
+            return redirect('/')
+                ->withErrors('Erro ao obter token do TikTok — confira permissões e escopos.');
         }
+
 
         $accessToken = $tokenResponse['access_token'];
 
