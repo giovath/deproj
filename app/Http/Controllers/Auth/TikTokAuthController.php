@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use App\Services\EnterArenaService;
+use Illuminate\Support\Facades\Http;
+
 
 class TikTokAuthController extends Controller
 {
@@ -25,18 +27,22 @@ class TikTokAuthController extends Controller
             return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
         }
 
-        // Obtém dados detalhados do usuário na API TikTok
-        $userInfoResponse = \Http::withHeaders([
+        $userInfoResponse = Http::withHeaders([
             'Authorization' => "Bearer {$tiktokUser->token}",
             'Content-Type' => 'application/json'
         ])->post('https://open.tiktokapis.com/v2/user/info/', [
-            'fields' => 'display_name,avatar_url'
+            'fields' => 'display_name,avatar_large_url'
         ]);
 
         $userData = $userInfoResponse->json()['data']['user'] ?? [];
 
-        $name = $userData['display_name'] ?? $tiktokUser->getNickname() ?? 'TikTok User';
-        $avatar = $userData['avatar_url'] ?? $tiktokUser->getAvatar();
+        $name = $userData['display_name']
+            ?? $tiktokUser->getNickname()
+            ?? 'TikTok User';
+
+        $avatar = $userData['avatar_large_url']
+            ?? $tiktokUser->getAvatar()
+            ?? null;
 
         $email = $tiktokUser->getId() . '@tiktok.local';
 
