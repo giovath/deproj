@@ -49,7 +49,9 @@
                 <div class="grid grid-cols-2 gap-4">
 
                     @php
-                        $slot1User = $match?->slot1User ?? null;
+                        $slot1User = $match?->slot1User;
+                        $slot2User = $match?->slot2User;
+
                     @endphp
 
 
@@ -71,22 +73,24 @@
                     </div>
 
 
-                    <div @if (!$slot1User) @guest onclick="openLoginModal()" @endguest @endif
+
+                    <div @if (!$slot2User) @guest onclick="openLoginModal()" @endguest @endif
                         class="aspect-square rounded-2xl border
-    {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
+    {{ $slot2User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
-                        @if ($slot1User)
-                            <img src="{{ $slot1User->avatar_url ?? '/images/avatar.png' }}"
+                        @if ($slot2User)
+                            <img src="{{ $slot2User->avatar_url ?? '/images/avatar.png' }}"
                                 class="w-16 h-16 rounded-full mb-3">
                             <span class="text-xs text-zinc-300">
-                                {{ $slot1User->name }}
+                                {{ $slot2User->name }}
                             </span>
                         @else
                             <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
                             <span class="text-xs text-zinc-400">slot livre</span>
                         @endif
                     </div>
+
 
 
                 </div>
