@@ -25,13 +25,27 @@ class TikTokAuthController extends Controller
             return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
         }
 
+        // Obtém dados detalhados do usuário na API TikTok
+        $userInfoResponse = \Http::withHeaders([
+            'Authorization' => "Bearer {$tiktokUser->token}",
+            'Content-Type' => 'application/json'
+        ])->post('https://open.tiktokapis.com/v2/user/info/', [
+            'fields' => 'display_name,avatar_url'
+        ]);
+
+        $userData = $userInfoResponse->json()['data']['user'] ?? [];
+
+        $name = $userData['display_name'] ?? $tiktokUser->getNickname() ?? 'TikTok User';
+        $avatar = $userData['avatar_url'] ?? $tiktokUser->getAvatar();
+
         $email = $tiktokUser->getId() . '@tiktok.local';
 
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             ['email' => $email],
             [
-                'name' => $tiktokUser->getNickname() ?? 'TikTok User',
-                'password' => bcrypt(Str::random(32)),
+                'name' => $name,
+                'avatar_url' => $avatar,
+                'password' => bcrypt(Str::random(32))
             ]
         );
 
@@ -42,10 +56,10 @@ class TikTokAuthController extends Controller
             ],
             [
                 'provider_user_id' => $tiktokUser->getId(),
-                'nickname' => $tiktokUser->getNickname(),
-                'avatar_url' => $tiktokUser->getAvatar(),
+                'nickname' => $name,
+                'avatar_url' => $avatar,
                 'access_token' => $tiktokUser->token,
-                'refresh_token' => $tiktokUser->refreshToken,
+                'refresh_token' => $tiktokUser->refreshToken ?? null,
                 'raw_payload' => $tiktokUser->user ?? null
             ]
         );
