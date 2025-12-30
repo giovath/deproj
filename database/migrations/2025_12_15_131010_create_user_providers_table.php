@@ -12,15 +12,17 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->string('provider'); // tiktok, google, etc
-            $table->string('provider_user_id');
+            $table->text('provider_user_id');
+
+
 
             // Dados públicos
             $table->string('nickname')->nullable();
-            $table->string('avatar_url')->nullable();
+            $table->text('avatar_url')->nullable();
 
             // Tokens (OAuth)
             $table->text('access_token')->nullable();
