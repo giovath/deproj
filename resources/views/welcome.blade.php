@@ -5,6 +5,11 @@
     }
 @endphp
 
+@php
+    use App\Models\UserProvider;
+    $providerAvatar = UserProvider::where('user_id', $slot1User->id)->value('avatar_url');
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -61,7 +66,8 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot1User)
-                            <img src="{{ $slot1User->avatar_url ?? '/images/avatar.png' }}"
+                            <img src="{{ $providerAvatar ?: $slot1User->avatar_url ?: '/images/avatar.png' }}"
+                                onerror="this.onerror=null;this.src='/images/avatar.png';"
                                 class="w-16 h-16 rounded-full mb-3">
                             <span class="text-xs text-zinc-300">
                                 {{ $slot1User->name }}
@@ -80,7 +86,8 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot2User)
-                            <img src="{{ $slot2User->avatar_url ?? '/images/avatar.png' }}"
+                            <img src="{{ $providerAvatar ?: $slot2User->avatar_url ?: '/images/avatar.png' }}"
+                                onerror="this.onerror=null;this.src='/images/avatar.png';"
                                 class="w-16 h-16 rounded-full mb-3">
                             <span class="text-xs text-zinc-300">
                                 {{ $slot2User->name }}

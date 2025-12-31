@@ -61,6 +61,10 @@ class TikTokAuthController extends Controller
             ]
         );
 
+        if ($avatar) {
+            $user->update(['avatar_url' => $avatar]);
+        }
+
         // Atualiza provider SEM sobrescrever tudo sempre
         UserProvider::updateOrCreate(
             [
