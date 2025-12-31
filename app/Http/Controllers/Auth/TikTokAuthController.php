@@ -11,6 +11,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 class TikTokAuthController extends Controller
 {
@@ -61,9 +63,25 @@ class TikTokAuthController extends Controller
             ]
         );
 
+
         if ($avatar) {
-            $user->update(['avatar_url' => $avatar]);
+            try {
+                $imageContent = file_get_contents($avatar);
+
+                if ($imageContent) {
+                    $avatarFilename = 'avatar_' . Str::random(20) . '.jpg';
+
+                    Storage::disk('public')->put('avatars/' . $avatarFilename, $imageContent);
+
+                    $user->update([
+                        'avatar_url' => 'avatars/' . $avatarFilename
+                    ]);
+                }
+            } catch (\Exception $e) {
+                Log::warning("Falha ao baixar avatar TikTok: " . $e->getMessage());
+            }
         }
+
 
         // Atualiza provider SEM sobrescrever tudo sempre
         UserProvider::updateOrCreate(
