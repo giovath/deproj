@@ -2,37 +2,33 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AvatarService
 {
-    /**
-     * Faz download do avatar remoto e salva localmente (se fornecido).
-     */
-    public function downloadAndStore(?string $avatarUrl): ?string
+    public function downloadAndStore(string $url): ?string
     {
-        if (!$avatarUrl) {
-            return null;
-        }
-
         try {
-            $imageContent = @file_get_contents($avatarUrl);
+            $response = Http::withHeaders([
+                'User-Agent' => 'Mozilla/5.0'
+            ])->get($url);
 
-            if (!$imageContent) {
-                Log::warning("Avatar não pôde ser baixado: {$avatarUrl}");
+            if (!$response->successful()) {
+                Log::warning("Falha ao baixar avatar TikTok: HTTP " . $response->status());
                 return null;
             }
 
-            $filename = 'avatar_' . Str::uuid() . '.jpg';
-            $path = 'avatars/' . $filename;
+            $imageContent = $response->body();
+            $avatarFilename = 'avatar_' . Str::random(20) . '.jpg';
 
-            Storage::disk('public')->put($path, $imageContent);
+            Storage::disk('public')->put('avatars/' . $avatarFilename, $imageContent);
 
-            return $path;
+            return 'avatars/' . $avatarFilename;
         } catch (\Exception $e) {
-            Log::error("Erro ao salvar avatar: " . $e->getMessage());
+            Log::warning("Erro ao baixar/salvar avatar TikTok: " . $e->getMessage());
             return null;
         }
     }
