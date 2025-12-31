@@ -55,4 +55,13 @@ class User extends Authenticatable
     {
         return $this->providers()->where('provider', $provider)->first();
     }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->avatar_url && str_starts_with($this->avatar_url, 'avatars/')) {
+            return asset('storage/' . $this->avatar_url);
+        }
+
+        return $this->avatar_url ?: asset('images/avatar.png');
+    }
 }

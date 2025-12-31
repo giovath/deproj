@@ -12,6 +12,8 @@ use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Services\AvatarService;
+
 
 
 class TikTokAuthController extends Controller
@@ -23,7 +25,7 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback(EnterArenaService $arena)
+    public function callback(EnterArenaService $arena, AvatarService $avatarService)
     {
         try {
             $tiktokUser = Socialite::driver('tiktok')->user();
@@ -63,25 +65,13 @@ class TikTokAuthController extends Controller
             ]
         );
 
-
         if ($avatar) {
-            try {
-                $imageContent = file_get_contents($avatar);
-
-                if ($imageContent) {
-                    $avatarFilename = 'avatar_' . Str::random(20) . '.jpg';
-
-                    Storage::disk('public')->put('avatars/' . $avatarFilename, $imageContent);
-
-                    $user->update([
-                        'avatar_url' => 'avatars/' . $avatarFilename
-                    ]);
-                }
-            } catch (\Exception $e) {
-                Log::warning("Falha ao baixar avatar TikTok: " . $e->getMessage());
+            if ($localPath = $avatarService->downloadAndStore($avatar)) {
+                $user->update([
+                    'avatar_url' => $localPath
+                ]);
             }
         }
-
 
         // Atualiza provider SEM sobrescrever tudo sempre
         UserProvider::updateOrCreate(
