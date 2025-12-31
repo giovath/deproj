@@ -66,9 +66,10 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot1User)
-                            <img src="{{ $providerAvatar ?: $slot1User->avatar_url ?: '/images/avatar.png' }}"
+                            <img src="{{ $slot1User->avatar_url ?? '/images/avatar.png' }}"
                                 onerror="this.onerror=null;this.src='/images/avatar.png';"
                                 class="w-16 h-16 rounded-full mb-3">
+
                             <span class="text-xs text-zinc-300">
                                 {{ $slot1User->name }}
                             </span>
@@ -86,9 +87,10 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot2User)
-                            <img src="{{ $providerAvatar ?: $slot2User->avatar_url ?: '/images/avatar.png' }}"
+                            <img src="{{ $slot2User->avatar_url ?? '/images/avatar.png' }}"
                                 onerror="this.onerror=null;this.src='/images/avatar.png';"
                                 class="w-16 h-16 rounded-full mb-3">
+
                             <span class="text-xs text-zinc-300">
                                 {{ $slot2User->name }}
                             </span>
