@@ -65,13 +65,21 @@ class TikTokAuthController extends Controller
             ]
         );
 
+        // Garante que o Avatar vem direto do TikTok primeiro
+        if ($avatar) {
+            $user->update([
+                'avatar_url' => $avatar
+            ]);
+        }
+
+        /*
         if ($avatar) {
             if ($localPath = $avatarService->downloadAndStore($avatar)) {
                 $user->update([
                     'avatar_url' => $localPath
                 ]);
             }
-        }
+        }*/
 
         // Atualiza provider SEM sobrescrever tudo sempre
         UserProvider::updateOrCreate(
