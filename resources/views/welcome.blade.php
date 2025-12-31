@@ -5,11 +5,6 @@
     }
 @endphp
 
-@php
-    use App\Models\UserProvider;
-    $providerAvatar = UserProvider::where('user_id', $slot1User->id)->value('avatar_url');
-@endphp
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
