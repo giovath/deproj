@@ -59,10 +59,14 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        if ($this->avatar_url && str_starts_with($this->avatar_url, 'avatars/')) {
-            return asset('storage/' . $this->avatar_url);
+        // Avatar vindo do provider TikTok
+        if ($provider = $this->provider('tiktok')) {
+            if (!empty($provider->avatar_url)) {
+                return $provider->avatar_url;
+            }
         }
 
-        return $this->avatar_url ?: asset('images/avatar.png');
+        // Fallback se não houver avatar do provider
+        return asset('images/avatar.png');
     }
 }
