@@ -30,27 +30,17 @@ class TikTokAuthController extends Controller
             return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
         }
 
-        // --- Dados básicos disponíveis de imediato
+        // Dados diretos da autenticação
         $providerUserId = $tiktokUser->getId();
-        $email = $providerUserId . '@tiktok.local';
 
-        // --- Chamada TikTok API para dados completos
-        $response = Http::withHeaders([
-            'Authorization' => "Bearer {$tiktokUser->token}",
-            'Content-Type' => 'application/json'
-        ])->post('https://open.tiktokapis.com/v2/user/info/', [
-            'fields' => 'display_name,avatar_large_url'
-        ]);
+        // Dados completos vindos do payload
+        $userData = $tiktokUser->user ?? [];
 
-        $userData = $response->json()['data']['user'] ?? [];
-
-        $name = $userData['display_name']
-            ?? $tiktokUser->getNickname()
-            ?? 'TikTok User';
-
+        $name = $userData['display_name'] ?? 'TikTok User';
         $avatar = $userData['avatar_large_url'] ?? null;
 
-        // Criar/Buscar usuário no sistema
+        $email = $providerUserId . '@tiktok.local';
+
         $user = User::firstOrCreate(
             ['email' => $email],
             [
@@ -59,7 +49,8 @@ class TikTokAuthController extends Controller
             ]
         );
 
-        // Atualizar provider
+        $user->update(['name' => $name]); // garante atualização
+
         UserProvider::updateOrCreate(
             [
                 'user_id' => $user->id,
@@ -71,11 +62,12 @@ class TikTokAuthController extends Controller
                 'avatar_url' => $avatar,
                 'access_token' => $tiktokUser->token,
                 'refresh_token' => $tiktokUser->refreshToken ?? null,
-                'raw_payload' => $tiktokUser->user ?? null,
+                'raw_payload' => $userData,
             ]
         );
 
         Auth::login($user);
+
 
         $match = $arena->handle($user);
 
