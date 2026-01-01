@@ -61,7 +61,8 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot1User)
-                            <img src="{{ $slot1User->avatar }}" alt="Avatar" width="80">
+                            <img src="{{ $slot1User->avatar }}" alt="Avatar"
+                                class="w-20 h-20 rounded-full object-cover">
 
                             <span class="text-xs text-zinc-300">
                                 {{ $slot1User->name }}
@@ -80,7 +81,8 @@
     bg-zinc-900 flex flex-col items-center justify-center transition">
 
                         @if ($slot2User)
-                            <img src="{{ $slot2User->avatar }}" alt="Avatar" width="80">
+                            <img src="{{ $slot2User->avatar }}" alt="Avatar"
+                                class="w-20 h-20 rounded-full object-cover">
 
                             <span class="text-xs text-zinc-300">
                                 {{ $slot2User->name }}

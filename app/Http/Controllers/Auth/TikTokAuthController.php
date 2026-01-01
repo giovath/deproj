@@ -11,10 +11,6 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use App\Services\AvatarService;
-
-
 
 class TikTokAuthController extends Controller
 {
@@ -25,7 +21,7 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback(EnterArenaService $arena, AvatarService $avatarService)
+    public function callback(EnterArenaService $arena)
     {
         try {
             $tiktokUser = Socialite::driver('tiktok')->user();
@@ -34,61 +30,43 @@ class TikTokAuthController extends Controller
             return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
         }
 
-        // --- Recuperar dados mais completos da API TikTok ---
-        $userInfoResponse = Http::withHeaders([
+        // --- Dados básicos disponíveis de imediato
+        $providerUserId = $tiktokUser->getId();
+        $email = $providerUserId . '@tiktok.local';
+
+        // --- Chamada TikTok API para dados completos
+        $response = Http::withHeaders([
             'Authorization' => "Bearer {$tiktokUser->token}",
             'Content-Type' => 'application/json'
         ])->post('https://open.tiktokapis.com/v2/user/info/', [
             'fields' => 'display_name,avatar_large_url'
         ]);
 
-        $userData = $userInfoResponse->json()['data']['user'] ?? [];
+        $userData = $response->json()['data']['user'] ?? [];
 
         $name = $userData['display_name']
-            ?? $tiktokUser->user['display_name']
             ?? $tiktokUser->getNickname()
             ?? 'TikTok User';
 
-        $avatar = $userData['avatar_large_url']
-            ?? $tiktokUser->user['avatar_large_url']
-            ?? null;
+        $avatar = $userData['avatar_large_url'] ?? null;
 
-        $email = $tiktokUser->getId() . '@tiktok.local';
-
-        // Atualiza apenas se o nome/avatar estiverem vazios
-        $user = User::updateOrCreate(
+        // Criar/Buscar usuário no sistema
+        $user = User::firstOrCreate(
             ['email' => $email],
             [
                 'name' => $name,
-                'avatar_url' => $avatar,
                 'password' => bcrypt(Str::random(32)),
             ]
         );
 
-        // Garante que o Avatar vem direto do TikTok primeiro
-        if ($avatar) {
-            $user->update([
-                'avatar_url' => $avatar
-            ]);
-        }
-
-        /*
-        if ($avatar) {
-            if ($localPath = $avatarService->downloadAndStore($avatar)) {
-                $user->update([
-                    'avatar_url' => $localPath
-                ]);
-            }
-        }*/
-
-        // Atualiza provider SEM sobrescrever tudo sempre
+        // Atualizar provider
         UserProvider::updateOrCreate(
             [
-                'user_id'  => $user->id,
+                'user_id' => $user->id,
                 'provider' => 'tiktok',
             ],
             [
-                'provider_user_id' => $tiktokUser->getId(),
+                'provider_user_id' => $providerUserId,
                 'nickname' => $name,
                 'avatar_url' => $avatar,
                 'access_token' => $tiktokUser->token,
