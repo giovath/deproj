@@ -6,10 +6,10 @@ use App\Http\Controllers\ArenaController;
 use App\Models\GameMatch;
 
 Route::get('/', function () {
-    return view('welcome', [
-        'match' => null,
-    ]);
+    $match = \App\Models\GameMatch::latest()->first();
+    return view('welcome', compact('match'));
 })->name('home');
+
 
 
 Route::view('/terms', 'legal.terms')->name('terms');

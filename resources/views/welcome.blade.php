@@ -262,14 +262,15 @@
         }
     </script>
 
-    <script>
-        function copyInviteLink() {
-            const link = "{{ url('/invite/' . $match->id) }}";
-            navigator.clipboard.writeText(link);
-            alert('Link de convite copiado!');
-        }
-    </script>
-
+    @if ($match)
+        <script>
+            function copyInviteLink() {
+                const link = "{{ url('/invite/' . $match->id) }}";
+                navigator.clipboard.writeText(link);
+                alert('Link de convite copiado!');
+            }
+        </script>
+    @endif
 
 
 </body>
