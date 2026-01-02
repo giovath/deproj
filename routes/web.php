@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TikTokAuthController;
 use App\Http\Controllers\ArenaController;
+use App\Models\GameMatch;
 
 Route::get('/', function () {
     return view('welcome', [
@@ -26,13 +27,21 @@ Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
 Route::middleware('auth')->post('/arena/enter', [ArenaController::class, 'enter'])
     ->name('arena.enter');
 
-Route::middleware('auth')
-    ->get('/arena/status/{match}', [ArenaController::class, 'status'])
+Route::middleware('auth')->get('/arena/status/{match}', [ArenaController::class, 'status'])
     ->name('arena.status');
 
-Route::middleware('auth')
-    ->get('/play/{match}', [ArenaController::class, 'play'])
+Route::middleware('auth')->get('/play/{match}', [ArenaController::class, 'play'])
     ->name('arena.play');
+
+// convite público
+Route::get('/invite/{match}', function (GameMatch $match) {
+    session(['invited_match_id' => $match->id]);
+    return redirect()->route('login');
+})->name('arena.invite.public');
+
+// consumir convite
+Route::middleware('auth')->get('/arena/join/{match}', [ArenaController::class, 'joinInvite'])
+    ->name('arena.join.invite');
 
 
 /**

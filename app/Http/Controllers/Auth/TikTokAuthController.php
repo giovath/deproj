@@ -68,7 +68,20 @@ class TikTokAuthController extends Controller
 
         Auth::login($user);
 
+        /**
+         * Se o usuário veio por um link de convite,
+         * redireciona direto para o match convidado
+         */
+        if (session()->has('invited_match_id')) {
+            return redirect()->route(
+                'arena.join.invite',
+                session()->pull('invited_match_id')
+            );
+        }
 
+        /**
+         * (sem convite)
+         */
         $match = $arena->handle($user);
 
         return redirect('/')->with('match_id', $match->id);

@@ -97,6 +97,21 @@
 
                 </div>
 
+                @if ($match && auth()->check())
+                    @if ($match->slot1_user_id === auth()->id() && !$match->slot2_user_id)
+                        <div class="flex justify-center mt-2">
+                            <button onclick="copyInviteLink()"
+                                class="text-xs px-4 py-2 rounded-xl
+                       border border-zinc-700
+                       hover:border-amber-400 hover:text-amber-400
+                       transition text-zinc-300">
+                                Convidar amigo
+                            </button>
+                        </div>
+                    @endif
+                @endif
+
+
                 <!-- Status neutro -->
                 <div class="flex items-center justify-center gap-2 text-xs">
                     @if ($match && $match->slot1_user_id && $match->slot2_user_id)
@@ -244,6 +259,14 @@
             if (data.status === 'ready') {
                 window.location.href = "/play/" + matchId;
             }
+        }
+    </script>
+
+    <script>
+        function copyInviteLink() {
+            const link = "{{ url('/invite/' . $match->id) }}";
+            navigator.clipboard.writeText(link);
+            alert('Link de convite copiado!');
         }
     </script>
 

@@ -71,4 +71,19 @@ class ArenaController extends Controller
 
         return redirect()->away($url);
     }
+
+    public function joinInvite(GameMatch $match)
+    {
+        $userId = Auth::id();
+
+        // segurança mínima
+        abort_if($match->status !== 'waiting', 403);
+
+        // ocupa slot 2
+        $match->slot_2_user_id = $userId;
+        $match->status = 'ready';
+        $match->save();
+
+        return redirect()->route('arena.play', $match->id);
+    }
 }
