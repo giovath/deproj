@@ -36,7 +36,7 @@ Route::middleware('auth')->get('/play/{match}', [ArenaController::class, 'play']
 // convite público
 Route::get('/invite/{match}', function (GameMatch $match) {
     session(['invited_match_id' => $match->id]);
-    return redirect()->route('login');
+    return redirect()->route('auth.tiktok.redirect');
 })->name('arena.invite.public');
 
 // consumir convite
