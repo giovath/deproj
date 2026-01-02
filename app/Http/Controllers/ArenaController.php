@@ -74,15 +74,25 @@ class ArenaController extends Controller
 
     public function joinInvite(GameMatch $match)
     {
-        $userId = Auth::id();
+        $user = Auth::user();
 
-        // segurança mínima
+        // Match precisa estar aguardando
         abort_if($match->status !== 'waiting', 403);
 
-        // ocupa slot 2
-        $match->slot_2_user_id = $userId;
-        $match->status = 'ready';
-        $match->save();
+        // Não permitir o mesmo usuário duas vezes
+        abort_if(
+            $match->slot_1_user_id === $user->id ||
+                $match->slot_2_user_id === $user->id,
+            403
+        );
+
+        // Garante que slot1 já exista (criador)
+        abort_if(is_null($match->slot_1_user_id), 403);
+
+        // Usa a regra central
+        $match->occupySlot($user->id);
+
+        session(['match_id' => $match->id]);
 
         return redirect()->route('arena.play', $match->id);
     }
