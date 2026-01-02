@@ -26,6 +26,11 @@ Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
 Route::middleware('auth')->post('/arena/enter', [ArenaController::class, 'enter'])
     ->name('arena.enter');
 
+Route::middleware('auth')
+    ->get('/arena/status/{match}', [ArenaController::class, 'status'])
+    ->name('arena.status');
+
+
 
 /**
  * Healthcheck

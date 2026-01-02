@@ -217,6 +217,37 @@
         </div>
     </div>
 
+    <script>
+        let matchId = {{ $match?->id ?? 'null' }};
+
+        if (matchId) {
+            setInterval(checkMatchStatus, 3000);
+        }
+
+        async function checkMatchStatus() {
+            const response = await fetch(`/arena/status/${matchId}`, {
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+
+            // Se opponent entrou, recarrega para atualizar slots
+            if (data.opponent?.name) {
+                window.location.reload();
+            }
+
+            // Se status for ready, redireciona
+            if (data.status === 'ready') {
+                window.location.href = "/play/" + matchId;
+            }
+        }
+    </script>
+
+
 
 </body>
 

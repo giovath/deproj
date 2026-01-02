@@ -10,13 +10,15 @@ class GameMatch extends Model
 {
     use HasFactory;
 
-    protected $table = 'matches'; // mantém o nome da tabela
+    protected $table = 'matches';
 
     protected $fillable = [
         'status',
         'slot_1_user_id',
         'slot_2_user_id',
         'invite_code',
+        'room_id',
+        'winner_id',
     ];
 
     /*
@@ -24,7 +26,6 @@ class GameMatch extends Model
     | Relacionamentos
     |--------------------------------------------------------------------------
     */
-
     public function slot1User()
     {
         return $this->belongsTo(User::class, 'slot_1_user_id');
@@ -35,13 +36,16 @@ class GameMatch extends Model
         return $this->belongsTo(User::class, 'slot_2_user_id');
     }
 
+    public function winner()
+    {
+        return $this->belongsTo(User::class, 'winner_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
     | Estados
     |--------------------------------------------------------------------------
     */
-
     public function isWaiting(): bool
     {
         return $this->status === 'waiting';
@@ -57,7 +61,6 @@ class GameMatch extends Model
     | Slots
     |--------------------------------------------------------------------------
     */
-
     public function hasFreeSlot(): bool
     {
         return is_null($this->slot_1_user_id) || is_null($this->slot_2_user_id);
@@ -71,7 +74,7 @@ class GameMatch extends Model
             $this->slot_2_user_id = $userId;
         }
 
-        if ($this->slot_1_user_id && $this->slot_2_user_id) {
+        if (!is_null($this->slot_1_user_id) && !is_null($this->slot_2_user_id)) {
             $this->status = 'ready';
         }
 
@@ -83,7 +86,6 @@ class GameMatch extends Model
     | Invite (Fluxo C)
     |--------------------------------------------------------------------------
     */
-
     public function generateInviteCode(): void
     {
         if (!$this->invite_code) {

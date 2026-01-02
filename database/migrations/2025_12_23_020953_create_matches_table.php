@@ -29,6 +29,13 @@ return new class extends Migration
                 ->constrained('users')
                 ->nullOnDelete();
 
+            $table->string('room_id')->nullable()->unique();
+            $table->foreignId('winner_id')
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
+
+
             // Código de convite (Fluxo C – futuro)
             $table->string('invite_code')->nullable()->unique();
 
