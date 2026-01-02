@@ -61,18 +61,13 @@ class ArenaController extends Controller
 
     public function play($matchId)
     {
-        $propertyId = 10999;
+        $baseUrl = 'https://dvhomexwh.play.gamezop.com/g/hgempP8Sc/';
 
-        // Identificador da sala (pode ser o matchId mesmo)
-        $roomId = 'room_' . $matchId;
+        $roomDetails = base64_encode(json_encode([
+            'roomId' => 'room_' . $matchId
+        ]));
 
-        // URL base do Gamezop
-        $gamezopUrl = 'https://www.gamezop.com/games';
-
-        // Montagem da URL final
-        $url = $gamezopUrl
-            . '?id=' . $propertyId
-            . '&roomId=' . urlencode($roomId);
+        $url = $baseUrl . '?roomDetails=' . urlencode($roomDetails);
 
         return redirect()->away($url);
     }
