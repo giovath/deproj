@@ -30,6 +30,9 @@ Route::middleware('auth')
     ->get('/arena/status/{match}', [ArenaController::class, 'status'])
     ->name('arena.status');
 
+Route::middleware('auth')
+    ->get('/play/{match}', [ArenaController::class, 'play'])
+    ->name('arena.play');
 
 
 /**

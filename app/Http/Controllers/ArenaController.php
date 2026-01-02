@@ -58,4 +58,22 @@ class ArenaController extends Controller
             ],
         ]);
     }
+
+    public function play($matchId)
+    {
+        $propertyId = 10999;
+
+        // Identificador da sala (pode ser o matchId mesmo)
+        $roomId = 'room_' . $matchId;
+
+        // URL base do Gamezop
+        $gamezopUrl = 'https://www.gamezop.com/games';
+
+        // Montagem da URL final
+        $url = $gamezopUrl
+            . '?id=' . $propertyId
+            . '&roomId=' . urlencode($roomId);
+
+        return redirect()->away($url);
+    }
 }
