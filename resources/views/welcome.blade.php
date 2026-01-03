@@ -130,6 +130,13 @@
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-sm w-full mx-4 text-center shadow-xl">
+
+            @if ($slot1User)
+                <p class="text-xs text-zinc-400 mb-4">
+                    {{ $slot1User->name }} te convidou para jogar
+                </p>
+            @endif
+
             <h3 class="text-lg font-semibold text-zinc-100 mb-1">Entrar na arena</h3>
             <p class="text-xs text-zinc-400 mb-6">Entre com sua conta TikTok para ocupar um slot.</p>
 
@@ -196,6 +203,15 @@
             }
         @endif
     </script>
+
+    @if (session('invited_match_id'))
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                openLoginModal();
+            });
+        </script>
+    @endif
+
 
 </body>
 
