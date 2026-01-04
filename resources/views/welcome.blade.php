@@ -117,23 +117,47 @@
                 </div>
             </div>
 
-            <!-- RANKING -->
-            <div class="flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs uppercase tracking-widest text-zinc-500">Ranking</span>
-                    <span class="text-xs text-zinc-600">Top 3</span>
+            <div class="space-y-2">
+
+                <!-- CTA: Jogos grátis -->
+                <a href="https://joga.click" target="_blank"
+                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
+              rounded-xl px-3 py-2 hover:border-amber-400 transition">
+
+                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
+                        🎮
+                    </div>
+                    <span class="text-xs text-zinc-300">
+                        Jogos grátis
+                    </span>
+                </a>
+
+                <!-- CTA: Prêmios -->
+                <a href="https://clickpremio.online" target="_blank"
+                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
+              rounded-xl px-3 py-2 hover:border-amber-400 transition">
+
+                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
+                        🎁
+                    </div>
+                    <span class="text-xs text-zinc-300">
+                        Sorteios e prêmios
+                    </span>
+                </a>
+
+                <!-- Placeholder futuro -->
+                <div
+                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
+                rounded-xl px-3 py-2 opacity-60">
+                    
+                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">⭐</div>
+                    <span class="text-xs text-zinc-500">
+                        Em breve
+                    </span>
                 </div>
 
-                <div class="space-y-2">
-                    @for ($i = 1; $i <= 3; $i++)
-                        <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2">
-                            <span class="text-xs text-zinc-500 w-4">#{{ $i }}</span>
-                            <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
-                            <div class="flex-1 h-2 rounded bg-zinc-800"></div>
-                        </div>
-                    @endfor
-                </div>
             </div>
+
         </div>
     </main>
 
