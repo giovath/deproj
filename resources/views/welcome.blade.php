@@ -14,11 +14,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Arena') }}</title>
+    <title>{{ config('app.name', 'premio.click') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q2GDTV3FK2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q2GDTV3FK2');
+    </script>
 
     <script>
         function openLoginModal() {
