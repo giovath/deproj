@@ -119,8 +119,21 @@
 
             <div class="space-y-2">
 
-                <!-- CTA: Jogos grátis -->
-                <a href="https://joga.click" target="_blank"
+                <!-- CTA: Produto principal -->
+                <a href="https://virals.live/?utm_source=premio.click" target="_blank"
+                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
+              rounded-xl px-3 py-2 hover:border-amber-400 transition">
+
+                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
+                        🚀
+                    </div>
+                    <span class="text-xs text-zinc-300">
+                        Impulsionar Live no TikTok
+                    </span>
+                </a>
+
+                <!-- CTA: Jogos -->
+                <a href="https://joga.click/?utm_source=premio.click" target="_blank"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
               rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
@@ -133,7 +146,7 @@
                 </a>
 
                 <!-- CTA: Prêmios -->
-                <a href="https://clickpremio.online" target="_blank"
+                <a href="https://clickpremio.online/?utm_source=premio.click" target="_blank"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
               rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
@@ -145,18 +158,24 @@
                     </span>
                 </a>
 
-                <!-- Placeholder futuro -->
-                <div
-                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
-                rounded-xl px-3 py-2 opacity-60">
-                    
-                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">⭐</div>
-                    <span class="text-xs text-zinc-500">
-                        Em breve
+                <!-- CTA: Monetização discreta -->
+                <a href="https://otieu.com/4/10418584?utm_source=premio.click&utm_medium=hub&utm_campaign=monetag"
+                    target="_blank" rel="noopener noreferrer"
+                    class="w-full flex items-center gap-3 bg-zinc-900 border border-zinc-800
+          rounded-xl px-3 py-2 hover:border-zinc-600 transition text-left">
+
+                    <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs">
+                        ➕
+                    </div>
+                    <span class="text-xs text-zinc-400">
+                        Mais opções
                     </span>
-                </div>
+                </a>
+
+
 
             </div>
+
 
         </div>
     </main>
@@ -248,7 +267,6 @@
             });
         </script>
     @endif
-
 
 </body>
 
