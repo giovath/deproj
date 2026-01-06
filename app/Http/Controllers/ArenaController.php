@@ -99,11 +99,27 @@ class ArenaController extends Controller
 
         abort_if(!$game, 404, 'Jogo não disponível');
 
-        $roomDetails = base64_encode(json_encode([
-            'roomId' => 'room_' . $matchId,
-        ]));
+        $roomDetails = [
+            'roomId' => 'match_' . $matchId,
 
-        $url = $game['url'] . '?roomDetails=' . urlencode($roomDetails);
+            'user' => [
+                'name'  => Auth::user()->name,
+                'sub'   => (string) Auth::id(),
+                'photo' => Auth::user()->avatar_url ?? null,
+            ],
+
+            'minPlayers' => 2,
+            'maxPlayers' => 2,
+            'maxWait'    => 90,
+            'rounds'     => 1,
+            'text'       => 'go_home',
+            'allowBots'  => false,
+        ];
+
+        // 👇 AQUI está o ponto que faltava
+        $encodedRoomDetails = base64_encode(json_encode($roomDetails));
+
+        $url = $game['url'] . '?roomDetails=' . urlencode($encodedRoomDetails);
 
         return redirect()->away($url);
     }
