@@ -41,5 +41,9 @@ return [
         'redirect'      => env('TIKTOK_REDIRECT_URI'),
     ],
 
+    'gamezop' => [
+        'token' => env('GAMEZOP_API_TOKEN'),
+        'lang'  => env('GAMEZOP_LANG', 'pt'),
+    ],
 
 ];

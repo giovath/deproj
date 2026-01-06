@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Auth;
+use App\Services\GamezopService;
+
 
 use App\Models\GameMatch;
 
 
 class ArenaController extends Controller
 {
+
+    private const GAMEZOP_GAME_CODE = 'hgempP8Sc';
+
     public function enter(EnterArenaService $service)
     {
         $match = $service->handle(Auth::user());
@@ -59,19 +64,6 @@ class ArenaController extends Controller
         ]);
     }
 
-    public function play($matchId)
-    {
-        $baseUrl = 'https://dvhomexwh.play.gamezop.com/g/hgempP8Sc/';
-
-        $roomDetails = base64_encode(json_encode([
-            'roomId' => 'room_' . $matchId
-        ]));
-
-        $url = $baseUrl . '?roomDetails=' . urlencode($roomDetails);
-
-        return redirect()->away($url);
-    }
-
     public function joinInvite(GameMatch $match)
     {
         $userId = Auth::id();
@@ -99,5 +91,20 @@ class ArenaController extends Controller
         session(['match_id' => $match->id]);
 
         return redirect()->route('arena.play', $match->id);
+    }
+
+    public function play($matchId, GamezopService $gamezop)
+    {
+        $game = $gamezop->getGameByCode(self::GAMEZOP_GAME_CODE);
+
+        abort_if(!$game, 404, 'Jogo não disponível');
+
+        $roomDetails = base64_encode(json_encode([
+            'roomId' => 'room_' . $matchId,
+        ]));
+
+        $url = $game['url'] . '?roomDetails=' . urlencode($roomDetails);
+
+        return redirect()->away($url);
     }
 }
