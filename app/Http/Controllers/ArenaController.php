@@ -105,21 +105,26 @@ class ArenaController extends Controller
             'user' => [
                 'name'  => Auth::user()->name,
                 'sub'   => (string) Auth::id(),
-                'photo' => Auth::user()->avatar_url ?? null,
+                'photo' => Auth::user()->avatar_url ?: '',
             ],
 
             'minPlayers' => 2,
             'maxPlayers' => 2,
-            'maxWait'    => 90,
-            'rounds'     => 1,
-            'text'       => 'go_home',
-            'allowBots'  => false,
+            'maxWait' => 120,
+
+            // Pool só aceita 1 round
+            'rounds' => 1,
+
+            'text' => 'go_home',
+            'allowBots' => false,
         ];
 
-        // 👇 AQUI está o ponto que faltava
-        $encodedRoomDetails = base64_encode(json_encode($roomDetails));
+        $encoded = rtrim(
+            base64_encode(json_encode($roomDetails)),
+            '='
+        );
 
-        $url = $game['url'] . '?roomDetails=' . urlencode($encodedRoomDetails);
+        $url = $game['url'] . '?roomDetails=' . urlencode($encoded);
 
         return redirect()->away($url);
     }
