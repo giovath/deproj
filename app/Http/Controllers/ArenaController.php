@@ -17,6 +17,9 @@ class ArenaController extends Controller
 
     public function enter(EnterArenaService $service)
     {
+
+        session()->forget('match_id');
+
         $match = $service->handle(Auth::user());
         $userId = Auth::id();
 
