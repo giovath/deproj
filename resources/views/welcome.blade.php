@@ -159,7 +159,7 @@
                 </a>
 
                 <!-- CTA: Monetização discreta -->
-                <a href="https://otieu.com/4/10418584?utm_source=premio.click&utm_medium=hub&utm_campaign=monetag"
+                <a href="https://otieu.com/4/10418584?utm_source=premio.click"
                     target="_blank" rel="noopener noreferrer"
                     class="w-full flex items-center gap-3 bg-zinc-900 border border-zinc-800
           rounded-xl px-3 py-2 hover:border-zinc-600 transition text-left">
@@ -214,7 +214,7 @@
                 Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
             </p>
 
-            <a href="https://www.tiktok.com/d/J4878898528" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZSHEbeMCWhdpv-GczvA/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                       px-4 py-2 rounded-xl border border-zinc-700
                       hover:border-amber-400 hover:text-amber-400
