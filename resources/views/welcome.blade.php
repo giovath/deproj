@@ -214,7 +214,7 @@
                 Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
             </p>
 
-            <a href="https://www.tiktok.com/d/1/ZSHoUMStftSya-Xmmd1/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZSHoPDBhG9MDr-c7uyh/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                       px-4 py-2 rounded-xl border border-zinc-700
                       hover:border-amber-400 hover:text-amber-400
