@@ -119,6 +119,29 @@
 
             <div class="space-y-2">
 
+                <a href="https://www.tiktok.com/d/1/ZSHoH5JRB8CyE-9dI45/" target="_blank" rel="noopener noreferrer"
+                    class="flex items-center gap-3
+          bg-zinc-900 border border-amber-400/60
+          rounded-xl px-3 py-2
+          hover:border-amber-400 transition">
+
+                    <div
+                        class="w-8 h-8 rounded-full bg-amber-400/20
+                flex items-center justify-center text-xs">
+                        🎁
+                    </div>
+
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xs text-zinc-100 font-medium">
+                            Recompensas TikTok
+                        </span>
+                        <span class="text-[10px] text-zinc-400">
+                            Eventos oficiais • Ganhe prêmios reais
+                        </span>
+                    </div>
+                </a>
+
+
                 <!-- CTA: Produto principal -->
                 <a href="https://virals.live/?utm_source=premio.click" target="_blank"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
@@ -159,8 +182,7 @@
                 </a>
 
                 <!-- CTA: Monetização discreta -->
-                <a href="https://otieu.com/4/10418584?utm_source=premio.click"
-                    target="_blank" rel="noopener noreferrer"
+                <a href="https://otieu.com/4/10418584?utm_source=premio.click" target="_blank" rel="noopener noreferrer"
                     class="w-full flex items-center gap-3 bg-zinc-900 border border-zinc-800
           rounded-xl px-3 py-2 hover:border-zinc-600 transition text-left">
 
