@@ -33,6 +33,19 @@
         gtag('config', 'G-Q2GDTV3FK2');
     </script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16791427286"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-16791427286');
+    </script>
+
     <script>
         function openLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
