@@ -195,7 +195,7 @@
                 </a>
 
                 <!-- CTA: Monetização discreta -->
-                <a href="https://otieu.com/4/10418584?utm_source=premio.click" target="_blank" rel="noopener noreferrer"
+                <a href="https://otieu.com/4/9831522?utm_source=premio.click" target="_blank" rel="noopener noreferrer"
                     class="w-full flex items-center gap-3 bg-zinc-900 border border-zinc-800
           rounded-xl px-3 py-2 hover:border-zinc-600 transition text-left">
 
