@@ -132,7 +132,7 @@
 
             <div class="space-y-2">
 
-                <a href="https://www.tiktok.com/d/1/ZSHocMH8tgbWJ-dCBw9/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZSHoK33evQvjD-WC6df/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3
           bg-zinc-900 border border-amber-400/60
           rounded-xl px-3 py-2
