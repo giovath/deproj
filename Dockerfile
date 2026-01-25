@@ -50,12 +50,8 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 EXPOSE 8000
 
 ## CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
-CMD if [ "$RUN_MIGRATIONS" = "true" ]; then \
-      php artisan migrate --force; \
-    fi && \
-    php artisan serve --host=0.0.0.0 --port=8000
 
-## CMD php artisan migrate:fresh --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate:fresh --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000
 
 
 
