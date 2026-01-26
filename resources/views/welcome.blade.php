@@ -57,6 +57,37 @@
             document.getElementById('loginModal').classList.remove('flex');
         }
     </script>
+
+    <style>
+        @keyframes pulseSoft {
+            0% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+                filter: brightness(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+        }
+
+        .chest-pulse {
+            animation: pulseSoft 1.8s ease-in-out infinite;
+        }
+
+        .chest-opened {
+            opacity: 0.5;
+            filter: grayscale(0.3);
+            animation: none;
+            cursor: default;
+        }
+    </style>
+
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
@@ -131,6 +162,25 @@
             </div>
 
             <div class="space-y-2">
+
+                <!-- BAÚ DIÁRIO -->
+                <div class="flex flex-col items-center">
+                    <button id="chestBtn" onclick="openChest()"
+                        class="p-0 bg-transparent hover:opacity-80 transition cursor-pointer">
+                        <img id="chestImg" src="{{ asset('images/chest-closed.png') }}" alt="Baú"
+                            class="w-40 h-40 chest-pulse">
+                    </button>
+
+                    <button id="pillBtn" onclick="openChest()"
+                        class="mt-2 px-4 py-1 rounded-full
+               bg-amber-400/10 border border-amber-400/30
+               text-[11px] text-amber-300
+               hover:bg-amber-400/20 transition">
+                        💰 Coletar moedas
+                    </button>
+                </div>
+
+
 
                 <a href="https://www.tiktok.com/d/1/ZS91NGjAcxgH7-pO89n/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3
@@ -265,6 +315,19 @@
 
     <!-- SCRIPTS -->
     <script>
+        function openChest() {
+            const img = document.getElementById('chestImg');
+
+            img.src = "{{ asset('images/chest-open.png') }}";
+            img.classList.remove('chest-pulse');
+            img.classList.add('chest-opened');
+
+            document.getElementById('chestBtn').disabled = true;
+            document.getElementById('pillBtn').disabled = true;
+            window.location.href = 'https://www.tiktok.com/d/1/ZS912bb9vAc7R-2eOnd/';
+        }
+
+
         let matchId = {{ $match?->id ?? 'null' }};
 
         if (matchId) {
