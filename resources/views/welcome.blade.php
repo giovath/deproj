@@ -132,7 +132,7 @@
 
             <div class="space-y-2">
 
-                <a href="https://www.tiktok.com/d/1/ZS91e7cmTpNE8-nqcr6/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS91NGjAcxgH7-pO89n/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3
           bg-zinc-900 border border-amber-400/60
           rounded-xl px-3 py-2
@@ -249,7 +249,7 @@
                 Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
             </p>
 
-            <a href="https://www.tiktok.com/d/1/ZSHocMVqkGFVU-sXAIK/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS91N787Wh2A3-XCFA3/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                       px-4 py-2 rounded-xl border border-zinc-700
                       hover:border-amber-400 hover:text-amber-400
