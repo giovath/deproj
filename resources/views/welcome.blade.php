@@ -165,32 +165,28 @@
 
                 <!-- BAÚ DIÁRIO -->
                 <div class="flex flex-col items-center">
+                    <span class="text-xs text-amber-400 mb-1">
+                        recompensa diária disponível
+                    </span>
+
                     <button id="chestBtn" onclick="openChest()"
                         class="p-0 bg-transparent hover:opacity-80 transition cursor-pointer">
                         <img id="chestImg" src="{{ asset('images/chest-closed.png') }}" alt="Baú"
-                            class="w-40 h-40 chest-pulse">
+                            class="w-52 h-52 chest-pulse">
                     </button>
 
                     <button id="pillBtn" onclick="openChest()"
-                        class="mt-2 px-4 py-1 rounded-full
-               bg-amber-400/10 border border-amber-400/30
-               text-[11px] text-amber-300
-               hover:bg-amber-400/20 transition">
-                        💰 Coletar moedas
+                        class="mt-2 px-4 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-[11px] text-amber-300 hover:bg-amber-400/20 transition">
+                        💰 Coletar Moedas Grátis
                     </button>
                 </div>
 
 
 
                 <a href="https://www.tiktok.com/d/1/ZS91m9YDwdDHH-V66X5/" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-3
-          bg-zinc-900 border border-amber-400/60
-          rounded-xl px-3 py-2
-          hover:border-amber-400 transition">
+                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
-                    <div
-                        class="w-8 h-8 rounded-full bg-amber-400/20
-                flex items-center justify-center text-xs">
+                    <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
                         🎁
                     </div>
 
