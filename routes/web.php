@@ -11,6 +11,10 @@ Route::get('/', function () {
 })->name('home');
 
 
+Route::get('/recompensas', function () {
+    return view('recompensas');
+})->name('recompensas');
+
 
 Route::view('/terms', 'legal.terms')->name('terms');
 Route::view('/privacy', 'legal.privacy')->name('privacy');
