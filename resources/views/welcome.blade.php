@@ -183,7 +183,7 @@
 
 
 
-                <a href="https://www.tiktok.com/d/1/ZS91b8DvLU6NL-pdFyK/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS91sSTCanBBQ-WTtCe/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
                     <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
@@ -320,7 +320,7 @@
 
             document.getElementById('chestBtn').disabled = true;
             document.getElementById('pillBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS91VBU7EwK5t-b9vuW/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS91sSt8pJS9e-fekgB/';
         }
 
 
