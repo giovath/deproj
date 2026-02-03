@@ -320,7 +320,7 @@
 
             document.getElementById('chestBtn').disabled = true;
             document.getElementById('pillBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS91sSt8pJS9e-fekgB/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS91WspQmfXKR-KLYVB/';
         }
 
 
