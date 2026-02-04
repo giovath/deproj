@@ -183,7 +183,7 @@
 
 
 
-                <a href="https://www.tiktok.com/d/1/ZS91WkmrFYCnQ-cwlV4/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS913tWCkUUoe-7wJpj/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
                     <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
@@ -295,7 +295,7 @@
                 Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
             </p>
 
-            <a href="https://www.tiktok.com/d/1/ZS91SCmfJxRYV-VuiP5/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS913Ku7eLmnF-tYKBX/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                       px-4 py-2 rounded-xl border border-zinc-700
                       hover:border-amber-400 hover:text-amber-400
@@ -320,7 +320,7 @@
 
             document.getElementById('chestBtn').disabled = true;
             document.getElementById('pillBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS91WspQmfXKR-KLYVB/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS913KaKJueyb-74Enr/';
         }
 
 
