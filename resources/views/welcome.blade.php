@@ -165,9 +165,7 @@
 
                 <!-- BAÚ DIÁRIO -->
                 <div class="flex flex-col items-center">
-                    <span class="text-xs text-amber-400 mb-1">
-                        recompensa diária disponível
-                    </span>
+
 
                     <button id="chestBtn" onclick="openChest()"
                         class="p-0 bg-transparent hover:opacity-80 transition cursor-pointer">
@@ -175,10 +173,10 @@
                             class="w-52 h-52 chest-pulse">
                     </button>
 
-                    <button id="pillBtn" onclick="openChest()"
-                        class="mt-2 px-4 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-[11px] text-amber-300 hover:bg-amber-400/20 transition">
-                        💰 Coletar Moedas Grátis
-                    </button>
+                    <span class="text-xs text-amber-400 mb-1">
+                        recompensas diárias
+                    </span>
+
                 </div>
 
 
@@ -200,58 +198,25 @@
                     </div>
                 </a>
 
-
-                <!-- CTA: Produto principal -->
-                <a href="https://virals.live/?utm_source=premio.click" target="_blank"
-                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
-              rounded-xl px-3 py-2 hover:border-amber-400 transition">
-
-                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
-                        🚀
-                    </div>
-                    <span class="text-xs text-zinc-300">
-                        Impulsionar Live no TikTok
-                    </span>
-                </a>
-
-                <!-- CTA: Jogos -->
-                <a href="https://joga.click/?utm_source=premio.click" target="_blank"
-                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
-              rounded-xl px-3 py-2 hover:border-amber-400 transition">
+                <a href="https://joga.click/?src=hub" target="_blank" rel="noopener noreferrer"
+                    class="flex items-center gap-3 bg-zinc-900/60 border border-zinc-800
+          hover:border-zinc-600 rounded-xl px-3 py-2 transition">
 
                     <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
                         🎮
                     </div>
-                    <span class="text-xs text-zinc-300">
-                        Jogos grátis
-                    </span>
-                </a>
 
-                <!-- CTA: Prêmios -->
-                <a href="https://clickpremio.online/?utm_source=premio.click" target="_blank"
-                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800
-              rounded-xl px-3 py-2 hover:border-amber-400 transition">
-
-                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
-                        🎁
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xs text-zinc-300 font-medium">
+                            Mais jogos
+                        </span>
+                        <span class="text-[10px] text-zinc-500">
+                            Jogar agora • sem cadastro
+                        </span>
                     </div>
-                    <span class="text-xs text-zinc-300">
-                        Sorteios e prêmios
-                    </span>
                 </a>
 
-                <!-- CTA: Monetização discreta -->
-                <a href="https://otieu.com/4/9831522?utm_source=premio.click" target="_blank" rel="noopener noreferrer"
-                    class="w-full flex items-center gap-3 bg-zinc-900 border border-zinc-800
-          rounded-xl px-3 py-2 hover:border-zinc-600 transition text-left">
 
-                    <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs">
-                        ➕
-                    </div>
-                    <span class="text-xs text-zinc-400">
-                        Mais opções
-                    </span>
-                </a>
 
 
 
@@ -320,7 +285,7 @@
 
             document.getElementById('chestBtn').disabled = true;
             document.getElementById('pillBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS9JdSdqXpX16-XnR5H/';
+            window.location.href = 'https://www.clickpremio.online/?src=hub';
         }
 
 
