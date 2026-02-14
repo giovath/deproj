@@ -28,6 +28,8 @@ Route::get('/como-funciona', function () {
     return view('como-funciona');
 })->name('como-funciona');
 
+Route::view('/data-deletion', 'data-deletion');
+
 
 Route::view('/terms', 'legal.terms')->name('terms');
 Route::view('/privacy', 'legal.privacy')->name('privacy');
