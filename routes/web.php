@@ -16,6 +16,19 @@ Route::get('/recompensas', function () {
 })->name('recompensas');
 
 
+Route::get('/sorteios', function () {
+    return view('sorteios');
+})->name('sorteios');
+
+Route::get('/jogos', function () {
+    return view('jogos');
+})->name('jogos');
+
+Route::get('/como-funciona', function () {
+    return view('como-funciona');
+})->name('como-funciona');
+
+
 Route::view('/terms', 'legal.terms')->name('terms');
 Route::view('/privacy', 'legal.privacy')->name('privacy');
 
