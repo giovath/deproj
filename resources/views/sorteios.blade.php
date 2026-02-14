@@ -11,7 +11,7 @@
     <!-- Redirect -->
     <script>
         setTimeout(() => {
-            window.location.href = "https://SEU-DOMINIO-DE-SORTEIO.com";
+            window.location.href = "https://clickpremio.online/?hub";
         }, 1200);
     </script>
 </head>
@@ -29,7 +29,7 @@
             Aguarde, você será redirecionado automaticamente.
         </p>
 
-        <a href="https://SEU-DOMINIO-DE-SORTEIO.com"
+        <a href="https://clickpremio.online/?hub" target="_blank" rel="noopener noreferrer"
             class="inline-block mt-4 px-6 py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold">
             Acessar agora
         </a>

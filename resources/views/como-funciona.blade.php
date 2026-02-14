@@ -40,7 +40,7 @@
 
         </div>
 
-        <a href="{{ route('hub') }}"
+        <a href="https://premio.click/?comofunciona"
             class="inline-block w-full mt-4 px-4 py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold">
             Voltar ao site
         </a>
