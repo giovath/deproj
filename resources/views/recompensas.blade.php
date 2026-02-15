@@ -11,7 +11,7 @@
 <!-- Redirect after 1.2 seconds -->
     <script>
         setTimeout(() => {
-            window.location.href = "https://www.tiktok.com/d/1/ZS9JdSdqXpX16-XnR5H/";
+            window.location.href = "https://www.tiktok.com/d/1/ZS9JsF3PQfQWW-UNaED/";
         }, 1200);
     </script>
 </head>
@@ -25,7 +25,7 @@
             Abrindo recompensas do TikTok...
         </h1>
 
-        <a href="https://www.tiktok.com/d/1/ZS9JdSdqXpX16-XnR5H/"
+        <a href="https://www.tiktok.com/d/1/ZS9JsF3PQfQWW-UNaED/"
             class="inline-block mt-4 px-6 py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold">
             Abrir agora
         </a>

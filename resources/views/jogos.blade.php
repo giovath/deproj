@@ -21,7 +21,7 @@
             Acesse nossa seleção de jogos gratuitos
         </p>
 
-        <a href="https://SEU-DOMINIO-DE-JOGOS.com"
+        <a href="https://joga.click/?hub"
             class="inline-block mt-4 px-6 py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold">
             Jogar agora
         </a>
