@@ -149,13 +149,6 @@
                     @endif
                 @endif
 
-                <button id="startBtn" onclick="startMatch()"
-                    class="hidden mt-4 px-4 py-3 rounded-xl
-               bg-amber-400 hover:bg-amber-300
-               text-zinc-900 text-sm font-semibold transition">
-                    Iniciar jogo
-                </button>
-
 
                 <!-- STATUS -->
                 <div class="flex items-center justify-center gap-2 text-xs mt-3">
@@ -167,6 +160,13 @@
                         aguardando jogadores
                     @endif
                 </div>
+
+                <button id="startBtn" onclick="startMatch()"
+                    class="hidden mt-4 px-4 py-3 rounded-xl
+               bg-amber-400 hover:bg-amber-300
+               text-zinc-900 text-sm font-semibold transition">
+                    Iniciar jogo
+                </button>
             </div>
 
             <div class="space-y-2">
@@ -292,7 +292,6 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            document.getElementById('pillBtn').disabled = true;
             window.location.href = 'https://www.clickpremio.online/?src=hub';
         }
 
@@ -317,12 +316,13 @@
 
             const data = await response.json();
 
-            // 1️⃣ Recarrega UMA vez quando o oponente entra
             if (data.opponent?.name && !opponentLoaded) {
                 opponentLoaded = true;
-                window.location.reload();
-                return;
+
+                // Apenas atualiza UI mínima
+                showStartButton();
             }
+
 
             // 2️⃣ Quando ambos estão prontos, só mostra o botão
             if (data.status === 'ready' && !startButtonShown) {
