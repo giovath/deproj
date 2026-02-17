@@ -161,7 +161,7 @@
                     @endif
                 </div>
 
-                <button id="startBtn" onclick="startMatch()"
+                <button id="startBtn" data-match-id="{{ $match?->id }}" onclick="startMatch(this)"
                     class="hidden mt-4 px-4 py-3 rounded-xl
                bg-amber-400 hover:bg-amber-300
                text-zinc-900 text-sm font-semibold transition">
@@ -223,10 +223,6 @@
                         </span>
                     </div>
                 </a>
-
-
-
-
 
             </div>
 
@@ -335,7 +331,14 @@
             document.getElementById('startBtn')?.classList.remove('hidden');
         }
 
-        function startMatch(matchId) {
+        function startMatch(button) {
+            const matchId = button.dataset.matchId;
+
+            if (!matchId) {
+                console.error('matchId indefinido');
+                return;
+            }
+
             fetch(`/arena/start/${matchId}`, {
                     method: 'POST',
                     headers: {
@@ -347,12 +350,10 @@
                 })
                 .then(res => {
                     if (!res.ok) throw new Error('Erro ao iniciar');
-                    window.location.reload(); // ou redirect controlado
+                    window.location.reload();
                 })
                 .catch(err => console.error(err));
         }
-
-
 
 
         @if ($match)
