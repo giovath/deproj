@@ -160,14 +160,15 @@
                         aguardando jogadores
                     @endif
                 </div>
-                
 
-                @if ($match && $match->bothReady())
-                    <button type="button" onclick="startGame({{ $match->id }})"
-                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300">
+
+                @if ($match)
+                    <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
+                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
                         Iniciar jogo
                     </button>
                 @endif
+
 
 
             </div>
@@ -352,7 +353,12 @@
             }
         }
 
-
+        function showStartButton() {
+            const btn = document.getElementById('startGameBtn');
+            if (btn) {
+                btn.classList.remove('hidden');
+            }
+        }
 
         @if ($match)
             function copyInviteLink() {
