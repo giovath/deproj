@@ -216,20 +216,20 @@
                     </div>
                 </a>
 
-                <a href="https://joga.click/?src=hub" target="_blank" rel="noopener noreferrer"
+                <a href="https://clickpremio.online/?src=hub" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 bg-zinc-900/60 border border-zinc-800
           hover:border-zinc-600 rounded-xl px-3 py-2 transition">
 
                     <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
-                        🎮
+                        🏆
                     </div>
 
                     <div class="flex flex-col leading-tight">
                         <span class="text-xs text-zinc-300 font-medium">
-                            Mais jogos
+                            Sorteios mensais
                         </span>
                         <span class="text-[10px] text-zinc-500">
-                            Jogar agora • sem cadastro
+                            Participe já • Cadastro gratuito
                         </span>
                     </div>
                 </a>
@@ -298,7 +298,7 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            window.location.href = 'https://www.clickpremio.online/?src=hub';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS9JT8FfujB9M-U54fM/';
         }
 
         let opponentLoaded = false;
