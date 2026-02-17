@@ -38,15 +38,18 @@ class EnterArenaService
             ->first();
 
 
-        // 2️⃣ Se não existe, criar um novo vazio
-        if (!$match) {
-            $match = GameMatch::create([
-                'status' => 'waiting',
-            ]);
-        }
-
         // 3️⃣ Ocupa slot com regra segura (slot1 sempre primeiro)
         $match->occupySlot($user->id);
+
+        // ✅ NOVO — garante que o status fique correto
+        if (
+            $match->slot_1_user_id &&
+            $match->slot_2_user_id &&
+            $match->bothReady()
+        ) {
+            $match->status = 'ready';
+            $match->save();
+        }
 
         return $match;
     }
