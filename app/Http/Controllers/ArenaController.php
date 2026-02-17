@@ -90,11 +90,26 @@ class ArenaController extends Controller
 
         // Ocupa slot2 (ou slot livre) usando regra central
         $match->occupySlot($userId);
-
         session(['match_id' => $match->id]);
 
-        return redirect()->route('arena.play', $match->id);
+        return redirect()->route('home');
     }
+
+    public function start(GameMatch $match)
+    {
+        abort_unless($match->isReady(), 403);
+
+        abort_unless(
+            in_array(Auth::id(), [$match->slot_1_user_id, $match->slot_2_user_id]),
+            403
+        );
+
+        $match->status = 'playing';
+        $match->save();
+
+        return redirect()->route('arena.play', $match);
+    }
+
 
     public function play($matchId, GamezopService $gamezop)
     {

@@ -69,6 +69,10 @@ Route::get('/invite/{id}', function ($id) {
 Route::middleware('auth')->get('/arena/join/{id}', [ArenaController::class, 'joinInvite'])
     ->name('arena.join.invite');
 
+Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class, 'start'])
+    ->name('arena.start');
+
+
 
 /**
  * Healthcheck

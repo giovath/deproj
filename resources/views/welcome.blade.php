@@ -149,6 +149,14 @@
                     @endif
                 @endif
 
+                <button id="startBtn" onclick="startMatch()"
+                    class="hidden mt-4 px-4 py-3 rounded-xl
+               bg-amber-400 hover:bg-amber-300
+               text-zinc-900 text-sm font-semibold transition">
+                    Iniciar jogo
+                </button>
+
+
                 <!-- STATUS -->
                 <div class="flex items-center justify-center gap-2 text-xs mt-3">
                     @if ($match && $match->slot_1_user_id && $match->slot_2_user_id)
@@ -288,6 +296,9 @@
             window.location.href = 'https://www.clickpremio.online/?src=hub';
         }
 
+        let opponentLoaded = false;
+        let startButtonShown = false;
+
 
         let matchId = {{ $match?->id ?? 'null' }};
 
@@ -306,9 +317,29 @@
 
             const data = await response.json();
 
-            if (data.opponent?.name) window.location.reload();
-            if (data.status === 'ready') window.location.href = "/play/" + matchId;
+            // 1️⃣ Recarrega UMA vez quando o oponente entra
+            if (data.opponent?.name && !opponentLoaded) {
+                opponentLoaded = true;
+                window.location.reload();
+                return;
+            }
+
+            // 2️⃣ Quando ambos estão prontos, só mostra o botão
+            if (data.status === 'ready' && !startButtonShown) {
+                showStartButton();
+                startButtonShown = true;
+            }
         }
+
+        function showStartButton() {
+            document.getElementById('startBtn')?.classList.remove('hidden');
+        }
+
+        function startMatch() {
+            window.location.href = "/arena/start/" + matchId;
+        }
+
+
 
         @if ($match)
             function copyInviteLink() {
