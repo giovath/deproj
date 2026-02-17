@@ -176,12 +176,13 @@
                 </div>
 
 
-                @if ($match && auth()->check())
-                    <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
+                @if (auth()->check())
+                    <button id="startGameBtn" type="button" onclick="startGame(matchId)"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
                         Iniciar jogo
                     </button>
                 @endif
+
 
 
             </div>
@@ -368,9 +369,11 @@
             }
         }
 
+
         @if ($match)
             function copyInviteLink() {
-                const link = "{{ url('/invite/' . $match->id) }}";
+                if (!matchId) return;
+                const link = "{{ url('/invite') }}/" + matchId;
                 navigator.clipboard.writeText(link);
                 alert('Link de convite copiado!');
             }
