@@ -17,32 +17,30 @@ class ArenaController extends Controller
 
     public function enter(EnterArenaService $service)
     {
+        if (session()->has('match_id')) {
+            $match = GameMatch::find(session('match_id'));
 
-        session()->forget('match_id');
+            if ($match && in_array(Auth::id(), [
+                $match->slot_1_user_id,
+                $match->slot_2_user_id
+            ])) {
+                return response()->json([
+                    'match_id' => $match->id,
+                    'status' => $match->status,
+                ]);
+            }
+        }
 
+        // só cria/entra se NÃO tiver match válido
         $match = $service->handle(Auth::user());
-        $userId = Auth::id();
-
         session(['match_id' => $match->id]);
-
 
         return response()->json([
             'match_id' => $match->id,
             'status'   => $match->status,
-            'role'     => $match->slot_1_user_id === $userId
-                ? 'player1'
-                : 'player2',
-            'opponent' => [
-                // envia informações básicas para a interface exibir o "avatar" do outro
-                'name'  => $match->slot_1_user_id === $userId
-                    ? optional($match->slot2User)->name
-                    : optional($match->slot1User)->name,
-                'avatar' => $match->slot_1_user_id === $userId
-                    ? optional($match->slot2User)->avatar_url
-                    : optional($match->slot1User)->avatar_url,
-            ],
         ]);
     }
+
 
     public function status(GameMatch $match)
     {
