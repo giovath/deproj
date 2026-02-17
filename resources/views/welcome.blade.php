@@ -161,12 +161,21 @@
                     @endif
                 </div>
 
-                <button id="startBtn" data-match-id="{{ $match?->id }}" onclick="startMatch(this)"
-                    class="hidden mt-4 px-4 py-3 rounded-xl
+                @if ($match)
+                    <form id="startForm" method="POST" action="{{ route('arena.start', $match->id) }}"
+                        class="hidden mt-4">
+                        @csrf
+
+                        <button type="submit"
+                            class="w-full px-4 py-3 rounded-xl
                bg-amber-400 hover:bg-amber-300
                text-zinc-900 text-sm font-semibold transition">
-                    Iniciar jogo
-                </button>
+                            Iniciar jogo
+                        </button>
+                    </form>
+                @endif
+
+
             </div>
 
             <div class="space-y-2">
@@ -328,32 +337,9 @@
         }
 
         function showStartButton() {
-            document.getElementById('startBtn')?.classList.remove('hidden');
+            document.getElementById('startForm')?.classList.remove('hidden');
         }
 
-        function startMatch(button) {
-            const matchId = button.dataset.matchId;
-
-            if (!matchId) {
-                console.error('matchId indefinido');
-                return;
-            }
-
-            fetch(`/arena/start/${matchId}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document
-                            .querySelector('meta[name="csrf-token"]')
-                            .getAttribute('content'),
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error('Erro ao iniciar');
-                    window.location.reload();
-                })
-                .catch(err => console.error(err));
-        }
 
 
         @if ($match)
