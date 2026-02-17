@@ -319,7 +319,6 @@
             setInterval(checkMatchStatus, 3000);
         }
 
-
         async function startGame(matchId) {
             const res = await fetch(`/arena/start/${matchId}`, {
                 method: 'POST',
@@ -360,15 +359,12 @@
             }
         }
 
-
-
         function showStartButton() {
             const btn = document.getElementById('startGameBtn');
             if (btn) {
                 btn.classList.remove('hidden');
             }
         }
-
 
         @if ($match)
             function copyInviteLink() {
