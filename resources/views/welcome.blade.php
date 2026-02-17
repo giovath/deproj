@@ -1,12 +1,26 @@
 @php
+    use App\Models\GameMatch;
+
     $match = null;
-    if (session('match_id')) {
-        $match = \App\Models\GameMatch::with(['slot1User', 'slot2User'])->find(session('match_id'));
+    $slot1User = null;
+    $slot2User = null;
+
+    if (session()->has('match_id')) {
+        $match = GameMatch::with(['slot1User', 'slot2User'])
+            ->where('id', session('match_id'))
+            ->whereIn('status', ['waiting', 'ready', 'playing'])
+            ->first();
+
+        // Se o match não existe mais, limpa a sessão
+        if (!$match) {
+            session()->forget('match_id');
+        }
     }
 
     $slot1User = $match?->slot1User;
     $slot2User = $match?->slot2User;
 @endphp
+
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -162,19 +176,12 @@
                 </div>
 
 
-                @if ($match && auth()->check() && $match->bothReady())
-                    <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
-                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300">
-                        Iniciar jogo
-                    </button>
-                @else
+                @if ($match && auth()->check())
                     <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
                         Iniciar jogo
                     </button>
                 @endif
-
-
 
 
             </div>
