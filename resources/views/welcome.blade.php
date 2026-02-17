@@ -160,10 +160,11 @@
                         aguardando jogadores
                     @endif
                 </div>
+                
 
-                @if ($match)
+                @if ($match && $match->bothReady())
                     <button type="button" onclick="startGame({{ $match->id }})"
-                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-zinc-900 text-sm font-semibold transition">
+                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300">
                         Iniciar jogo
                     </button>
                 @endif
@@ -305,13 +306,14 @@
 
 
         async function startGame(matchId) {
-            const res = await fetch(`/arena/${matchId}/start`, {
+            const res = await fetch(`/arena/start/${matchId}`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'Accept': 'application/json'
                 }
             });
+
 
             if (res.status === 409) {
                 alert('Aguardando o outro jogador confirmar');
@@ -338,23 +340,16 @@
 
             const data = await response.json();
 
-            if (data.opponent?.name && !opponentLoaded) {
-                opponentLoaded = true;
-
-                // Apenas atualiza UI mínima
-                showStartButton();
+            // 🔥 SE O MATCH JÁ COMEÇOU → REDIRECIONA
+            if (data.status === 'playing' && data.redirect) {
+                window.location.href = data.redirect;
+                return;
             }
 
-
-            // 2️⃣ Quando ambos estão prontos, só mostra o botão
             if (data.status === 'ready' && !startButtonShown) {
                 showStartButton();
                 startButtonShown = true;
             }
-        }
-
-        function showStartButton() {
-            document.getElementById('startForm')?.classList.remove('hidden');
         }
 
 

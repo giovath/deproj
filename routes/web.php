@@ -72,6 +72,9 @@ Route::middleware('auth')->get('/arena/join/{id}', [ArenaController::class, 'joi
 Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class, 'start'])
     ->name('arena.start');
 
+Route::middleware('auth')->post('/arena/ready/{match}', [ArenaController::class, 'ready'])
+    ->name('arena.ready');
+
 
 /**
  * Healthcheck
