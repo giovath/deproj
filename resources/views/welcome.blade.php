@@ -162,12 +162,18 @@
                 </div>
 
 
-                @if ($match)
+                @if ($match && auth()->check() && $match->bothReady())
+                    <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
+                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300">
+                        Iniciar jogo
+                    </button>
+                @else
                     <button id="startGameBtn" type="button" onclick="startGame({{ $match->id }})"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
                         Iniciar jogo
                     </button>
                 @endif
+
 
 
 
@@ -333,25 +339,19 @@
         async function checkMatchStatus() {
             const response = await fetch(`/arena/status/${matchId}`, {
                 headers: {
-                    "Accept": "application/json"
+                    Accept: "application/json"
                 }
             });
-
             if (!response.ok) return;
 
             const data = await response.json();
 
-            // 🔥 SE O MATCH JÁ COMEÇOU → REDIRECIONA
-            if (data.status === 'playing' && data.redirect) {
-                window.location.href = data.redirect;
-                return;
-            }
-
-            if (data.status === 'ready' && !startButtonShown) {
+            if ((data.status === 'ready' || data.status === 'playing') && !startButtonShown) {
                 showStartButton();
                 startButtonShown = true;
             }
         }
+
 
         function showStartButton() {
             const btn = document.getElementById('startGameBtn');

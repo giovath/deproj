@@ -16,6 +16,8 @@ class GameMatch extends Model
         'status',
         'slot_1_user_id',
         'slot_2_user_id',
+        'ready_slot_1',
+        'ready_slot_2',
         'invite_code',
         'room_id',
         'winner_id',
