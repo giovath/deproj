@@ -74,12 +74,32 @@ class GameMatch extends Model
             $this->slot_2_user_id = $userId;
         }
 
-        if (!is_null($this->slot_1_user_id) && !is_null($this->slot_2_user_id)) {
+        $this->save();
+    }
+
+
+    public function markReady(int $userId): void
+    {
+        if ($this->slot_1_user_id === $userId) {
+            $this->ready_slot_1 = true;
+        }
+
+        if ($this->slot_2_user_id === $userId) {
+            $this->ready_slot_2 = true;
+        }
+
+        if ($this->ready_slot_1 && $this->ready_slot_2) {
             $this->status = 'ready';
         }
 
         $this->save();
     }
+
+    public function bothReady(): bool
+    {
+        return $this->ready_slot_1 && $this->ready_slot_2;
+    }
+
 
     /*
     |--------------------------------------------------------------------------

@@ -29,6 +29,10 @@ return new class extends Migration
                 ->constrained('users')
                 ->nullOnDelete();
 
+            // 👇 ESSENCIAL
+            $table->boolean('ready_slot_1')->default(false);
+            $table->boolean('ready_slot_2')->default(false);
+
             $table->string('room_id')->nullable()->unique();
             $table->foreignId('winner_id')
                 ->nullable()

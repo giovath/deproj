@@ -119,10 +119,11 @@ class ArenaController extends Controller
 
     public function start(GameMatch $match)
     {
-        if (!$match->isReady()) {
+        if (!$match->bothReady()) {
             return redirect()->route('home')
-                ->with('error', 'Aguardando o outro jogador entrar...');
+                ->with('error', 'Aguardando o outro jogador confirmar...');
         }
+
 
 
         abort_unless(
@@ -135,6 +136,27 @@ class ArenaController extends Controller
 
         return redirect()->route('arena.play', $match);
     }
+
+    public function ready(GameMatch $match)
+    {
+        abort_unless(
+            in_array(Auth::id(), [
+                $match->slot_1_user_id,
+                $match->slot_2_user_id
+            ]),
+            403
+        );
+
+        abort_if($match->status === 'playing', 403);
+
+        $match->markReady(Auth::id());
+
+        return response()->json([
+            'status' => $match->status,
+            'both_ready' => $match->bothReady(),
+        ]);
+    }
+
 
 
     public function play($matchId, GamezopService $gamezop)
