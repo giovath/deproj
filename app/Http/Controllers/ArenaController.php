@@ -106,29 +106,43 @@ class ArenaController extends Controller
     {
         $userId = Auth::id();
 
-        // Match precisa estar aguardando
+        // 1️⃣ Match não pode estar em jogo ou finalizado
         abort_if(in_array($match->status, ['playing', 'finished']), 403);
 
-        // Não permitir o mesmo usuário duas vezes
+        // 2️⃣ Não permitir o mesmo usuário duas vezes
         abort_if(
             $match->slot_1_user_id === $userId ||
                 $match->slot_2_user_id === $userId,
             403
         );
 
-        // Se slot1 não existe → match órfão
+        // 3️⃣ Se slot1 não existe → match inválido
         if (is_null($match->slot_1_user_id)) {
             $match->delete();
-            return redirect()->route('home')
+
+            return redirect()
+                ->route('home')
                 ->with('error', 'O convite expirou ou o criador saiu.');
         }
 
-        // Ocupa slot2 (ou slot livre) usando regra central
+        // 4️⃣ Ocupa o slot livre
         $match->occupySlot($userId);
+
+        // 5️⃣ Marca ESTE jogador como pronto
+        $match->markReady($userId);
+
+        // 6️⃣ Se os dois estão prontos, muda status para ready
+        if ($match->bothReady()) {
+            $match->update(['status' => 'ready']);
+        }
+
+        // 7️⃣ Salva match na sessão
         session(['match_id' => $match->id]);
 
+        // 8️⃣ Volta pra home (UI já vai reagir via polling)
         return redirect()->route('home');
     }
+
 
     public function start(GameMatch $match)
     {
