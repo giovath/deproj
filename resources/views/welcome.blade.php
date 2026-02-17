@@ -353,6 +353,7 @@
         }
 
 
+
         function showStartButton() {
             const btn = document.getElementById('startGameBtn');
             if (btn) {
