@@ -104,7 +104,7 @@
                 <div class="grid grid-cols-2 gap-4">
 
                     <!-- SLOT 1 -->
-                    <div @if (!$slot1User) @guest onclick="openLoginModal()" @endguest @endif
+                    <div @if (!$slot1User) onclick="openLoginModal()" @endif
                         class="aspect-square rounded-2xl border
                         {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
                         bg-zinc-900 flex flex-col items-center justify-center transition">
@@ -119,7 +119,7 @@
                     </div>
 
                     <!-- SLOT 2 -->
-                    <div @if (!$slot2User) @guest onclick="openLoginModal()" @endguest @endif
+                    <div @if (!$slot2User) onclick="openLoginModal()" @endif
                         class="aspect-square rounded-2xl border
                         {{ $slot2User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
                         bg-zinc-900 flex flex-col items-center justify-center transition">
