@@ -73,7 +73,6 @@ Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class,
     ->name('arena.start');
 
 
-
 /**
  * Healthcheck
  */

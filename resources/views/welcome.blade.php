@@ -335,9 +335,23 @@
             document.getElementById('startBtn')?.classList.remove('hidden');
         }
 
-        function startMatch() {
-            window.location.href = "/arena/start/" + matchId;
+        function startMatch(matchId) {
+            fetch(`/arena/start/${matchId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content'),
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Erro ao iniciar');
+                    window.location.reload(); // ou redirect controlado
+                })
+                .catch(err => console.error(err));
         }
+
 
 
 
