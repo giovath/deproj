@@ -162,17 +162,10 @@
                 </div>
 
                 @if ($match)
-                    <form id="startForm" method="POST" action="{{ route('arena.start', $match->id) }}"
-                        class="hidden mt-4">
-                        @csrf
-
-                        <button type="submit"
-                            class="w-full px-4 py-3 rounded-xl
-               bg-amber-400 hover:bg-amber-300
-               text-zinc-900 text-sm font-semibold transition">
-                            Iniciar jogo
-                        </button>
-                    </form>
+                    <button type="button" onclick="startGame({{ $match->id }})"
+                        class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-zinc-900 text-sm font-semibold transition">
+                        Iniciar jogo
+                    </button>
                 @endif
 
 
@@ -308,6 +301,30 @@
 
         if (matchId) {
             setInterval(checkMatchStatus, 3000);
+        }
+
+
+        async function startGame(matchId) {
+            const res = await fetch(`/arena/${matchId}/start`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (res.status === 409) {
+                alert('Aguardando o outro jogador confirmar');
+                return;
+            }
+
+            if (!res.ok) {
+                alert('Erro ao iniciar o jogo');
+                return;
+            }
+
+            const data = await res.json();
+            window.location.href = data.redirect;
         }
 
         async function checkMatchStatus() {
