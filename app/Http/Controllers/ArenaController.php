@@ -85,7 +85,7 @@ class ArenaController extends Controller
         $userId = Auth::id();
 
         // Match precisa estar aguardando
-        abort_if($match->status !== 'waiting', 403);
+        abort_if(in_array($match->status, ['playing', 'finished']), 403);
 
         // Não permitir o mesmo usuário duas vezes
         abort_if(
@@ -110,7 +110,11 @@ class ArenaController extends Controller
 
     public function start(GameMatch $match)
     {
-        abort_unless($match->isReady(), 403);
+        if (!$match->isReady()) {
+            return redirect()->route('home')
+                ->with('error', 'Aguardando o outro jogador entrar...');
+        }
+
 
         abort_unless(
             in_array(Auth::id(), [$match->slot_1_user_id, $match->slot_2_user_id]),
