@@ -50,6 +50,13 @@ class ArenaController extends Controller
 
         $match = $service->handle(Auth::user());
 
+        // 👇 ESSENCIAL (estava faltando)
+        $match->markReady(Auth::id());
+
+        if ($match->bothReady()) {
+            $match->update(['status' => 'ready']);
+        }
+
         session(['match_id' => $match->id]);
 
         return response()->json([
