@@ -101,13 +101,22 @@ class ArenaController extends Controller
 
             return response()->json([
                 'status' => $match->status,
-                'opponent' => $opponent
-                    ? [
-                        'id' => $opponent->id,
-                        'name' => $opponent->name,
-                        'avatar' => $opponent->avatar,
-                    ]
-                    : null,
+                'me' => [
+                    'id' => $userId,
+                    'slot' => $match->slot_1_user_id === $userId ? 1 : 2,
+                ],
+                'players' => [
+                    1 => $match->slot1User ? [
+                        'id' => $match->slot1User->id,
+                        'name' => $match->slot1User->name,
+                        'avatar' => $match->slot1User->avatar_url,
+                    ] : null,
+                    2 => $match->slot2User ? [
+                        'id' => $match->slot2User->id,
+                        'name' => $match->slot2User->name,
+                        'avatar' => $match->slot2User->avatar_url,
+                    ] : null,
+                ],
             ]);
         }
 
