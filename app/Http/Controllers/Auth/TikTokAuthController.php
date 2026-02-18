@@ -21,7 +21,7 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback(EnterArenaService $arena)
+    public function callback()
     {
         try {
             $tiktokUser = Socialite::driver('tiktok')->user();
@@ -30,15 +30,11 @@ class TikTokAuthController extends Controller
             return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
         }
 
-        // Dados diretos da autenticação
         $providerUserId = $tiktokUser->getId();
-
-        // Dados completos vindos do payload
         $userData = $tiktokUser->user ?? [];
 
         $name = $userData['display_name'] ?? 'TikTok User';
         $avatar = $userData['avatar_large_url'] ?? null;
-
         $email = $providerUserId . '@tiktok.local';
 
         $user = User::firstOrCreate(
@@ -49,7 +45,7 @@ class TikTokAuthController extends Controller
             ]
         );
 
-        $user->update(['name' => $name]); // garante atualização
+        $user->update(['name' => $name]);
 
         UserProvider::updateOrCreate(
             [
@@ -69,21 +65,21 @@ class TikTokAuthController extends Controller
         Auth::login($user);
 
         /**
-         * Se o usuário veio por um link de convite,
-         * redireciona direto para o match convidado
+         * 🎯 FLUXO DE CONVITE TEM PRIORIDADE ABSOLUTA
          */
         if (session()->has('invited_match_id')) {
-            return redirect()->route(
-                'arena.join.invite',
-                session()->pull('invited_match_id')
-            );
+            $matchId = session()->pull('invited_match_id');
+
+            // Garante sessão limpa
+            session()->forget('match_id');
+
+            return redirect()->route('arena.join.invite', $matchId);
         }
 
         /**
-         * (sem convite)
+         * 🔁 Login normal → apenas volta pra home
+         * A arena será criada SOMENTE quando o frontend chamar /arena/enter
          */
-        $match = $arena->handle($user);
-
-        return redirect('/')->with('match_id', $match->id);
+        return redirect()->route('home');
     }
 }
