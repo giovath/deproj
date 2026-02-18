@@ -17,40 +17,46 @@ class ArenaController extends Controller
 
     public function enter(EnterArenaService $service)
     {
+        // 🧲 PRIORIDADE: convite
+        if (session()->has('invited_match_id')) {
+            $matchId = session()->pull('invited_match_id');
+            $match = GameMatch::lockForUpdate()->find($matchId);
+
+            if ($match && $match->hasFreeSlot()) {
+                $match->occupySlot(Auth::id());
+                $match->markReady(Auth::id());
+
+                session(['match_id' => $match->id]);
+
+                return response()->json([
+                    'match_id' => $match->id,
+                    'status'   => $match->status,
+                ]);
+            }
+        }
+
+        // 🔁 fluxo normal (SEM convite)
         if (session()->has('match_id')) {
             $match = GameMatch::find(session('match_id'));
 
-            if ($match) {
-
-                // 👇 ISSO AQUI
-                if ($match->status === 'playing') {
-                    return response()->json([
-                        'match_id' => $match->id,
-                        'status'   => $match->status,
-                    ]);
-                }
-
-                if (
-                    in_array(Auth::id(), [
-                        $match->slot_1_user_id,
-                        $match->slot_2_user_id
-                    ]) &&
-                    in_array($match->status, ['waiting', 'ready'])
-                ) {
-                    return response()->json([
-                        'match_id' => $match->id,
-                        'status'   => $match->status,
-                    ]);
-                }
+            if (
+                $match &&
+                in_array(Auth::id(), [
+                    $match->slot_1_user_id,
+                    $match->slot_2_user_id
+                ])
+            ) {
+                return response()->json([
+                    'match_id' => $match->id,
+                    'status'   => $match->status,
+                ]);
             }
 
-            // 🚫 Só limpa sessão se NÃO estiver playing
             session()->forget('match_id');
         }
 
+        // 🔨 criação padrão
         $match = $service->handle(Auth::user());
-
-        // 👇 ESSENCIAL (estava faltando)
         $match->markReady(Auth::id());
 
         session(['match_id' => $match->id]);
@@ -102,17 +108,17 @@ class ArenaController extends Controller
     {
         abort_if(in_array($match->status, ['playing', 'finished']), 403);
 
-        // Não ocupa slot aqui
-        // Não marca ready aqui
-        // Não cria estado complexo aqui
-
         session([
-            'match_id' => $match->id,
-            'from_invite' => true, // opcional, se quiser diferenciar
+            'invited_match_id' => $match->id,
         ]);
+
+        // NÃO ocupa slot
+        // NÃO marca ready
+        // NÃO mexe em status
 
         return redirect()->route('home');
     }
+
 
 
 
