@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\GamezopService;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Models\GameMatch;
@@ -17,15 +18,26 @@ class ArenaController extends Controller
 
     public function enter(EnterArenaService $service)
     {
+
         // 🧲 PRIORIDADE: convite
         if (session()->has('invited_match_id')) {
+
             $matchId = session()->pull('invited_match_id');
-            $match = GameMatch::lockForUpdate()->find($matchId);
 
-            if ($match && $match->hasFreeSlot()) {
-                $match->occupySlot(Auth::id());
-                $match->markReady(Auth::id());
+            $match = DB::transaction(function () use ($matchId) {
 
+                $match = GameMatch::lockForUpdate()->find($matchId);
+
+                if ($match && $match->hasFreeSlot()) {
+                    $match->occupySlot(Auth::id());
+                    $match->markReady(Auth::id());
+                    return $match;
+                }
+
+                return null;
+            });
+
+            if ($match) {
                 session(['match_id' => $match->id]);
 
                 return response()->json([

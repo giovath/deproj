@@ -133,7 +133,7 @@
                     </div>
 
                     <!-- SLOT 2 -->
-                    <div @if (!$slot2User) onclick="openLoginModal()" @endif
+                    <div data-slot="2" @if (!$slot2User) onclick="openLoginModal()" @endif
                         class="aspect-square rounded-2xl border
                         {{ $slot2User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
                         bg-zinc-900 flex flex-col items-center justify-center transition">
@@ -353,11 +353,34 @@
 
             const data = await response.json();
 
+            // 1️⃣ Atualizar slot 2 dinamicamente
+            if (data.opponent && !opponentLoaded) {
+                hydrateOpponent(data.opponent);
+                opponentLoaded = true;
+            }
+
+            // 2️⃣ Mostrar botão iniciar
             if ((data.status === 'ready' || data.status === 'playing') && !startButtonShown) {
                 showStartButton();
                 startButtonShown = true;
             }
         }
+
+
+        function hydrateOpponent(opponent) {
+            const slot2 = document.querySelector('[data-slot="2"]');
+
+            if (!slot2) return;
+
+            slot2.innerHTML = `
+        <img src="${opponent.avatar}" class="w-20 h-20 rounded-full object-cover">
+        <span class="text-xs text-zinc-300">${opponent.name}</span>
+    `;
+
+            slot2.classList.remove('border-zinc-800');
+            slot2.classList.add('border-amber-400');
+        }
+
 
         function showStartButton() {
             const btn = document.getElementById('startGameBtn');
@@ -376,13 +399,14 @@
         @endif
     </script>
 
-    @if (session('invited_match_id'))
+    @if (session('invited_match_id') && !auth()->check())
         <script>
             window.addEventListener('DOMContentLoaded', () => {
                 openLoginModal();
             });
         </script>
     @endif
+
 
 </body>
 
