@@ -99,8 +99,14 @@ class ArenaController extends Controller
                 ? $match->slot2User
                 : $match->slot1User;
 
+            $mySlot = $match->slot_1_user_id === $userId ? 1 : 2;
+
             return response()->json([
                 'status' => $match->status,
+                'me' => [
+                    'id' => $userId,
+                    'slot' => $mySlot,
+                ],
                 'opponent' => $opponent
                     ? [
                         'id' => $opponent->id,
