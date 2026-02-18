@@ -165,14 +165,9 @@
 
 
                 <!-- STATUS -->
-                <div class="flex items-center justify-center gap-2 text-xs mt-3">
-                    @if ($match && $match->slot_1_user_id && $match->slot_2_user_id)
-                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                        pronto para jogar
-                    @else
-                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                        aguardando jogadores
-                    @endif
+                <div id="matchStatus" class="flex items-center justify-center gap-2 text-xs mt-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    aguardando jogadores
                 </div>
 
 
@@ -352,7 +347,6 @@
             if (!response.ok) return;
 
             const data = await response.json();
-
             if (!data.me) return;
 
             const mySlot = data.me.slot;
@@ -363,13 +357,36 @@
                 opponentLoaded = true;
             }
 
-            if (
-                (data.status === 'ready' || data.status === 'playing') &&
-                !startButtonShown
-            ) {
+            if (data.opponent && !startButtonShown) {
                 showStartButton();
                 startButtonShown = true;
             }
+
+            updateMatchStatus(data);
+        }
+
+
+        function updateMatchStatus(data) {
+            const el = document.getElementById('matchStatus');
+            if (!el) return;
+
+            if (data.opponent) {
+                el.innerHTML = `
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            pronto para jogar
+        `;
+            } else {
+                el.innerHTML = `
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            aguardando jogadores
+        `;
+            }
+        }
+
+
+        function showStartButton() {
+            const btn = document.getElementById('startGameBtn');
+            if (btn) btn.classList.remove('hidden');
         }
 
 
