@@ -53,10 +53,6 @@ class ArenaController extends Controller
         // 👇 ESSENCIAL (estava faltando)
         $match->markReady(Auth::id());
 
-        if ($match->bothReady()) {
-            $match->update(['status' => 'ready']);
-        }
-
         session(['match_id' => $match->id]);
 
         return response()->json([
@@ -130,11 +126,6 @@ class ArenaController extends Controller
 
         // 5️⃣ Marca ESTE jogador como pronto
         $match->markReady($userId);
-
-        // 6️⃣ Se os dois estão prontos, muda status para ready
-        if ($match->bothReady()) {
-            $match->update(['status' => 'ready']);
-        }
 
         // 7️⃣ Salva match na sessão
         session(['match_id' => $match->id]);

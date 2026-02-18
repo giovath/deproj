@@ -56,6 +56,7 @@ class EnterArenaService
 
             // 3️⃣ Ocupa slot com segurança
             $match->occupySlot($user->id);
+            $match->markReady($user->id);
 
             return $match->fresh();
         });

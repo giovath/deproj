@@ -79,7 +79,6 @@ class GameMatch extends Model
         $this->save();
     }
 
-
     public function markReady(int $userId): void
     {
         if ($this->slot_1_user_id === $userId) {
@@ -90,12 +89,20 @@ class GameMatch extends Model
             $this->ready_slot_2 = true;
         }
 
-        if ($this->ready_slot_1 && $this->ready_slot_2) {
-            $this->status = 'ready';
-        }
+        $this->syncStatus();
 
         $this->save();
     }
+
+    public function syncStatus(): void
+    {
+        if ($this->ready_slot_1 && $this->ready_slot_2) {
+            $this->status = 'ready';
+        } elseif ($this->slot_1_user_id || $this->slot_2_user_id) {
+            $this->status = 'waiting';
+        }
+    }
+
 
     public function bothReady(): bool
     {
