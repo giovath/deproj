@@ -21,7 +21,7 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback()
+    public function callback(EnterArenaService $arena)
     {
         try {
             $tiktokUser = Socialite::driver('tiktok')->user();
@@ -65,21 +65,12 @@ class TikTokAuthController extends Controller
         Auth::login($user);
 
         /**
-         * 🎯 FLUXO DE CONVITE TEM PRIORIDADE ABSOLUTA
+         * ✅ CORE: login já entra na arena
          */
-        if (session()->has('invited_match_id')) {
-            $matchId = session()->pull('invited_match_id');
+        $match = $arena->handle($user);
+        $match->markReady($user->id);
+        session(['match_id' => $match->id]);
 
-            // Garante sessão limpa
-            session()->forget('match_id');
-
-            return redirect()->route('arena.join.invite', $matchId);
-        }
-
-        /**
-         * 🔁 Login normal → apenas volta pra home
-         * A arena será criada SOMENTE quando o frontend chamar /arena/enter
-         */
         return redirect()->route('home');
     }
 }
