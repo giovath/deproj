@@ -207,7 +207,7 @@
 
 
 
-                <a href="https://www.tiktok.com/d/1/ZS9JT8LuCxEDJ-ZP3w2/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS9JoxaCYpkFX-n24pV/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
                     <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
@@ -306,7 +306,7 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS9JT8FfujB9M-U54fM/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS9JoxBHGnKVy-U3qaO/';
         }
 
         let opponentLoaded = false;
