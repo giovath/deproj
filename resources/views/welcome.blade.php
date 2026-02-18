@@ -118,17 +118,33 @@
                 <div class="grid grid-cols-2 gap-4">
 
                     <!-- SLOT 1 -->
-                    <div data-slot="1" onclick="openLoginModal()"
-                        class="aspect-square rounded-2xl border border-zinc-800 ...">
-                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                        <span class="text-xs text-zinc-400">slot livre</span>
+                    <div @if (!$slot1User) onclick="openLoginModal()" @endif
+                        class="aspect-square rounded-2xl border
+                        {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
+                        bg-zinc-900 flex flex-col items-center justify-center transition">
+                        @if ($slot1User)
+                            <img src="{{ $slot1User->avatar }}" alt="Avatar"
+                                class="w-20 h-20 rounded-full object-cover">
+                            <span class="text-xs text-zinc-300">{{ $slot1User->name }}</span>
+                        @else
+                            <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                            <span class="text-xs text-zinc-400">slot livre</span>
+                        @endif
                     </div>
 
                     <!-- SLOT 2 -->
-                    <div data-slot="2" onclick="openLoginModal()"
-                        class="aspect-square rounded-2xl border border-zinc-800 ...">
-                        <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                        <span class="text-xs text-zinc-400">slot livre</span>
+                    <div data-slot="2" @if (!$slot2User) onclick="openLoginModal()" @endif
+                        class="aspect-square rounded-2xl border
+                        {{ $slot2User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
+                        bg-zinc-900 flex flex-col items-center justify-center transition">
+                        @if ($slot2User)
+                            <img src="{{ $slot2User->avatar }}" alt="Avatar"
+                                class="w-20 h-20 rounded-full object-cover">
+                            <span class="text-xs text-zinc-300">{{ $slot2User->name }}</span>
+                        @else
+                            <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
+                            <span class="text-xs text-zinc-400">slot livre</span>
+                        @endif
                     </div>
                 </div>
 
@@ -337,21 +353,14 @@
 
             const data = await response.json();
 
-            if (!data.me) return;
-
-            const mySlot = data.me.slot;
-            const opponentSlot = mySlot === 1 ? 2 : 1;
-            const opponent = data.players?.[opponentSlot];
-
-            // 🔥 Só hidrata o OPONENTE
-            if (opponent && !opponentLoaded) {
-                hydrateSlot(opponentSlot, opponent);
-                opponentLoaded = true;
+            // 1️⃣ Apenas tenta hidratar (sem controlar estado aqui)
+            if (data.opponent) {
+                hydrateOpponent(data.opponent);
             }
 
-            // 🔥 Botão aparece corretamente
+            // 2️⃣ Mostrar botão iniciar
             if (
-                data.status === 'ready' &&
+                (data.status === 'ready' || data.status === 'playing') &&
                 !startButtonShown
             ) {
                 showStartButton();
@@ -360,23 +369,30 @@
         }
 
 
-        function hydrateSlot(slotNumber, player) {
-            const slot = document.querySelector(`[data-slot="${slotNumber}"]`);
-            if (!slot || !player) return;
+        function hydrateOpponent(opponent) {
+            if (
+                !opponent ||
+                !opponent.id ||
+                !opponent.name ||
+                !opponent.avatar ||
+                opponentLoaded
+            ) {
+                return;
+            }
 
-            slot.innerHTML = `
-        <img src="${player.avatar}" class="w-20 h-20 rounded-full object-cover">
-        <span class="text-xs text-zinc-300">${player.name}</span>
+            opponentLoaded = true;
+
+            const slot2 = document.querySelector('[data-slot="2"]');
+            if (!slot2) return;
+
+            slot2.innerHTML = `
+        <img src="${opponent.avatar}" class="w-20 h-20 rounded-full object-cover">
+        <span class="text-xs text-zinc-300">${opponent.name}</span>
     `;
 
-            slot.classList.remove('border-zinc-800');
-            slot.classList.add('border-amber-400');
-            slot.onclick = null;
-        }
-
-
-        function showStartButton() {
-            document.getElementById('startGameBtn')?.classList.remove('hidden');
+            slot2.classList.remove('border-zinc-800');
+            slot2.classList.add('border-amber-400');
+            slot2.onclick = null;
         }
 
 
