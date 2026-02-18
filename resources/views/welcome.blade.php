@@ -353,14 +353,16 @@
 
             const data = await response.json();
 
-            // 1️⃣ Atualizar slot 2 dinamicamente
-            if (data.opponent && !opponentLoaded) {
+            // 1️⃣ Apenas tenta hidratar (sem controlar estado aqui)
+            if (data.opponent) {
                 hydrateOpponent(data.opponent);
-                opponentLoaded = true;
             }
 
             // 2️⃣ Mostrar botão iniciar
-            if ((data.status === 'ready' || data.status === 'playing') && !startButtonShown) {
+            if (
+                (data.status === 'ready' || data.status === 'playing') &&
+                !startButtonShown
+            ) {
                 showStartButton();
                 startButtonShown = true;
             }
@@ -368,8 +370,19 @@
 
 
         function hydrateOpponent(opponent) {
-            const slot2 = document.querySelector('[data-slot="2"]');
+            if (
+                !opponent ||
+                !opponent.id ||
+                !opponent.name ||
+                !opponent.avatar ||
+                opponentLoaded
+            ) {
+                return;
+            }
 
+            opponentLoaded = true;
+
+            const slot2 = document.querySelector('[data-slot="2"]');
             if (!slot2) return;
 
             slot2.innerHTML = `
@@ -379,15 +392,10 @@
 
             slot2.classList.remove('border-zinc-800');
             slot2.classList.add('border-amber-400');
+            slot2.onclick = null;
         }
 
 
-        function showStartButton() {
-            const btn = document.getElementById('startGameBtn');
-            if (btn) {
-                btn.classList.remove('hidden');
-            }
-        }
 
         @if ($match)
             function copyInviteLink() {

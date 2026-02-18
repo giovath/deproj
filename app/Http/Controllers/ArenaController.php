@@ -82,7 +82,6 @@ class ArenaController extends Controller
 
     public function status(GameMatch $match)
     {
-        // Caso não esteja logado, não mostra nada sensível
         if (!Auth::check()) {
             return response()->json([
                 'status' => $match->status,
@@ -91,29 +90,32 @@ class ArenaController extends Controller
 
         $userId = Auth::id();
 
-        // Se é jogador do match → status completo
         if (
             $match->slot_1_user_id === $userId ||
             $match->slot_2_user_id === $userId
         ) {
+            $opponent =
+                $match->slot_1_user_id === $userId
+                ? $match->slot2User
+                : $match->slot1User;
+
             return response()->json([
                 'status' => $match->status,
-                'opponent' => [
-                    'name' => $match->slot_1_user_id === $userId
-                        ? optional($match->slot2User)->name
-                        : optional($match->slot1User)->name,
-                    'avatar' => $match->slot_1_user_id === $userId
-                        ? optional($match->slot2User)->avatar_url
-                        : optional($match->slot1User)->avatar_url,
-                ],
+                'opponent' => $opponent
+                    ? [
+                        'id' => $opponent->id,
+                        'name' => $opponent->name,
+                        'avatar' => $opponent->avatar,
+                    ]
+                    : null,
             ]);
         }
 
-        // Usuário logado, mas ainda não entrou no match (convite)
         return response()->json([
             'status' => $match->status,
         ]);
     }
+
 
 
     public function joinInvite(GameMatch $match)
