@@ -202,7 +202,7 @@
 
 
 
-                <a href="https://www.tiktok.com/d/1/ZS9JoxaCYpkFX-n24pV/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS9eR8G7HNpV4-yYRqK/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
 
                     <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
@@ -277,7 +277,7 @@
                 Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
             </p>
 
-            <a href="https://www.tiktok.com/d/1/ZS9JV53acEkcb-btoxq/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS9eRL6aaLfCG-0Sp5p/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                       px-4 py-2 rounded-xl border border-zinc-700
                       hover:border-amber-400 hover:text-amber-400
@@ -301,7 +301,7 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS9JoxBHGnKVy-U3qaO/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS9eR87ag1HrA-qw1Oq/';
         }
 
         let opponentLoaded = false;
