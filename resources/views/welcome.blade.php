@@ -163,12 +163,12 @@
                 <!-- BOTÃO CONVIDAR AMIGO -->
                 @if ($match && auth()->check())
                     @if ($match->slot_1_user_id === auth()->id() && !$match->slot_2_user_id)
-                        <div class="flex justify-center mt-2">
+                        <div id="inviteBtn" class="flex justify-center mt-2">
                             <button onclick="copyInviteLink()"
                                 class="text-xs px-4 py-2 rounded-xl
-           bg-amber-400 text-zinc-900 font-semibold
-           hover:bg-amber-300 hover:scale-105
-           transition-all duration-200">
+        bg-amber-400 text-zinc-900 font-semibold
+        hover:bg-amber-300 hover:scale-105
+        transition-all duration-200">
                                 Convidar amigo
                             </button>
                         </div>
@@ -481,18 +481,25 @@
             const mySlot = data.me.slot;
             const opponentSlot = mySlot === 1 ? 2 : 1;
 
-            if (data.opponent && !opponentLoaded) {
-                hydrateSlot(opponentSlot, data.opponent);
-                opponentLoaded = true;
+            // Atualiza o slot do oponente
+            if (data.opponent) {
+                hydrateSlot(opponentSlot, data.opponent, data.game_name || data.game_code);
             }
 
-            if (data.opponent && data.game_code && !startButtonShown) {
-                showStartButton();
-                startButtonShown = true;
-            }
+            // Atualiza o slot do próprio jogador para refletir o jogo
+            hydrateSlot(mySlot, data.me, data.game_name || data.game_code);
 
-
+            // Atualiza status
             updateMatchStatus(data);
+
+            // Mostra botão iniciar se ambos prontos e jogo selecionado
+            const btn = document.getElementById('startGameBtn');
+            if (data.opponent && data.game_code && btn) btn.classList.remove('hidden');
+
+            // Remove botão convidar amigo se o segundo jogador entrou
+            if (document.getElementById('inviteBtn') && data.opponent) {
+                document.getElementById('inviteBtn').remove();
+            }
         }
 
 
@@ -500,18 +507,16 @@
             const el = document.getElementById('matchStatus');
             if (!el) return;
 
-            if (data.opponent) {
+            if (data.opponent && data.game_code) {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-green-500"></span>
             pronto para jogar
         `;
-            }
-            if (data.opponent && !data.game_code) {
+            } else if (data.opponent && !data.game_code) {
                 el.innerHTML = `
-        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-        escolha um jogo para começar
-    `;
-                return;
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            escolha um jogo para começar
+        `;
             } else {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
@@ -544,7 +549,7 @@
 
 
 
-        function hydrateSlot(slotNumber, player) {
+        function hydrateSlot(slotNumber, player, game_code = null) {
             if (!player || !player.id || !player.name || !player.avatar) return;
 
             const slot = document.querySelector(`[data-slot="${slotNumber}"]`);
@@ -553,6 +558,7 @@
             slot.innerHTML = `
         <img src="${player.avatar}" class="w-20 h-20 rounded-full object-cover">
         <span class="text-xs text-zinc-300">${player.name}</span>
+        ${game_code ? `<div class="slot-game-name text-xs text-amber-400 mt-1">🎮 Jogo escolhido: ${game_code}</div>` : ''}
     `;
 
             slot.classList.remove('border-zinc-800');
