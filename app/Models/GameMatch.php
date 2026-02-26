@@ -14,6 +14,7 @@ class GameMatch extends Model
 
     protected $fillable = [
         'status',
+        'game_code',
         'slot_1_user_id',
         'slot_2_user_id',
         'ready_slot_1',

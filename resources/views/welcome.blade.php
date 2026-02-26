@@ -170,6 +170,25 @@
                     aguardando jogadores
                 </div>
 
+                @if ($match && auth()->check() && !$match->game_code)
+                    <div id="gameChooser" class="mt-3">
+                        <button onclick="openGameChooser()"
+                            class="w-full px-4 py-2 rounded-xl border border-zinc-700
+                   hover:border-amber-400 hover:text-amber-400
+                   transition text-xs text-zinc-300">
+                            Escolher jogo
+                        </button>
+                    </div>
+                @endif
+
+                @if ($match && $match->game_code)
+                    <div class="text-center text-xs text-amber-400 mt-3">
+                        Jogo escolhido: {{ $match->game_code }}
+                    </div>
+                @endif
+
+
+
 
                 @if (auth()->check())
                     <button id="startGameBtn" type="button" onclick="startGame(matchId)"
@@ -306,12 +325,43 @@
 
         let opponentLoaded = false;
         let startButtonShown = false;
+        let selectedGame = null;
 
 
         let matchId = {{ $match?->id ?? 'null' }};
 
         if (matchId) {
             setInterval(checkMatchStatus, 3000);
+        }
+
+        async function openGameChooser() {
+            const res = await fetch('/arena/games', {
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                alert('Erro ao carregar jogos');
+                return;
+            }
+
+            const games = await res.json();
+
+            let list = games.map(code => `
+        <button
+            onclick="chooseGame('${code}')"
+            class="w-full text-left px-3 py-2 rounded-lg
+                   hover:bg-amber-400 hover:text-zinc-900
+                   transition text-xs">
+            ${code}
+        </button>
+    `).join('');
+
+            showModal(`
+        <h3 class="text-sm font-semibold mb-3">Escolha um jogo</h3>
+        <div class="flex flex-col gap-2">${list}</div>
+    `);
         }
 
         async function startGame(matchId) {
@@ -338,6 +388,28 @@
             window.location.href = data.redirect;
         }
 
+        async function chooseGame(code) {
+            const res = await fetch(`/arena/choose-game/${matchId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    game_code: code
+                })
+            });
+
+            if (!res.ok) {
+                alert('Não foi possível escolher o jogo');
+                return;
+            }
+
+            location.reload();
+        }
+
+
         async function checkMatchStatus() {
             const response = await fetch(`/arena/status/${matchId}`, {
                 headers: {
@@ -357,10 +429,11 @@
                 opponentLoaded = true;
             }
 
-            if (data.opponent && !startButtonShown) {
+            if (data.opponent && data.game_code && !startButtonShown) {
                 showStartButton();
                 startButtonShown = true;
             }
+
 
             updateMatchStatus(data);
         }

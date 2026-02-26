@@ -75,6 +75,17 @@ Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class,
 Route::middleware('auth')->post('/arena/ready/{match}', [ArenaController::class, 'ready'])
     ->name('arena.ready');
 
+Route::middleware('auth')->post(
+    '/arena/choose-game/{match}',
+    [ArenaController::class, 'chooseGame']
+)->name('arena.choose-game');
+
+Route::middleware('auth')->get(
+    '/arena/games',
+    [ArenaController::class, 'games']
+)->name('arena.games');
+
+
 
 /**
  * Healthcheck

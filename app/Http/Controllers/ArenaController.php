@@ -6,6 +6,9 @@ use App\Services\EnterArenaService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\GamezopService;
 use Illuminate\Support\Facades\DB;
+use App\Services\GamesCuratorService;
+use Illuminate\Http\Request;
+
 
 
 use App\Models\GameMatch;
@@ -14,10 +17,10 @@ use App\Models\GameMatch;
 class ArenaController extends Controller
 {
 
-    private const GAMEZOP_GAME_CODE = 'hgempP8Sc';
-
-    public function enter(EnterArenaService $service)
-    {
+    public function enter(
+        EnterArenaService $service,
+        GamesCuratorService $curator
+    ) {
 
         // 🧲 PRIORIDADE: convite
         if (session()->has('invited_match_id')) {
@@ -68,8 +71,7 @@ class ArenaController extends Controller
         }
 
         // 🔨 criação padrão
-        $match = $service->handle(Auth::user());
-        $match->markReady(Auth::id());
+        $match = $service->handle(Auth::user(), $curator);
 
         session(['match_id' => $match->id]);
 
@@ -101,19 +103,19 @@ class ArenaController extends Controller
 
             $mySlot = $match->slot_1_user_id === $userId ? 1 : 2;
 
+            
             return response()->json([
                 'status' => $match->status,
+                'game_code' => $match->game_code,
                 'me' => [
                     'id' => $userId,
                     'slot' => $mySlot,
                 ],
-                'opponent' => $opponent
-                    ? [
-                        'id' => $opponent->id,
-                        'name' => $opponent->name,
-                        'avatar' => $opponent->avatar,
-                    ]
-                    : null,
+                'opponent' => $opponent ? [
+                    'id' => $opponent->id,
+                    'name' => $opponent->name,
+                    'avatar' => $opponent->avatar,
+                ] : null,
             ]);
         }
 
@@ -149,6 +151,12 @@ class ArenaController extends Controller
             403
         );
 
+        if (!$match->game_code) {
+            return response()->json([
+                'message' => 'Escolha um jogo antes de iniciar'
+            ], 409);
+        }
+
         if (!$match->bothReady()) {
             return response()->json([
                 'message' => 'Aguardando o outro jogador'
@@ -165,6 +173,7 @@ class ArenaController extends Controller
             'redirect' => route('arena.play', $match)
         ]);
     }
+
 
 
     public function ready(GameMatch $match)
@@ -187,16 +196,21 @@ class ArenaController extends Controller
         ]);
     }
 
-
-
-    public function play($matchId, GamezopService $gamezop)
+    public function play(GameMatch $match, GamezopService $gamezop)
     {
-        $game = $gamezop->getGameByCode(self::GAMEZOP_GAME_CODE);
+        abort_unless(
+            in_array(Auth::id(), [$match->slot_1_user_id, $match->slot_2_user_id]),
+            403
+        );
+
+        abort_if(!$match->game_code, 409, 'Jogo não definido');
+
+        $game = $gamezop->getGameByCode($match->game_code);
 
         abort_if(!$game, 404, 'Jogo não disponível');
 
         $roomDetails = [
-            'roomId' => 'match_' . $matchId,
+            'roomId' => 'match_' . $match->id,
 
             'user' => [
                 'name'  => Auth::user()->name,
@@ -206,13 +220,11 @@ class ArenaController extends Controller
 
             'minPlayers' => 2,
             'maxPlayers' => 2,
-            'maxWait' => 120,
+            'maxWait'    => 120,
+            'rounds'     => 1,
 
-            // Pool só aceita 1 round
-            'rounds' => 1,
-
-            'text' => 'go_home',
-            'allowBots' => false,
+            'text'       => 'go_home',
+            'allowBots'  => false,
         ];
 
         $encoded = rtrim(
@@ -220,8 +232,52 @@ class ArenaController extends Controller
             '='
         );
 
-        $url = $game['url'] . '?roomDetails=' . urlencode($encoded);
+        return redirect()->away(
+            $game['url'] . '?roomDetails=' . urlencode($encoded)
+        );
+    }
 
-        return redirect()->away($url);
+    public function chooseGame(
+        GameMatch $match,
+        Request $request,
+        GamesCuratorService $curator
+    ) {
+        abort_unless(
+            in_array(Auth::id(), [$match->slot_1_user_id, $match->slot_2_user_id]),
+            403
+        );
+
+        abort_if($match->status === 'playing', 403);
+
+        $request->validate([
+            'game_code' => 'required|string'
+        ]);
+
+        abort_unless(
+            $curator->isValidMultiplayer($request->game_code),
+            422
+        );
+
+        // evita sobrescrita
+        if ($match->game_code) {
+            return response()->json([
+                'game_code' => $match->game_code
+            ]);
+        }
+
+        $match->update([
+            'game_code' => $request->game_code
+        ]);
+
+        return response()->json([
+            'game_code' => $match->game_code
+        ]);
+    }
+
+    public function games(GamesCuratorService $curator)
+    {
+        return response()->json(
+            $curator->multiplayerOptions()
+        );
     }
 }

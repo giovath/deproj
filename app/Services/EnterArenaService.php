@@ -5,12 +5,14 @@ namespace App\Services;
 use App\Models\GameMatch;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Services\GamesCuratorService;
+
 
 class EnterArenaService
 {
-    public function handle(User $user): GameMatch
+    public function handle(User $user, GamesCuratorService $curator): GameMatch
     {
-        return DB::transaction(function () use ($user) {
+        return DB::transaction(function () use ($user, $curator) {
 
             // 🧹 Limpa matches zumbis do usuário
             GameMatch::whereIn('status', ['waiting', 'ready'])
@@ -46,15 +48,12 @@ class EnterArenaService
             if (!$match) {
                 $match = GameMatch::create([
                     'status' => 'waiting',
+                    'game_code' => null,
                 ]);
             }
 
-            // 🚨 GARANTIA ABSOLUTA
-            if (!$match) {
-                throw new \Exception('Falha ao criar ou recuperar GameMatch');
-            }
 
-            // 3️⃣ Ocupa slot com segurança
+            // 3️⃣ Ocupa slot
             $match->occupySlot($user->id);
             $match->markReady($user->id);
 
