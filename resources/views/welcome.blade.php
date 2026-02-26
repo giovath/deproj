@@ -310,6 +310,22 @@
         </div>
     </div>
 
+    <!-- GAMES MODAL -->
+    <div id="genericModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+        <div
+            class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5
+                max-w-sm w-full mx-4 shadow-xl text-zinc-100">
+            <div id="genericModalContent"></div>
+
+            <button onclick="closeModal()"
+                class="mt-4 w-full text-xs text-zinc-400
+                       hover:text-zinc-200 transition">
+                fechar
+            </button>
+        </div>
+    </div>
+
+
     <!-- SCRIPTS -->
     <script>
         function openChest() {
@@ -461,6 +477,22 @@
             const btn = document.getElementById('startGameBtn');
             if (btn) btn.classList.remove('hidden');
         }
+
+        function showModal(html) {
+            const modal = document.getElementById('genericModal');
+            const content = document.getElementById('genericModalContent');
+
+            content.innerHTML = html;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('genericModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
 
 
 
