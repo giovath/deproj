@@ -264,31 +264,11 @@ class ArenaController extends Controller
 
     public function games()
     {
-        $matchId = session('match_id');
+        $games = collect(config('gamezop_games.sync_core'))
+            ->merge(config('gamezop_games.sync_casual'))
+            ->merge(config('gamezop_games.async_strategy'))
+            ->merge(config('gamezop_games.async_arcade'));
 
-        if (!$matchId) {
-            return response()->json([]);
-        }
-
-        $match = GameMatch::find($matchId);
-
-        if (!$match) {
-            return response()->json([]);
-        }
-
-        // ❌ Ainda não tem os dois jogadores
-        if (!$match->slot_1_user_id || !$match->slot_2_user_id) {
-            return response()->json([]);
-        }
-
-        // ❌ Jogo já foi escolhido
-        if ($match->game_code) {
-            return response()->json([]);
-        }
-
-        // ✅ Tudo certo → libera lista
-        return response()->json(
-            app(GamesCuratorService::class)->availableGames()
-        );
+        return response()->json($games);
     }
 }

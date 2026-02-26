@@ -163,14 +163,22 @@
                 <!-- BOTÃO CONVIDAR AMIGO -->
                 @if ($match && auth()->check())
                     @if ($match->slot_1_user_id === auth()->id() && !$match->slot_2_user_id)
-                        <div id="inviteBtn" class="flex justify-center mt-2">
+                        <div id="inviteBtn" class="flex justify-center mt-2 gap-2">
                             <button onclick="copyInviteLink()"
                                 class="text-xs px-4 py-2 rounded-xl
-        bg-amber-400 text-zinc-900 font-semibold
-        hover:bg-amber-300 hover:scale-105
-        transition-all duration-200">
+                       bg-amber-400 text-zinc-900 font-semibold
+                       hover:bg-amber-300 hover:scale-105
+                       transition-all duration-200">
                                 Convidar amigo
                             </button>
+
+                            <a href="https://joga.click/?src=solo" target="_blank"
+                                class="text-xs px-4 py-2 rounded-xl
+                       bg-zinc-800 text-zinc-100 font-semibold
+                       hover:bg-zinc-700 hover:scale-105
+                       transition-all duration-200">
+                                Jogos Solos
+                            </a>
                         </div>
                     @endif
                 @endif
@@ -336,7 +344,6 @@
             class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5
            max-w-sm w-full mx-4 shadow-xl text-zinc-100
            max-h-[80vh] overflow-y-auto">
-            >
             <div id="genericModalContent"></div>
 
             <button onclick="closeModal()"
