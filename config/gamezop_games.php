@@ -104,14 +104,62 @@ return [
     */
     'async_strategy' => [
 
-        ['code' => 'NyM_JGWcx', 'name' => '2048'],
-        ['code' => 'SJgx126Qc0H', 'name' => 'Sudoku Classic'],
-        ['code' => 'r1K-J3TQ5Ar', 'name' => 'Word Finder'],
-        ['code' => 'rkmJ2aXcCS', 'name' => 'Minesweeper Classic'],
-        ['code' => 'rkPlk2T7qAr', 'name' => 'Solitaire Gold'],
-        ['code' => 'H1eGU64XRg', 'name' => 'High or Low'],
-        ['code' => 'Bk25EzR7T', 'name' => 'Slit Slight'],
-        ['code' => 'mfuw6HsxP', 'name' => 'Templok'],
+        [
+            'code' => 'NyM_JGWcx',
+            'name' => '2048',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'SJgx126Qc0H',
+            'name' => 'Sudoku Classic',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 2,
+        ],
+        [
+            'code' => 'r1K-J3TQ5Ar',
+            'name' => 'Word Finder',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'rkmJ2aXcCS',
+            'name' => 'Minesweeper Classic',
+            'category' => 'strategy',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'rkPlk2T7qAr',
+            'name' => 'Solitaire Gold',
+            'category' => 'strategy',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'H1eGU64XRg',
+            'name' => 'High or Low',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'Bk25EzR7T',
+            'name' => 'Slit Slight',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'mfuw6HsxP',
+            'name' => 'Templok',
+            'category' => 'puzzle',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
     ],
 
     /*
@@ -121,13 +169,61 @@ return [
     */
     'async_arcade' => [
 
-        ['code' => 'rJ57aMJDcJm', 'name' => 'Go Chicken Go'], // ⭐ especial
-        ['code' => 'rkWfy2pXq0r', 'name' => 'Fruit Chop'],
-        ['code' => 'wMm3YDfJC', 'name' => 'Pizza Dash'],
-        ['code' => 'HJT46GkPcy7', 'name' => 'Tower Twist'],
-        ['code' => 'SJJl94z0m6', 'name' => 'Hoop Loop'],
-        ['code' => 'ByGqEfCXa', 'name' => 'Falling Through'],
-        ['code' => 'H1Tz6z1Dqym', 'name' => 'Bouncy'],
-        ['code' => 'SyjAFr-dE', 'name' => 'Jom Jom Jump'],
+        [
+            'code' => 'rJ57aMJDcJm',
+            'name' => 'Go Chicken Go',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'rkWfy2pXq0r',
+            'name' => 'Fruit Chop',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'wMm3YDfJC',
+            'name' => 'Pizza Dash',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'HJT46GkPcy7',
+            'name' => 'Tower Twist',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'SJJl94z0m6',
+            'name' => 'Hoop Loop',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'ByGqEfCXa',
+            'name' => 'Falling Through',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'H1Tz6z1Dqym',
+            'name' => 'Bouncy',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
+        [
+            'code' => 'SyjAFr-dE',
+            'name' => 'Jom Jom Jump',
+            'category' => 'arcade',
+            'min_players' => 2,
+            'max_players' => 5,
+        ],
     ],
 ];
