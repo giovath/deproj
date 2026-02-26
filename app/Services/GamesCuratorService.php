@@ -6,30 +6,40 @@ use Illuminate\Support\Collection;
 
 class GamesCuratorService
 {
-    // 🔒 Lista controlada de jogos multiplayer válidos
+    /**
+     * 🎮 Jogos multiplayer disponíveis para escolha
+     */
+    public function availableGames(): Collection
+    {
+        return collect(
+            array_merge(
+                config('gamezop_games.sync_core', []),
+                config('gamezop_games.sync_casual', [])
+            )
+        )->values();
+    }
+
+    /**
+     * 🔒 Lista controlada de códigos válidos (multiplayer)
+     */
     public function multiplayerOptions(): Collection
     {
-        return collect(config('gamezop_games.sync'));
+        return $this->availableGames()->pluck('code');
     }
 
-    // 🎮 Exposto para o frontend (modal de escolha)
-    public function availableGames(): array
-    {
-        return $this->multiplayerOptions()
-            ->values()
-            ->toArray();
-    }
-
-    // ✅ Validação da escolha do usuário
+    /**
+     * ✅ Validação da escolha do usuário
+     */
     public function isValidMultiplayer(string $code): bool
     {
         return $this->multiplayerOptions()->contains($code);
     }
 
-    // ⚠️ Mantido para compatibilidade / fallback
+    /**
+     * ⚠️ Fallback futuro (random)
+     */
     public function pickGameCode(): string
     {
-        $games = config('gamezop_games.sync');
-        return $games[array_rand($games)];
+        return $this->multiplayerOptions()->random();
     }
 }

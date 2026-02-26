@@ -21,6 +21,18 @@
     $slot2User = $match?->slot2User;
 @endphp
 
+@php
+    $gameName = null;
+
+    if ($match?->game_code) {
+        $games = collect(config('gamezop_games.sync_core'))->merge(config('gamezop_games.sync_casual'));
+
+        $game = $games->firstWhere('code', $match->game_code);
+        $gameName = $game['name'] ?? null;
+    }
+@endphp
+
+
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -183,9 +195,10 @@
 
                 @if ($match && $match->game_code)
                     <div class="text-center text-xs text-amber-400 mt-3">
-                        Jogo escolhido: {{ $match->game_code }}
+                        🎮 Jogo escolhido: {{ $gameName ?? $match->game_code }}
                     </div>
                 @endif
+
 
 
 
@@ -370,15 +383,18 @@
             }
 
 
-            let list = games.map(code => `
-        <button
-            onclick="chooseGame('${code}')"
-            class="w-full text-left px-3 py-2 rounded-lg
-                   hover:bg-amber-400 hover:text-zinc-900
-                   transition text-xs">
-            ${code}
-        </button>
-    `).join('');
+            let list = games.map(game => `
+    <button
+        onclick="chooseGame('${game.code}')"
+        class="w-full text-left px-3 py-2 rounded-lg
+               hover:bg-amber-400 hover:text-zinc-900
+               transition text-xs">
+        <div class="font-medium">${game.name}</div>
+        <div class="text-[10px] opacity-70">
+            ${game.category} • ${game.min_players}v${game.max_players}
+        </div>
+    </button>
+`).join('');
 
             showModal(`
         <h3 class="text-sm font-semibold mb-3">Escolha um jogo</h3>
@@ -411,6 +427,16 @@
         }
 
         async function chooseGame(code) {
+
+            showModal(`
+    <div class="text-center">
+        <div class="text-2xl mb-2">🎮</div>
+        <p class="text-sm font-medium">Jogo selecionado!</p>
+        <p class="text-[11px] text-zinc-400 mt-1">
+            Avisando o outro jogador…
+        </p>
+    </div>
+`);
             const res = await fetch(`/arena/choose-game/${matchId}`, {
                 method: 'POST',
                 headers: {
@@ -470,6 +496,13 @@
             <span class="w-2 h-2 rounded-full bg-green-500"></span>
             pronto para jogar
         `;
+            }
+            if (data.opponent && !data.game_code) {
+                el.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        escolha um jogo para começar
+    `;
+                return;
             } else {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>

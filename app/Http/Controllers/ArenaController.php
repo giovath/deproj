@@ -237,40 +237,27 @@ class ArenaController extends Controller
         );
     }
 
-    public function chooseGame(
-        GameMatch $match,
-        Request $request,
-        GamesCuratorService $curator
-    ) {
-        abort_unless(
-            in_array(Auth::id(), [$match->slot_1_user_id, $match->slot_2_user_id]),
-            403
+    public function chooseGame(Request $request, GameMatch $match)
+    {
+        abort_if(!$match->slot_1_user_id || !$match->slot_2_user_id, 409, 'Aguardando segundo jogador');
+        abort_if($match->game_code, 409, 'Jogo já escolhido');
+
+        $gameCode = $request->input('game_code');
+
+        $curator = app(GamesCuratorService::class);
+
+        abort_if(
+            !$curator->isValidMultiplayer($gameCode),
+            422,
+            'Jogo inválido'
         );
 
-        abort_if($match->status === 'playing', 403);
-
-        $request->validate([
-            'game_code' => 'required|string'
-        ]);
-
-        abort_unless(
-            $curator->isValidMultiplayer($request->game_code),
-            422
-        );
-
-        // evita sobrescrita
-        if ($match->game_code) {
-            return response()->json([
-                'game_code' => $match->game_code
-            ]);
-        }
-
-        $match->update([
-            'game_code' => $request->game_code
-        ]);
+        $match->game_code = $gameCode;
+        $match->save();
 
         return response()->json([
-            'game_code' => $match->game_code
+            'success' => true,
+            'game_code' => $gameCode
         ]);
     }
 
