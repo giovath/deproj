@@ -166,9 +166,9 @@
                         <div class="flex justify-center mt-2">
                             <button onclick="copyInviteLink()"
                                 class="text-xs px-4 py-2 rounded-xl
-                                       border border-zinc-700
-                                       hover:border-amber-400 hover:text-amber-400
-                                       transition text-zinc-300">
+           bg-amber-400 text-zinc-900 font-semibold
+           hover:bg-amber-300 hover:scale-105
+           transition-all duration-200">
                                 Convidar amigo
                             </button>
                         </div>
@@ -191,9 +191,10 @@
                         in_array(auth()->id(), [$match->slot_1_user_id, $match->slot_2_user_id]))
                     <div id="gameChooser" class="mt-3">
                         <button onclick="openGameChooser()"
-                            class="w-full px-4 py-2 rounded-xl border border-zinc-700
-                   hover:border-amber-400 hover:text-amber-400
-                   transition text-xs text-zinc-300">
+                            class="w-full px-4 py-3 rounded-xl
+           bg-amber-400 text-zinc-900 font-semibold
+           hover:bg-amber-300 hover:scale-105
+           transition-all duration-200">
                             Escolher jogo
                         </button>
                     </div>
