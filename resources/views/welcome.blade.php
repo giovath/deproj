@@ -549,7 +549,7 @@
 
 
 
-        function hydrateSlot(slotNumber, player, game_code = null) {
+        function hydrateSlot(slotNumber, player) {
             if (!player || !player.id || !player.name || !player.avatar) return;
 
             const slot = document.querySelector(`[data-slot="${slotNumber}"]`);
@@ -558,7 +558,6 @@
             slot.innerHTML = `
         <img src="${player.avatar}" class="w-20 h-20 rounded-full object-cover">
         <span class="text-xs text-zinc-300">${player.name}</span>
-        ${game_code ? `<div class="slot-game-name text-xs text-amber-400 mt-1">🎮 Jogo escolhido: ${game_code}</div>` : ''}
     `;
 
             slot.classList.remove('border-zinc-800');
