@@ -10,10 +10,11 @@ use App\Services\GamesCuratorService;
 
 class EnterArenaService
 {
-    public function handle(User $user, GamesCuratorService $curator): GameMatch
+    public function handle(User $user): GameMatch
     {
-        return DB::transaction(function () use ($user, $curator) {
+        return DB::transaction(function () use ($user) {
 
+            $curator = app(GamesCuratorService::class);
             // 🧹 Limpa matches zumbis do usuário
             GameMatch::whereIn('status', ['waiting', 'ready'])
                 ->where(function ($q) use ($user) {

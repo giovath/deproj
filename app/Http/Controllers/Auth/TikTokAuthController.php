@@ -68,8 +68,8 @@ class TikTokAuthController extends Controller
          * ✅ CORE: login já entra na arena
          */
         $match = $arena->handle($user);
-        $match->markReady($user->id);
         session(['match_id' => $match->id]);
+
 
         return redirect()->route('home');
     }
