@@ -103,7 +103,7 @@ class ArenaController extends Controller
 
             $mySlot = $match->slot_1_user_id === $userId ? 1 : 2;
 
-            
+
             return response()->json([
                 'status' => $match->status,
                 'game_code' => $match->game_code,
@@ -274,10 +274,34 @@ class ArenaController extends Controller
         ]);
     }
 
-    public function games(GamesCuratorService $curator)
+
+    public function games()
     {
+        $matchId = session('match_id');
+
+        if (!$matchId) {
+            return response()->json([]);
+        }
+
+        $match = GameMatch::find($matchId);
+
+        if (!$match) {
+            return response()->json([]);
+        }
+
+        // ❌ Ainda não tem os dois jogadores
+        if (!$match->slot_1_user_id || !$match->slot_2_user_id) {
+            return response()->json([]);
+        }
+
+        // ❌ Jogo já foi escolhido
+        if ($match->game_code) {
+            return response()->json([]);
+        }
+
+        // ✅ Tudo certo → libera lista
         return response()->json(
-            $curator->multiplayerOptions()
+            app(GamesCuratorService::class)->availableGames()
         );
     }
 }

@@ -170,7 +170,7 @@
                     aguardando jogadores
                 </div>
 
-                @if ($match && auth()->check() && !$match->game_code)
+                @if ($match && auth()->check() && !$match->game_code && $match->slot_1_user_id && $match->slot_2_user_id)
                     <div id="gameChooser" class="mt-3">
                         <button onclick="openGameChooser()"
                             class="w-full px-4 py-2 rounded-xl border border-zinc-700
@@ -363,6 +363,12 @@
             }
 
             const games = await res.json();
+
+            if (!games.length) {
+                alert('Nenhum jogo disponível no momento');
+                return;
+            }
+
 
             let list = games.map(code => `
         <button

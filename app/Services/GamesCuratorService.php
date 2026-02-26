@@ -12,6 +12,14 @@ class GamesCuratorService
         return collect(config('gamezop_games.sync'));
     }
 
+    // 🎮 Exposto para o frontend (modal de escolha)
+    public function availableGames(): array
+    {
+        return $this->multiplayerOptions()
+            ->values()
+            ->toArray();
+    }
+
     // ✅ Validação da escolha do usuário
     public function isValidMultiplayer(string $code): bool
     {
