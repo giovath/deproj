@@ -33,7 +33,6 @@ class ArenaController extends Controller
 
                 if ($match && $match->hasFreeSlot()) {
                     $match->occupySlot(Auth::id());
-                    $match->markReady(Auth::id());
                     return $match;
                 }
 
@@ -141,9 +140,6 @@ class ArenaController extends Controller
         return redirect()->route('home');
     }
 
-
-
-
     public function start(GameMatch $match)
     {
         abort_unless(
@@ -157,12 +153,6 @@ class ArenaController extends Controller
             ], 409);
         }
 
-        if (!$match->bothReady()) {
-            return response()->json([
-                'message' => 'Aguardando o outro jogador'
-            ], 409);
-        }
-
         if ($match->status !== 'playing') {
             $match->update(['status' => 'playing']);
         }
@@ -173,8 +163,6 @@ class ArenaController extends Controller
             'redirect' => route('arena.play', $match)
         ]);
     }
-
-
 
     public function ready(GameMatch $match)
     {
