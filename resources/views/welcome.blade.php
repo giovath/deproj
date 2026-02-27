@@ -140,7 +140,7 @@
                             <span class="text-xs text-zinc-300">{{ $slot1User->name }}</span>
                         @else
                             <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                            <span class="text-xs text-zinc-400">slot livre</span>
+                            <span class="text-xs text-zinc-400">Disponível</span>
                         @endif
                     </div>
 
@@ -155,7 +155,7 @@
                             <span class="text-xs text-zinc-300">{{ $slot2User->name }}</span>
                         @else
                             <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                            <span class="text-xs text-zinc-400">slot livre</span>
+                            <span class="text-xs text-zinc-400">Disponível</span>
                         @endif
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                        bg-amber-400 text-zinc-900 font-semibold
                        hover:bg-amber-300 hover:scale-105
                        transition-all duration-200">
-                                Convidar amigo
+                                Convidar
                             </button>
 
                             <a href="https://joga.click/?src=solo" target="_blank"
@@ -177,7 +177,7 @@
                        bg-zinc-800 text-zinc-100 font-semibold
                        hover:bg-zinc-700 hover:scale-105
                        transition-all duration-200">
-                                Jogos Solos
+                                Jogar solo
                             </a>
                         </div>
                     @endif
@@ -187,12 +187,12 @@
                 <!-- STATUS -->
                 <div id="matchStatus" class="flex items-center justify-center gap-2 text-xs mt-3">
                     <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                    aguardando jogadores
+                    Aguardando oponente
                 </div>
 
                 @if ($match && auth()->check())
                     <button onclick="leaveMatch()" class="text-[10px] text-zinc-500 hover:text-red-400 transition mt-2">
-                        sair
+                        Sair da arena
                     </button>
                 @endif
 
@@ -217,7 +217,7 @@
                 @if (auth()->check())
                     <button id="startGameBtn" type="button" onclick="startGame(matchId)"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
-                        Iniciar jogo
+                        Iniciar
                     </button>
                 @endif
 
@@ -237,8 +237,8 @@
                             class="w-52 h-52 chest-pulse">
                     </button>
 
-                    <span class="text-xs text-amber-400 mb-1">
-                        recompensas diárias
+                    <span class="text-xs text-amber-400 font-medium mb-1">
+                        Abrir recompensa diária
                     </span>
 
                 </div>
@@ -253,6 +253,7 @@
     @include('partials.footer')
 
     <!-- LOGIN MODAL -->
+
     <div id="loginModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-sm w-full mx-4 text-center shadow-xl">
 
@@ -262,13 +263,20 @@
                 </p>
             @endif
 
-            <h3 class="text-lg font-semibold text-zinc-100 mb-1">Entrar na arena</h3>
-            <p class="text-xs text-zinc-400 mb-6">Entre com sua conta TikTok para ocupar um slot.</p>
+            <h3 class="text-lg font-semibold text-zinc-100 mb-2">
+                Entrar na arena
+            </h3>
+
+            <p class="text-xs text-zinc-400 mb-6 leading-relaxed">
+                Conecte sua conta TikTok<br>
+                para jogar e participar das
+                <span class="text-amber-400 font-medium">recompensas</span>.
+            </p>
 
             <a href="{{ route('auth.tiktok.redirect') }}"
                 class="w-full inline-flex items-center justify-center gap-3
-                      px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300
-                      transition text-zinc-900 font-semibold text-sm">
+                   px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300
+                   transition text-zinc-900 font-semibold text-sm">
                 <img src="/images/TikTok.webp" alt="TikTok" class="w-5 h-5">
                 Entrar com TikTok
             </a>
@@ -279,21 +287,28 @@
                 <div class="flex-1 h-px bg-zinc-800"></div>
             </div>
 
-            <p class="text-[11px] text-zinc-500 mb-3 leading-relaxed">
-                Ainda não tem TikTok? Crie sua conta pelo convite e participe das recompensas.
-            </p>
+            <div class="mb-4">
+                <p class="text-xs text-zinc-300 font-medium mb-1">
+                    Novo no TikTok?
+                </p>
+                <p class="text-[11px] text-zinc-400 leading-relaxed">
+                    Crie sua conta pelo convite e receba
+                    <span class="text-amber-400">recompensas exclusivas</span>.
+                </p>
+            </div>
 
             <a href="https://www.tiktok.com/d/1/ZS9egrJmmXWeB-dQJQB/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
-                      px-4 py-2 rounded-xl border border-zinc-700
-                      hover:border-amber-400 hover:text-amber-400
-                      transition text-xs font-medium text-zinc-300">
+                   px-4 py-2 rounded-xl border border-zinc-700
+                   hover:border-amber-400 hover:text-amber-400
+                   transition text-xs font-medium text-zinc-300">
                 Criar conta no TikTok
             </a>
 
-            <button onclick="closeLoginModal()" class="mt-5 text-xs text-zinc-500 hover:text-zinc-300 transition">
-                cancelar
+            <button onclick="closeLoginModal()" class="mt-5 text-xs text-zinc-600 hover:text-zinc-300 transition">
+                Cancelar
             </button>
+
         </div>
     </div>
 
@@ -519,17 +534,17 @@
             if (data.opponent && data.game_code) {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-green-500"></span>
-            pronto para jogar
+            Pronto
         `;
             } else if (data.opponent && !data.game_code) {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            escolha um jogo para começar
+            Escolha um jogo
         `;
             } else {
                 el.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-            aguardando jogadores
+            Aguardando oponente
         `;
             }
         }
