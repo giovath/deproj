@@ -7,16 +7,26 @@ use Illuminate\Support\Collection;
 class GamesCuratorService
 {
     /**
-     * 🎮 Jogos multiplayer disponíveis para escolha
+     * 🎮 Todos os jogos registrados no sistema
+     */
+    protected function allGames(): Collection
+    {
+        return collect(config('gamezop_games'))
+            ->flatten(1)
+            ->values();
+    }
+
+    /**
+     * 🎮 Jogos multiplayer disponíveis (>= 2 jogadores)
      */
     public function availableGames(): Collection
     {
-        return collect(
-            array_merge(
-                config('gamezop_games.sync_core', []),
-                config('gamezop_games.sync_casual', [])
+        return $this->allGames()
+            ->filter(
+                fn($game) =>
+                isset($game['max_players']) && $game['max_players'] >= 2
             )
-        )->values();
+            ->values();
     }
 
     /**
@@ -36,7 +46,7 @@ class GamesCuratorService
     }
 
     /**
-     * ⚠️ Fallback futuro (random)
+     * 🎲 Fallback futuro (random)
      */
     public function pickGameCode(): string
     {
