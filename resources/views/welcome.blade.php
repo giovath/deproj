@@ -237,43 +237,6 @@
 
                 </div>
 
-
-
-                <a href="https://www.tiktok.com/d/1/ZS9eM2X5Ff3SV-VgwVe/" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:border-amber-400 rounded-xl px-3 py-2 hover:border-amber-400 transition">
-
-                    <div class="w-8 h-8 rounded-full bg-amber-400/20 flex items-center justify-center text-xs">
-                        🎁
-                    </div>
-
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-xs text-zinc-100 font-medium">
-                            Recompensas TikTok
-                        </span>
-                        <span class="text-[10px] text-zinc-400">
-                            Eventos oficiais • Ganhe prêmios reais
-                        </span>
-                    </div>
-                </a>
-
-                <a href="https://clickpremio.online/?src=hub" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-3 bg-zinc-900/60 border border-zinc-800
-          hover:border-zinc-600 rounded-xl px-3 py-2 transition">
-
-                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs">
-                        🏆
-                    </div>
-
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-xs text-zinc-300 font-medium">
-                            Sorteios mensais
-                        </span>
-                        <span class="text-[10px] text-zinc-500">
-                            Participe já • Cadastro gratuito
-                        </span>
-                    </div>
-                </a>
-
             </div>
 
 
