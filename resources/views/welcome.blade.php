@@ -208,16 +208,6 @@
                     </div>
                 @endif
 
-                @if ($match && $match->game_code)
-                    <div class="text-center text-xs text-amber-400 mt-3">
-                        🎮 Jogo escolhido: {{ $gameName ?? $match->game_code }}
-                    </div>
-                @endif
-
-
-
-
-
                 @if (auth()->check())
                     <button id="startGameBtn" type="button" onclick="startGame(matchId)"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
@@ -498,6 +488,23 @@
 
             // Atualiza status
             updateMatchStatus(data);
+
+            // Mostrar jogo escolhido dinamicamente para ambos
+            if (data.game_code) {
+
+                if (!document.getElementById('gameSelectedInfo')) {
+
+                    const statusEl = document.getElementById('matchStatus');
+                    const container = statusEl.parentNode;
+
+                    container.insertAdjacentHTML('beforeend', `
+            <div id="gameSelectedInfo"
+                class="text-center text-xs text-amber-400 mt-3">
+                🎮 Jogo escolhido: ${data.game_name || data.game_code}
+            </div>
+        `);
+                }
+            }
 
             if (data.opponent && !data.game_code) {
 

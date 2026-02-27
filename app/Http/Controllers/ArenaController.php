@@ -95,6 +95,7 @@ class ArenaController extends Controller
             $match->slot_1_user_id === $userId ||
             $match->slot_2_user_id === $userId
         ) {
+
             $opponent =
                 $match->slot_1_user_id === $userId
                 ? $match->slot2User
@@ -102,17 +103,30 @@ class ArenaController extends Controller
 
             $mySlot = $match->slot_1_user_id === $userId ? 1 : 2;
 
+            // 🔥 BUSCAR NOME DO JOGO
+            $gameName = null;
+
+            if ($match->game_code) {
+                $games = collect(config('gamezop_games.sync_core'))
+                    ->merge(config('gamezop_games.sync_casual'))
+                    ->merge(config('gamezop_games.async_strategy'))
+                    ->merge(config('gamezop_games.async_arcade'));
+
+                $game = $games->firstWhere('code', $match->game_code);
+                $gameName = $game['name'] ?? null;
+            }
 
             return response()->json([
-                'status' => $match->status,
-                'game_code' => $match->game_code,
+                'status'     => $match->status,
+                'game_code'  => $match->game_code,
+                'game_name'  => $gameName, // 👈 novo campo
                 'me' => [
-                    'id' => $userId,
+                    'id'   => $userId,
                     'slot' => $mySlot,
                 ],
                 'opponent' => $opponent ? [
-                    'id' => $opponent->id,
-                    'name' => $opponent->name,
+                    'id'     => $opponent->id,
+                    'name'   => $opponent->name,
                     'avatar' => $opponent->avatar,
                 ] : null,
             ]);
