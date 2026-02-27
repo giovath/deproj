@@ -499,6 +499,32 @@
             // Atualiza status
             updateMatchStatus(data);
 
+            if (data.opponent && !data.game_code) {
+
+                if (!document.getElementById('gameChooser')) {
+
+                    const statusEl = document.getElementById('matchStatus');
+                    const container = statusEl.parentNode;
+
+                    container.insertAdjacentHTML('beforeend', `
+            <div id="gameChooser" class="mt-3">
+                <button onclick="openGameChooser()"
+                    class="w-full px-4 py-3 rounded-xl
+                    bg-amber-400 text-zinc-900 font-semibold
+                    hover:bg-amber-300 hover:scale-105
+                    transition-all duration-200">
+                    Escolher jogo
+                </button>
+            </div>
+        `);
+                }
+            }
+
+            if (data.game_code) {
+                const chooser = document.getElementById('gameChooser');
+                if (chooser) chooser.remove();
+            }
+
             // Mostra botão iniciar se ambos prontos e jogo selecionado
             const btn = document.getElementById('startGameBtn');
             if (data.opponent && data.game_code && btn) btn.classList.remove('hidden');
