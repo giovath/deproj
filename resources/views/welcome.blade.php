@@ -190,6 +190,12 @@
                     aguardando jogadores
                 </div>
 
+                @if ($match && auth()->check())
+                    <button onclick="leaveMatch()" class="text-[10px] text-zinc-500 hover:text-red-400 transition mt-2">
+                        sair
+                    </button>
+                @endif
+
                 @if (
                     $match &&
                         auth()->check() &&
@@ -547,6 +553,25 @@
             const modal = document.getElementById('genericModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+        }
+
+        async function leaveMatch() {
+            if (!matchId) return;
+
+            const res = await fetch(`/arena/leave/${matchId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                alert('Erro');
+                return;
+            }
+
+            location.reload();
         }
 
 

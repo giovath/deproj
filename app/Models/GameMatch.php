@@ -80,6 +80,36 @@ class GameMatch extends Model
         $this->save();
     }
 
+    /*
+|--------------------------------------------------------------------------
+| Remover Jogador
+|--------------------------------------------------------------------------
+*/
+    public function removePlayer(int $userId): void
+    {
+        if ($this->slot_1_user_id === $userId) {
+            $this->slot_1_user_id = null;
+            $this->ready_slot_1 = false;
+        }
+
+        if ($this->slot_2_user_id === $userId) {
+            $this->slot_2_user_id = null;
+            $this->ready_slot_2 = false;
+        }
+
+        // Se ninguém ficou no match → deletar
+        if (is_null($this->slot_1_user_id) && is_null($this->slot_2_user_id)) {
+            $this->delete();
+            return;
+        }
+
+        // Se ainda tem alguém → volta para waiting
+        $this->status = 'waiting';
+        $this->game_code = null;
+
+        $this->save();
+    }
+
     public function markReady(int $userId): void
     {
         if ($this->slot_1_user_id === $userId) {

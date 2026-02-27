@@ -85,7 +85,10 @@ Route::middleware('auth')->get(
     [ArenaController::class, 'games']
 )->name('arena.games');
 
-
+Route::middleware('auth')->post(
+    '/arena/leave/{match}',
+    [ArenaController::class, 'leave']
+)->name('arena.leave');
 
 /**
  * Healthcheck

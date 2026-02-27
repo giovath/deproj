@@ -273,4 +273,21 @@ class ArenaController extends Controller
 
         return response()->json($games);
     }
+
+    public function leave(GameMatch $match)
+    {
+        $userId = Auth::id();
+
+        if (!in_array($userId, [$match->slot_1_user_id, $match->slot_2_user_id])) {
+            abort(403);
+        }
+
+        $match->removePlayer($userId);
+
+        session()->forget('match_id');
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
 }
