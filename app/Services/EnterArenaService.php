@@ -14,8 +14,7 @@ class EnterArenaService
     {
         return DB::transaction(function () use ($user) {
 
-            $curator = app(GamesCuratorService::class);
-            // 🧹 Limpa matches zumbis do usuário
+            // 🧹 Limpa matches zumbis
             GameMatch::whereIn('status', ['waiting', 'ready'])
                 ->where(function ($q) use ($user) {
                     $q->where('slot_1_user_id', $user->id)
@@ -24,7 +23,7 @@ class EnterArenaService
                 ->where('updated_at', '<', now()->subMinutes(3))
                 ->delete();
 
-            // 0️⃣ Já está em um match ativo?
+            // Já está em match ativo?
             $existingMatch = GameMatch::whereIn('status', ['waiting', 'ready'])
                 ->where(function ($q) use ($user) {
                     $q->where('slot_1_user_id', $user->id)
@@ -37,7 +36,7 @@ class EnterArenaService
                 return $existingMatch;
             }
 
-            // 1️⃣ Procura match disponível
+            // Procura match aguardando segundo jogador
             $match = GameMatch::where('status', 'waiting')
                 ->whereNotNull('slot_1_user_id')
                 ->whereNull('slot_2_user_id')
@@ -45,7 +44,7 @@ class EnterArenaService
                 ->lockForUpdate()
                 ->first();
 
-            // 2️⃣ Se não existe, cria
+            // Se não existir, cria novo
             if (!$match) {
                 $match = GameMatch::create([
                     'status' => 'waiting',
@@ -53,10 +52,8 @@ class EnterArenaService
                 ]);
             }
 
-
-            // 3️⃣ Ocupa slot
+            // Ocupa slot
             $match->occupySlot($user->id);
-            $match->markReady($user->id);
 
             return $match->fresh();
         });
