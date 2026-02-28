@@ -4,27 +4,82 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jogos Online</title>
+    <title>Jogos Online | Premio.click</title>
+    <meta name="description"
+        content="Explore jogos online multiplayer e single player baseados em habilidade. Plataforma rápida, gratuita e atualizada diariamente.">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
+<body class="min-h-screen bg-zinc-950 text-zinc-100">
 
-    <div class="text-center space-y-4">
-        <div class="text-4xl">🎮</div>
+    <div class="max-w-4xl mx-auto px-6 py-12 space-y-12">
 
-        <h1 class="text-lg font-semibold">
-            Jogos online disponíveis
-        </h1>
+        <!-- Header -->
+        <div class="text-center space-y-4">
+            <div class="text-5xl">🎮</div>
+            <h1 class="text-3xl font-bold">
+                Jogos Online Baseados em Habilidade
+            </h1>
+            <p class="text-zinc-400 max-w-2xl mx-auto">
+                Nossa plataforma reúne jogos multiplayer e single player focados em competição,
+                reflexo e estratégia. Jogue diretamente do navegador, sem necessidade de download.
+            </p>
+        </div>
 
-        <p class="text-xs text-zinc-400">
-            Acesse nossa seleção de jogos gratuitos
-        </p>
+        <!-- Categorias -->
+        <div class="grid md:grid-cols-3 gap-6 text-center">
 
-        <a href="https://joga.click/?hub"
-            class="inline-block mt-4 px-6 py-3 rounded-xl bg-amber-400 text-zinc-900 font-semibold">
-            Jogar agora
-        </a>
+            <div class="bg-zinc-900 p-6 rounded-2xl">
+                <div class="text-3xl mb-3">⚡</div>
+                <h2 class="font-semibold mb-2">Jogos Rápidos</h2>
+                <p class="text-sm text-zinc-400">
+                    Partidas dinâmicas para testar seus reflexos.
+                </p>
+            </div>
+
+            <div class="bg-zinc-900 p-6 rounded-2xl">
+                <div class="text-3xl mb-3">🧠</div>
+                <h2 class="font-semibold mb-2">Estratégia</h2>
+                <p class="text-sm text-zinc-400">
+                    Jogos que exigem raciocínio e planejamento.
+                </p>
+            </div>
+
+            <div class="bg-zinc-900 p-6 rounded-2xl">
+                <div class="text-3xl mb-3">🎯</div>
+                <h2 class="font-semibold mb-2">Competição 1x1</h2>
+                <p class="text-sm text-zinc-400">
+                    Desafie outros jogadores em partidas diretas.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Explicação -->
+        <div class="text-center space-y-4">
+            <h2 class="text-xl font-semibold">
+                Como funciona?
+            </h2>
+            <p class="text-zinc-400 max-w-2xl mx-auto text-sm">
+                Os jogos são executados em ambiente próprio e podem variar entre modos solo e
+                multiplayer. Basta escolher um jogo e começar imediatamente.
+            </p>
+        </div>
+
+        <!-- Botão principal -->
+        <div class="text-center">
+            <a href="https://joga.click/?hub" target="_blank" rel="noopener noreferrer"
+                class="inline-block px-8 py-4 rounded-2xl bg-amber-400 text-zinc-900 font-semibold text-lg hover:scale-105 transition">
+                Explorar Jogos Agora
+            </a>
+        </div>
+
+        <div class="mt-12">
+            <iframe src="https://joga.click/?hub" class="w-full h-[600px] rounded-2xl border border-zinc-800"
+                loading="lazy">
+            </iframe>
+        </div>
+
     </div>
 
 </body>
