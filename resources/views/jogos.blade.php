@@ -73,7 +73,7 @@
                 Explorar Jogos Agora
             </a>
         </div>
-        <!-- Iframe 
+        <!-- Iframe
         <div class="mt-12">
             <iframe src="https://joga.click/?hub" class="w-full h-[600px] rounded-2xl border border-zinc-800"
                 loading="lazy">
