@@ -235,6 +235,7 @@ return [
     'curated_multiplayer' => [
         'H1Hgyn6XqAS', // Carrom Hero
         'hgempP8Sc',   // Pool Master
+        'rJ57aMJDcJm' // Go Chicken Go
     ],
 
 ];
