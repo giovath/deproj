@@ -34,6 +34,14 @@ class GamesCuratorService
      */
     public function multiplayerOptions(): Collection
     {
+        $curated = collect(config('gamezop_games.curated_multiplayer'));
+
+        // Se existir curated, usar ele
+        if ($curated->isNotEmpty()) {
+            return $curated->values();
+        }
+
+        // Caso contrário, usar padrão
         return $this->availableGames()->pluck('code');
     }
 

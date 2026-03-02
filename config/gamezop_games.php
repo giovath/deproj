@@ -226,4 +226,15 @@ return [
             'max_players' => 5,
         ],
     ],
+
+    /*
+|--------------------------------------------------------------------------
+| CURATED MULTIPLAYER POOL (override opcional)
+|--------------------------------------------------------------------------
+*/
+    'curated_multiplayer' => [
+        'H1Hgyn6XqAS', // Carrom Hero
+        'hgempP8Sc',   // Pool Master
+    ],
+
 ];
