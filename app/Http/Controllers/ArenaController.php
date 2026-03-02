@@ -264,12 +264,14 @@ class ArenaController extends Controller
     }
 
 
-    public function games()
+    public function games(GamesCuratorService $curator)
     {
-        $games = collect(config('gamezop_games.sync_core'))
-            ->merge(config('gamezop_games.sync_casual'))
-            ->merge(config('gamezop_games.async_strategy'))
-            ->merge(config('gamezop_games.async_arcade'));
+        $codes = $curator->multiplayerOptions();
+
+        $games = collect(config('gamezop_games'))
+            ->flatten(1)
+            ->whereIn('code', $codes)
+            ->values();
 
         return response()->json($games);
     }
