@@ -339,7 +339,7 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS9eKp25YTRUB-1imo6/';
+            window.location.href = 'https://www.tiktok.com/d/1/ZS9deSJDn3S7Y-7ZSTa/';
         }
 
         let opponentLoaded = false;
