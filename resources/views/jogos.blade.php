@@ -66,13 +66,32 @@
             </p>
         </div>
 
+        <!-- Acesso ao Hub Multiplayer -->
+        <div class="text-center space-y-4 mt-8">
+            <h2 class="text-xl font-semibold">
+                Quer competir em tempo real?
+            </h2>
+            <p class="text-zinc-400 text-sm">
+                Acesse nosso hub multiplayer e enfrente outros jogadores.
+            </p>
+
+            <a href="/multiplayer"
+                class="inline-block px-8 py-4 rounded-2xl bg-emerald-500 text-white font-semibold text-lg hover:scale-105 transition">
+                Acessar Multiplayer
+            </a>
+        </div>
+
         <!-- Botão principal -->
         <div class="text-center">
             <a href="https://joga.click/?hub" target="_blank" rel="noopener noreferrer"
                 class="inline-block px-8 py-4 rounded-2xl bg-amber-400 text-zinc-900 font-semibold text-lg hover:scale-105 transition">
-                Explorar Jogos Agora
+                Acessar Singleplayer
             </a>
         </div>
+
+        <p class="text-xs text-zinc-500 mt-3">
+            Sem download • Acesso imediato • Gratuito
+        </p>
         <!-- Iframe
         <div class="mt-12">
             <iframe src="https://joga.click/?hub" class="w-full h-[600px] rounded-2xl border border-zinc-800"
