@@ -54,15 +54,13 @@ Route::middleware('auth')->get('/play/{match}', [ArenaController::class, 'play']
     ->name('arena.play');
 
 // convite público
-Route::get('/invite/{id}', function ($id) {
-    $match = GameMatch::find($id);
-    if (!$match) {
-        return redirect()->route('home')
-            ->with('error', 'O convite expirou ou o criador saiu.')
-            ->with('open_invite_modal', true);
-    }
+Route::get('/invite/{match}', function (GameMatch $match) {
+
     session(['invited_match_id' => $match->id]);
-    return redirect()->route('home')->with('open_invite_modal', true);
+
+    return redirect()
+        ->route('home')
+        ->with('open_invite_modal', true);
 })->name('arena.invite.public');
 
 

@@ -25,7 +25,7 @@ class ArenaController extends Controller
         // 🧲 PRIORIDADE: convite
         if (session()->has('invited_match_id')) {
 
-            $matchId = session()->pull('invited_match_id');
+            $matchId = session('invited_match_id');
 
             $match = DB::transaction(function () use ($matchId) {
 
@@ -40,7 +40,11 @@ class ArenaController extends Controller
             });
 
             if ($match) {
+
                 session(['match_id' => $match->id]);
+
+                // remove o convite apenas depois de entrar
+                session()->forget('invited_match_id');
 
                 return response()->json([
                     'match_id' => $match->id,
@@ -136,6 +140,8 @@ class ArenaController extends Controller
             'status' => $match->status,
         ]);
     }
+
+
 
 
     public function start(GameMatch $match)
