@@ -138,22 +138,6 @@ class ArenaController extends Controller
     }
 
 
-
-    public function joinInvite(GameMatch $match)
-    {
-        abort_if(in_array($match->status, ['playing', 'finished']), 403);
-
-        session([
-            'invited_match_id' => $match->id,
-        ]);
-
-        // NÃO ocupa slot
-        // NÃO marca ready
-        // NÃO mexe em status
-
-        return redirect()->route('home');
-    }
-
     public function start(GameMatch $match)
     {
         abort_unless(

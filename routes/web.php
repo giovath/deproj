@@ -65,9 +65,6 @@ Route::get('/invite/{id}', function ($id) {
     return redirect()->route('home')->with('open_invite_modal', true);
 })->name('arena.invite.public');
 
-// consumir convite
-Route::middleware('auth')->get('/arena/join/{id}', [ArenaController::class, 'joinInvite'])
-    ->name('arena.join.invite');
 
 Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class, 'start'])
     ->name('arena.start');

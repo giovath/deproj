@@ -65,11 +65,17 @@ class TikTokAuthController extends Controller
         Auth::login($user);
 
         /**
-         * ✅ CORE: login já entra na arena
+         * Se veio por convite, NÃO cria arena
+         */
+        if (session()->has('invited_match_id')) {
+            return redirect()->route('home');
+        }
+
+        /**
+         * fluxo normal
          */
         $match = $arena->handle($user);
         session(['match_id' => $match->id]);
-
 
         return redirect()->route('home');
     }
