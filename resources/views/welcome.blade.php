@@ -103,7 +103,8 @@
         }
 
         .chest-pulse {
-            animation: pulseSoft 1.8s ease-in-out infinite;
+            animation: pulseSoft 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
         }
 
         .chest-opened {
@@ -234,12 +235,17 @@
                     <button id="chestBtn" onclick="openChest()"
                         class="p-0 bg-transparent hover:opacity-80 transition cursor-pointer">
                         <img id="chestImg" src="{{ asset('images/chest-closed.png') }}" alt="Baú"
-                            class="w-52 h-52 chest-pulse">
+                            class="w-56 h-56 chest-pulse transition-transform duration-300 hover:scale-105">
                     </button>
 
-                    <span class="text-xs text-amber-400 font-medium mb-1">
-                        Abrir recompensa diária
-                    </span>
+                    <div class="text-center mb-2">
+                        <div class="text-xs text-amber-400 font-semibold">
+                            🎁 Baú de recompensa diária
+                        </div>
+                        <div class="text-[10px] text-zinc-400">
+                            Disponível agora
+                        </div>
+                    </div>
 
                 </div>
 
@@ -297,7 +303,7 @@
                 </p>
             </div>
 
-            <a href="https://www.tiktok.com/d/1/ZS9dLxSpRK8we-mhhZt/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS9dqbCeYcWmc-X2SwI/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                    px-4 py-2 rounded-xl border border-zinc-700
                    hover:border-amber-400 hover:text-amber-400
@@ -332,6 +338,7 @@
     <!-- SCRIPTS -->
     <script>
         function openChest() {
+
             const img = document.getElementById('chestImg');
 
             img.src = "{{ asset('images/chest-open.png') }}";
@@ -339,7 +346,36 @@
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
-            window.location.href = 'https://www.tiktok.com/d/1/ZS9dBAgBWTL4g-yfRWX/';
+
+            setTimeout(() => {
+
+                showModal(`
+            <div class="text-center">
+
+                <div class="text-4xl mb-3">🎁</div>
+
+<h3 class="text-sm font-semibold mb-2">
+    🎉 Recompensa desbloqueada
+</h3>
+
+<p class="text-xs text-zinc-400 mb-4">
+    Seu baú liberou uma recompensa especial.
+    Resgate agora no TikTok.
+</p>
+
+                <a href="https://www.tiktok.com/d/1/ZS9dqbVW6jyby-EFkLi/"
+                class="w-full inline-flex items-center justify-center
+                px-4 py-3 rounded-xl
+                bg-amber-400 hover:bg-amber-300
+                text-zinc-900 text-sm font-semibold">
+
+                Resgatar no TikTok
+                </a>
+
+            </div>
+        `);
+
+            }, 800);
         }
 
         let opponentLoaded = false;
