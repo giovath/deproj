@@ -216,7 +216,7 @@
                 @endif
 
                 @if (auth()->check())
-                    <button id="startGameBtn" type="button" onclick="startGame(matchId)"
+                    <button id="startGameBtn" type="button" onclick="startGame()"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
                         Iniciar
                     </button>
@@ -378,16 +378,36 @@
             }, 800);
         }
 
+        let pollInterval = 800;
+        let pollTimer = null;
+
+        function startPolling() {
+
+            if (pollTimer) return;
+
+            pollTimer = setInterval(checkMatchStatus, pollInterval);
+
+            setTimeout(() => {
+
+                clearInterval(pollTimer);
+
+                pollInterval = 2000;
+
+                pollTimer = setInterval(checkMatchStatus, pollInterval);
+
+            }, 10000);
+        }
+
         let opponentLoaded = false;
         let startButtonShown = false;
         let selectedGame = null;
 
 
-        let matchId = {{ $match?->id ?? 'null' }};
+        let matchId = {!! $match?->id ?? 'null' !!};
 
         if (matchId) {
 
-            setInterval(checkMatchStatus, 2000);
+            startPolling();
 
         } else {
 
@@ -415,7 +435,9 @@
 
                 matchId = data.match_id;
 
-                setInterval(checkMatchStatus, 2000);
+                startPolling();
+
+                checkMatchStatus();
 
             } catch (e) {
                 console.error('Arena enter error', e);
@@ -461,7 +483,9 @@
     `);
         }
 
-        async function startGame(matchId) {
+        async function startGame() {
+
+            if (!matchId) return;
             const res = await fetch(`/arena/start/${matchId}`, {
                 method: 'POST',
                 headers: {
@@ -518,6 +542,8 @@
 
 
         async function checkMatchStatus() {
+
+            if (!matchId) return;
             const response = await fetch(`/arena/status/${matchId}`, {
                 headers: {
                     Accept: "application/json"
