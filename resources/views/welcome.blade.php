@@ -131,7 +131,7 @@
                 <div class="grid grid-cols-2 gap-4">
 
                     <!-- SLOT 1 -->
-                    <div data-slot="1" @if (!$slot1User) onclick="openLoginModal()" @endif
+                    <div data-slot="1" @if (!$slot1User && !auth()->check()) onclick="openLoginModal()" @endif
                         class="aspect-square rounded-2xl border
                         {{ $slot1User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
                         bg-zinc-900 flex flex-col items-center justify-center transition">
@@ -146,7 +146,7 @@
                     </div>
 
                     <!-- SLOT 2 -->
-                    <div data-slot="2" @if (!$slot2User) onclick="openLoginModal()" @endif
+                    <div data-slot="2" @if (!$slot2User && !auth()->check()) onclick="openLoginModal()" @endif
                         class="aspect-square rounded-2xl border
                         {{ $slot2User ? 'border-amber-400' : 'border-zinc-800 hover:border-amber-400 cursor-pointer' }}
                         bg-zinc-900 flex flex-col items-center justify-center transition">
@@ -386,7 +386,40 @@
         let matchId = {{ $match?->id ?? 'null' }};
 
         if (matchId) {
-            setInterval(checkMatchStatus, 3000);
+
+            setInterval(checkMatchStatus, 2000);
+
+        } else {
+
+            @auth
+            enterArena();
+        @endauth
+
+        }
+
+        async function enterArena() {
+
+            try {
+
+                const res = await fetch('/arena/enter', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!res.ok) return;
+
+                const data = await res.json();
+
+                matchId = data.match_id;
+
+                setInterval(checkMatchStatus, 2000);
+
+            } catch (e) {
+                console.error('Arena enter error', e);
+            }
         }
 
         async function openGameChooser() {
