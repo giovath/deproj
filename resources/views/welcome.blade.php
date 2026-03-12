@@ -402,7 +402,7 @@
         let startButtonShown = false;
         let selectedGame = null;
 
-
+        let invitedMatchId = {!! session('invited_match_id') ?? 'null' !!};
         let matchId = {!! $match?->id ?? 'null' !!};
 
         if (matchId) {
@@ -412,7 +412,9 @@
         } else {
 
             @auth
-            enterArena();
+            if (!invitedMatchId) {
+                enterArena();
+            }
         @endauth
 
         }

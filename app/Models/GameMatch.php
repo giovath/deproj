@@ -71,6 +71,10 @@ class GameMatch extends Model
 
     public function occupySlot(int $userId): void
     {
+        if ($this->slot_1_user_id === $userId || $this->slot_2_user_id === $userId) {
+            return;
+        }
+
         if (is_null($this->slot_1_user_id)) {
             $this->slot_1_user_id = $userId;
         } elseif (is_null($this->slot_2_user_id)) {

@@ -141,9 +141,6 @@ class ArenaController extends Controller
         ]);
     }
 
-
-
-
     public function start(GameMatch $match)
     {
         abort_unless(
