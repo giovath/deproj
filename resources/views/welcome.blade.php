@@ -402,22 +402,15 @@
         let startButtonShown = false;
         let selectedGame = null;
 
-        let invitedMatchId = {!! session('invited_match_id') ?? 'null' !!};
         let matchId = {!! $match?->id ?? 'null' !!};
 
-        if (matchId) {
-
-            startPolling();
-
+        @auth
+        if (!matchId) {
+            enterArena();
         } else {
-
-            @auth
-            if (!invitedMatchId) {
-                enterArena();
-            }
-        @endauth
-
+            startPolling();
         }
+        @endauth
 
         async function enterArena() {
 

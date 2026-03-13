@@ -64,11 +64,25 @@ class TikTokAuthController extends Controller
 
         Auth::login($user);
 
-        /**
-         * Se chegou por convite
-         * NÃO entra automaticamente na arena
-         */
-        if (!session()->has('invited_match_id')) {
+        if (session()->has('invited_match_id')) {
+
+            $match = \App\Models\GameMatch::find(session('invited_match_id'));
+
+            if ($match && !$match->slot_2_user_id && $match->slot_1_user_id !== $user->id) {
+
+                $match->slot_2_user_id = $user->id;
+                $match->save();
+
+                session(['match_id' => $match->id]);
+            } else {
+
+                // fallback caso o match esteja cheio ou inválido
+                $match = $arena->handle($user);
+                session(['match_id' => $match->id]);
+            }
+
+            session()->forget('invited_match_id');
+        } else {
 
             $match = $arena->handle($user);
             session(['match_id' => $match->id]);
