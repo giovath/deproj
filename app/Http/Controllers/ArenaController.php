@@ -31,7 +31,14 @@ class ArenaController extends Controller
 
                 $match = GameMatch::lockForUpdate()->find($matchId);
 
-                if ($match && $match->hasFreeSlot()) {
+                if (
+                    $match &&
+                    $match->hasFreeSlot() &&
+                    !in_array(Auth::id(), [
+                        $match->slot_1_user_id,
+                        $match->slot_2_user_id
+                    ])
+                ) {
                     $match->occupySlot(Auth::id());
                     return $match;
                 }
@@ -74,7 +81,7 @@ class ArenaController extends Controller
         }
 
         // 🔨 criação padrão
-        $match = $service->handle(Auth::user(), $curator);
+        $match = $service->handle(Auth::user());
 
         session(['match_id' => $match->id]);
 

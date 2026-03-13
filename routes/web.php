@@ -56,12 +56,7 @@ Route::middleware('auth')->get('/play/{match}', [ArenaController::class, 'play']
 // convite público
 Route::get('/invite/{match}', function (GameMatch $match) {
 
-    if (auth()->check() && $match->hasFreeSlot()) {
-        $match->occupySlot(auth()->id());
-        session(['match_id' => $match->id]);
-    } else {
-        session(['invited_match_id' => $match->id]);
-    }
+    session(['invited_match_id' => $match->id]);
 
     return redirect()->route('home');
 })->name('arena.invite.public');
