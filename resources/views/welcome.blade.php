@@ -113,6 +113,15 @@
             animation: none;
             cursor: default;
         }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 
 </head>
@@ -223,6 +232,69 @@
                 @endif
 
 
+
+            </div>
+
+            <div class="flex flex-col gap-3">
+
+                <div class="text-xs text-zinc-400 px-1">
+                    🔥 Oportunidades
+                </div>
+
+                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+
+                    <!-- CARD 1 -->
+                    <div
+                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+
+                        <div class="text-[11px] text-zinc-400 mb-2">
+                            Novo
+                        </div>
+
+                        <div class="text-xs font-medium mb-3">
+                            Convide um amigo
+                        </div>
+
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
+                            Acessar
+                        </button>
+                    </div>
+
+                    <!-- CARD 2 -->
+                    <div
+                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+
+                        <div class="text-[11px] text-zinc-400 mb-2">
+                            Rápido
+                        </div>
+
+                        <div class="text-xs font-medium mb-3">
+                            Abrir bônus diário
+                        </div>
+
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
+                            Abrir
+                        </button>
+                    </div>
+
+                    <!-- CARD 3 -->
+                    <div
+                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+
+                        <div class="text-[11px] text-zinc-400 mb-2">
+                            Destaque
+                        </div>
+
+                        <div class="text-xs font-medium mb-3">
+                            Jogar agora
+                        </div>
+
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
+                            Entrar
+                        </button>
+                    </div>
+
+                </div>
 
             </div>
 
