@@ -235,65 +235,71 @@
 
             </div>
 
-            <div class="flex flex-col gap-3">
+            <div class="relative">
 
-                <div class="text-xs text-zinc-400 px-1">
-                    🔥 Oportunidades
-                </div>
-
-                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
 
                     <!-- CARD 1 -->
                     <div
-                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
 
-                        <div class="text-[11px] text-zinc-400 mb-2">
-                            Novo
+                        <div class="text-[11px] text-amber-400 mb-1">
+                            🚀 Novo
                         </div>
 
-                        <div class="text-xs font-medium mb-3">
-                            Convide um amigo
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Convide um amigo e desbloqueie bônus 🎁
                         </div>
 
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
-                            Acessar
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
+                            Convidar agora
                         </button>
                     </div>
 
                     <!-- CARD 2 -->
                     <div
-                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
 
-                        <div class="text-[11px] text-zinc-400 mb-2">
-                            Rápido
+                        <div class="text-[11px] text-green-400 mb-1">
+                            ⏳ Hoje
                         </div>
 
-                        <div class="text-xs font-medium mb-3">
-                            Abrir bônus diário
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Abra seu baú diário e veja o que ganhou 👀
                         </div>
 
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
-                            Abrir
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
+                            Abrir agora
                         </button>
                     </div>
 
                     <!-- CARD 3 -->
                     <div
-                        class="min-w-[140px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
 
-                        <div class="text-[11px] text-zinc-400 mb-2">
-                            Destaque
+                        <div class="text-[11px] text-blue-400 mb-1">
+                            🎮 Arena
                         </div>
 
-                        <div class="text-xs font-medium mb-3">
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Entre na arena e jogue em tempo real ⚡
+                        </div>
+
+                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
                             Jogar agora
-                        </div>
-
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold">
-                            Entrar
                         </button>
                     </div>
 
+                </div>
+
+                <!-- Fade esquerda -->
+                <div
+                    class="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-zinc-950 to-transparent">
+                </div>
+
+                <!-- Fade direita -->
+                <div
+                    class="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-zinc-950 to-transparent">
                 </div>
 
             </div>
