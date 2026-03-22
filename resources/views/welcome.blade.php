@@ -150,7 +150,7 @@
                             <span class="text-xs text-zinc-300">{{ $slot1User->name }}</span>
                         @else
                             <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                            <span class="text-xs text-zinc-400">Disponível</span>
+                            <span class="text-xs text-amber-400 font-medium">Entrar para jogar</span>
                         @endif
                     </div>
 
@@ -165,7 +165,7 @@
                             <span class="text-xs text-zinc-300">{{ $slot2User->name }}</span>
                         @else
                             <div class="w-16 h-16 rounded-full bg-zinc-700 mb-3"></div>
-                            <span class="text-xs text-zinc-400">Disponível</span>
+                            <span class="text-xs text-amber-400 font-medium">Entrar para jogar</span>
                         @endif
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                        bg-amber-400 text-zinc-900 font-semibold
                        hover:bg-amber-300 hover:scale-105
                        transition-all duration-200">
-                                Convidar
+                                Convidar amigo
                             </button>
 
                             <a href="https://joga.click/?src=solo" target="_blank"
@@ -187,7 +187,7 @@
                        bg-zinc-800 text-zinc-100 font-semibold
                        hover:bg-zinc-700 hover:scale-105
                        transition-all duration-200">
-                                Jogar solo
+                                Jogos individuais
                             </a>
                         </div>
                     @endif
@@ -227,80 +227,11 @@
                 @if (auth()->check())
                     <button id="startGameBtn" type="button" onclick="startGame()"
                         class="w-full px-4 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 hidden">
-                        Iniciar
+                        Iniciar o jogo
                     </button>
                 @endif
 
 
-
-            </div>
-
-            <div class="relative">
-
-                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
-
-                    <!-- CARD 1 -->
-                    <div
-                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
-
-                        <div class="text-[11px] text-amber-400 mb-1">
-                            🚀 Novo
-                        </div>
-
-                        <div class="text-xs font-medium mb-3 leading-tight">
-                            Convide um amigo e desbloqueie bônus 🎁
-                        </div>
-
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
-                            Convidar agora
-                        </button>
-                    </div>
-
-                    <!-- CARD 2 -->
-                    <div
-                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
-
-                        <div class="text-[11px] text-green-400 mb-1">
-                            ⏳ Hoje
-                        </div>
-
-                        <div class="text-xs font-medium mb-3 leading-tight">
-                            Abra seu baú diário e veja o que ganhou 👀
-                        </div>
-
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
-                            Abrir agora
-                        </button>
-                    </div>
-
-                    <!-- CARD 3 -->
-                    <div
-                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
-
-                        <div class="text-[11px] text-blue-400 mb-1">
-                            🎮 Arena
-                        </div>
-
-                        <div class="text-xs font-medium mb-3 leading-tight">
-                            Entre na arena e jogue em tempo real ⚡
-                        </div>
-
-                        <button class="text-[10px] px-2 py-1 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit">
-                            Jogar agora
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Fade esquerda -->
-                <div
-                    class="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-zinc-950 to-transparent">
-                </div>
-
-                <!-- Fade direita -->
-                <div
-                    class="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-zinc-950 to-transparent">
-                </div>
 
             </div>
 
@@ -325,6 +256,80 @@
                         </div>
                     </div>
 
+                </div>
+
+            </div>
+
+            <div class="relative">
+
+                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
+
+                    <div
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
+
+                        <div class="text-[11px] text-emerald-400 mb-1">
+                            💰 Renda extra
+                        </div>
+
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Comece a ganhar divulgando produtos direto do seu celular 📲
+                        </div>
+
+                        <a href="https://mypubly.com/" target="_blank"
+                            class="text-xs px-3 py-2 rounded-lg bg-emerald-400 text-zinc-900 font-semibold w-fit hover:scale-105 transition">
+                            Começar agora
+                        </a>
+
+                    </div>
+
+                    <!-- CARD 2 - RECOMPENSA EXTRA -->
+                    <div
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
+
+                        <div class="text-[11px] text-green-400 mb-1">
+                            🎁 Recompensas
+                        </div>
+
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Complete tarefas e libere recompensas agora 🎯
+                        </div>
+
+                        <a href="https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}" target="_blank"
+                            class="text-xs px-3 py-2 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit hover:scale-105 transition">
+                            Jogar agora
+                        </a>
+
+                    </div>
+
+                    <!-- CARD 3 - OFERTA RÁPIDA -->
+                    <div
+                        class="min-w-[160px] bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between hover:scale-[1.03] transition">
+
+                        <div class="text-[11px] text-blue-400 mb-1">
+                            ⚡ Descobrir
+                        </div>
+
+                        <div class="text-xs font-medium mb-3 leading-tight">
+                            Veja o que está disponível para você agora 👀
+                        </div>
+
+                        <a href="https://omg10.com/4/10763612" target="_blank"
+                            class="text-xs px-3 py-2 rounded-lg bg-amber-400 text-zinc-900 font-semibold w-fit hover:scale-105 transition">
+                            Ver agora
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Fade esquerda -->
+                <div
+                    class="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-zinc-950 to-transparent">
+                </div>
+
+                <!-- Fade direita -->
+                <div
+                    class="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-zinc-950 to-transparent">
                 </div>
 
             </div>
@@ -381,7 +386,7 @@
                 </p>
             </div>
 
-            <a href="https://www.tiktok.com/d/1/ZS9dqbCeYcWmc-X2SwI/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS9RXYRWy3QWr-drqKw/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                    px-4 py-2 rounded-xl border border-zinc-700
                    hover:border-amber-400 hover:text-amber-400
@@ -419,12 +424,14 @@
 
             const img = document.getElementById('chestImg');
 
+            // Animação visual (mantemos)
             img.src = "{{ asset('images/chest-open.png') }}";
             img.classList.remove('chest-pulse');
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
 
+            // Simula delay (sensação de "gerando prêmio")
             setTimeout(() => {
 
                 showModal(`
@@ -432,16 +439,54 @@
 
                 <div class="text-4xl mb-3">🎁</div>
 
-<h3 class="text-sm font-semibold mb-2">
-    🎉 Recompensa desbloqueada
-</h3>
+                <h3 class="text-sm font-semibold mb-2">
+                    Prêmio encontrado!
+                </h3>
 
-<p class="text-xs text-zinc-400 mb-4">
-    Seu baú liberou uma recompensa especial.
-    Resgate agora no TikTok.
-</p>
+                <p class="text-xs text-zinc-400 mb-4">
+                    Você ganhou entre <span class="text-amber-400 font-medium">1 e 500 moedas</span>.
+                    <br>Toque abaixo para desbloquear.
+                </p>
 
-                <a href="https://www.tiktok.com/d/1/ZS9dqbVW6jyby-EFkLi/"
+                <button onclick="unlockReward()"
+                    class="w-full inline-flex items-center justify-center
+                    px-4 py-3 rounded-xl
+                    bg-amber-400 hover:bg-amber-300
+                    text-zinc-900 text-sm font-semibold">
+
+                    Desbloquear recompensa
+                </button>
+
+            </div>
+        `);
+
+            }, 800);
+        }
+
+        function unlockReward() {
+
+            // 👉 AQUI entra seu link de monetização
+            // (Monetag / Zeydoo / Popunder / Direct link)
+
+            window.open("https://omg10.com/4/10763539", "_blank");
+
+            // Após tentativa de monetização, mostramos recompensa real
+            setTimeout(() => {
+
+                showModal(`
+            <div class="text-center">
+
+                <div class="text-4xl mb-3">🎉</div>
+
+                <h3 class="text-sm font-semibold mb-2">
+                    Recompensa desbloqueada!
+                </h3>
+
+                <p class="text-xs text-zinc-400 mb-4">
+                    Seu prêmio foi liberado. Resgate agora no TikTok.
+                </p>
+
+                <a href="https://www.tiktok.com/d/1/ZS9RXYLPD1kQN-7Qrr6/"
                 class="w-full inline-flex items-center justify-center
                 px-4 py-3 rounded-xl
                 bg-amber-400 hover:bg-amber-300
@@ -453,7 +498,7 @@
             </div>
         `);
 
-            }, 800);
+            }, 1000);
         }
 
         let pollInterval = 800;
