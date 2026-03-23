@@ -75,7 +75,7 @@
                 Acesse nosso hub multiplayer e enfrente outros jogadores.
             </p>
 
-            <a href="/multiplayer"
+            <a href="/"
                 class="inline-block px-8 py-4 rounded-2xl bg-emerald-500 text-white font-semibold text-lg hover:scale-105 transition">
                 Acessar Multiplayer
             </a>
