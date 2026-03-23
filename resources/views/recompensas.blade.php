@@ -26,13 +26,13 @@
 
         <!-- EXPLICAÇÃO -->
         <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-5 text-xs text-zinc-300 leading-relaxed">
-            Algumas plataformas liberam recompensas para novos usuários através de tarefas,
+            As plataformas geralmente liberam recompensas para novos usuários, através de tarefas,
             jogos e interações digitais. As oportunidades podem variar ao longo do dia.
         </div>
 
         <!-- CTA PRINCIPAL (TOP OFFER) -->
         <div class="mb-5">
-            <a href="SEU_MELHOR_LINK_AQUI"
+            <a href="https://mypubly.com/joorcwh2"
                 class="block w-full text-center py-3 rounded-xl
                 bg-emerald-400 text-zinc-900 font-semibold
                 hover:scale-[1.02] hover:bg-emerald-300
@@ -75,7 +75,7 @@
                         </div>
                     </div>
 
-                    <a href="LINK_TAREFAS"
+                    <a href="https://1buv.com/link?z=10763596&var={SOURCE_ID}&ymid={CLICK_ID}"
                         class="text-xs px-3 py-2 rounded-lg
                         bg-emerald-400 text-zinc-900 font-semibold
                         w-full text-center
@@ -106,7 +106,7 @@
                         </div>
                     </div>
 
-                    <a href="LINK_JOGOS"
+                    <a href="https://ldl1.com/link?z=10013718&var={SOURCE_ID}&ymid={CLICK_ID}"
                         class="text-xs px-3 py-2 rounded-lg
                         bg-blue-400 text-zinc-900 font-semibold
                         w-full text-center
@@ -137,7 +137,7 @@
                         </div>
                     </div>
 
-                    <a href="LINK_DESCOBERTA"
+                    <a href="https://omg10.com/4/10763612"
                         class="text-xs px-3 py-2 rounded-lg
                         bg-amber-400 text-zinc-900 font-semibold
                         w-full text-center
@@ -163,7 +163,7 @@
 
         <!-- CTA FINAL (REFORÇO) -->
         <div class="mt-6">
-            <a href="SEU_MELHOR_LINK_AQUI"
+            <a href="https://mypubly.com/"
                 class="block w-full text-center py-3 rounded-xl
                 bg-emerald-400 text-zinc-900 font-semibold
                 hover:scale-[1.02] transition">
