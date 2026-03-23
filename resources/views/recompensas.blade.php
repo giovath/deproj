@@ -172,9 +172,11 @@
         </div>
 
         <!-- DISCLAIMER -->
-        <p class="text-[11px] text-zinc-500 text-center mt-4 leading-relaxed">
-            As oportunidades podem variar conforme disponibilidade, região e perfil do usuário.
-        </p>
+        <div class="text-xs text-zinc-500 mt-3 leading-relaxed">
+            Esta página apresenta oportunidades promocionais e plataformas digitais.
+            Algumas opções podem envolver cadastros, testes ou participação em serviços.
+            Os resultados variam de acordo com o uso, disponibilidade e perfil do usuário.
+        </div>
 
     </div>
 
