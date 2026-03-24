@@ -565,7 +565,7 @@
                     Seu prêmio foi liberado. Resgate agora no TikTok.
                 </p>
 
-                <a href="https://www.tiktok.com/d/1/ZS9RbbcdQy5ko-PLqfk/"
+                <a href="https://www.tiktok.com/d/1/ZS9RtH6V7eJNS-JhkZW/"
                 class="w-full inline-flex items-center justify-center
                 px-4 py-3 rounded-xl
                 bg-amber-400 hover:bg-amber-300
