@@ -289,132 +289,24 @@
 
             </div>
 
-            <div class="relative">
+            <div class="mt-4">
 
-                <!-- CONTAINER RESPONSIVO -->
-                <div
-                    class="
-        flex md:grid md:grid-cols-3
-        gap-3
-        overflow-x-auto md:overflow-visible
-        pb-2
-        no-scrollbar
-        scroll-smooth
-    ">
+                <a href="/oportunidades"
+                    class="block w-full text-center py-4 rounded-xl
+    bg-emerald-400 text-zinc-900 font-semibold
+    hover:scale-[1.02] transition">
 
-                    <!-- CARD 1 -->
-                    <div
-                        class="
-            min-w-[75%] md:min-w-0
-            bg-zinc-900 border border-zinc-800
-            rounded-xl p-4
-            flex flex-col justify-between
-            hover:scale-[1.04]
-            hover:border-emerald-400
-            transition-all duration-200
-        ">
+                    💡 Ver oportunidades disponíveis hoje
 
-                        <div>
-                            <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
-                                💰 Renda extra
-                            </div>
-
-                            <div class="text-xs font-medium mb-4 leading-tight">
-                                Comece a ganhar divulgando produtos direto do seu celular 📲
-                            </div>
-                        </div>
-
-                        <a href="https://mypubly.com/" target="_blank"
-                            class="text-xs px-3 py-2 rounded-lg
-                bg-emerald-400 text-zinc-900 font-semibold
-                w-full text-center
-                hover:scale-105 hover:bg-emerald-300
-                transition-all duration-200">
-                            Começar agora
-                        </a>
-
+                    <div class="text-xs opacity-70 font-normal mt-1">
+                        Apps, tarefas e formas de usar o celular
                     </div>
 
-                    <!-- CARD 2 -->
-                    <div
-                        class="
-            min-w-[75%] md:min-w-0
-            bg-zinc-900 border border-zinc-800
-            rounded-xl p-4
-            flex flex-col justify-between
-            hover:scale-[1.04]
-            hover:border-amber-400
-            transition-all duration-200
-        ">
-
-                        <div>
-                            <div class="text-[11px] text-green-400 mb-1 font-semibold">
-                                🎁 Recompensas
-                            </div>
-
-                            <div class="text-xs font-medium mb-4 leading-tight">
-                                Complete tarefas e libere recompensas agora 🎯
-                            </div>
-                        </div>
-
-                        <a href="https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}" target="_blank"
-                            class="text-xs px-3 py-2 rounded-lg
-                bg-amber-400 text-zinc-900 font-semibold
-                w-full text-center
-                hover:scale-105 hover:bg-amber-300
-                transition-all duration-200">
-                            Jogar agora
-                        </a>
-
-                    </div>
-
-                    <!-- CARD 3 -->
-                    <div
-                        class="
-            min-w-[75%] md:min-w-0
-            bg-zinc-900 border border-zinc-800
-            rounded-xl p-4
-            flex flex-col justify-between
-            hover:scale-[1.04]
-            hover:border-blue-400
-            transition-all duration-200
-        ">
-
-                        <div>
-                            <div class="text-[11px] text-blue-400 mb-1 font-semibold">
-                                ⚡ Descobrir
-                            </div>
-
-                            <div class="text-xs font-medium mb-4 leading-tight">
-                                Veja o que está disponível para você agora 👀
-                            </div>
-                        </div>
-
-                        <a href="https://omg10.com/4/10763612" target="_blank"
-                            class="text-xs px-3 py-2 rounded-lg
-                bg-amber-400 text-zinc-900 font-semibold
-                w-full text-center
-                hover:scale-105 hover:bg-amber-300
-                transition-all duration-200">
-                            Ver agora
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <!-- FADES (SÓ MOBILE) -->
-                <div
-                    class="md:hidden pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-zinc-950 to-transparent">
-                </div>
-                <div
-                    class="md:hidden pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-zinc-950 to-transparent">
-                </div>
+                </a>
 
             </div>
 
 
-        </div>
     </main>
 
     <!-- FOOTER -->

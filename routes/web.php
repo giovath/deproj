@@ -83,6 +83,10 @@ Route::middleware('auth')->post(
     [ArenaController::class, 'leave']
 )->name('arena.leave');
 
+Route::get('/oportunidades', function () {
+    return view('oportunidades');
+})->name('oportunidades');
+
 /**
  * Healthcheck
  */
