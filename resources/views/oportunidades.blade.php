@@ -18,59 +18,33 @@
             <div class="text-4xl mb-2">📱</div>
 
             <h1 class="text-lg font-semibold">
-                Veja o que você pode explorar hoje
+                Escolha como quer começar hoje
             </h1>
 
             <p class="text-xs text-zinc-400 mt-1">
-                Aplicativos, tarefas e formas de usar o celular
+                Explore possibilidades disponíveis no seu celular
             </p>
         </div>
 
-        <!-- EXPLICAÇÃO -->
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-5 text-xs text-zinc-300 leading-relaxed">
-            Algumas opções podem oferecer benefícios, pontos ou comissões dependendo do uso.
-            Explore e veja o que faz mais sentido para você.
-        </div>
+        <!-- OPÇÕES -->
+        <div class="space-y-4">
 
-        <!-- LISTA DE OPORTUNIDADES -->
-        <div class="space-y-3">
-
-            <!-- RENDA DIGITAL (PRINCIPAL) -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+            <!-- RENDA DIGITAL (HIGH VALUE) -->
+            <div class="bg-zinc-900 border border-emerald-400 rounded-xl p-4">
 
                 <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
                     💻 Renda digital
                 </div>
 
                 <div class="text-xs mb-3 leading-tight">
-                    Veja como algumas pessoas estão usando o celular para divulgar produtos e gerar comissões
+                    Veja como divulgar produtos e gerar comissões usando apenas o celular
                 </div>
 
                 <a href="https://mypubly.com/joorcwh2"
-                    class="block text-center py-2 rounded-lg
-                    bg-emerald-400 text-zinc-900 font-semibold text-xs
+                    class="block text-center py-3 rounded-lg
+                    bg-emerald-400 text-zinc-900 font-semibold text-sm
                     hover:scale-105 hover:bg-emerald-300 transition">
                     Ver como começar
-                </a>
-
-            </div>
-
-            <!-- EXPERIÊNCIAS -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-
-                <div class="text-[11px] text-blue-400 mb-1 font-semibold">
-                    🎮 Experiências e tarefas
-                </div>
-
-                <div class="text-xs mb-3 leading-tight">
-                    Explore aplicativos, jogos e interações disponíveis agora
-                </div>
-
-                <a href="/recompensas"
-                    class="block text-center py-2 rounded-lg
-                    bg-blue-400 text-zinc-900 font-semibold text-xs
-                    hover:scale-105 hover:bg-blue-300 transition">
-                    Ver opções
                 </a>
 
             </div>
@@ -79,18 +53,18 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
 
                 <div class="text-[11px] text-amber-400 mb-1 font-semibold">
-                    🎁 Recompensas disponíveis
+                    🎁 Tarefas e recompensas
                 </div>
 
                 <div class="text-xs mb-3 leading-tight">
-                    Veja tarefas que podem liberar benefícios ou pontos
+                    Complete tarefas, teste apps e explore opções disponíveis hoje
                 </div>
 
                 <a href="/recompensas"
-                    class="block text-center py-2 rounded-lg
-                    bg-amber-400 text-zinc-900 font-semibold text-xs
+                    class="block text-center py-3 rounded-lg
+                    bg-amber-400 text-zinc-900 font-semibold text-sm
                     hover:scale-105 hover:bg-amber-300 transition">
-                    Ver tarefas
+                    Ver tarefas disponíveis
                 </a>
 
             </div>
