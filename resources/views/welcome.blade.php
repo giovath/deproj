@@ -306,6 +306,23 @@
 
             </div>
 
+            <div class="mt-3">
+
+                <a href="/recompensas"
+                    class="block w-full text-center py-4 rounded-xl
+    bg-amber-400 text-zinc-900 font-semibold
+    hover:scale-[1.02] transition">
+
+                    🚀 Ganhar mais recompensas agora
+
+                    <div class="text-xs opacity-70 font-normal mt-1">
+                        Várias maneiras de ganhar online
+                    </div>
+
+                </a>
+
+            </div>
+
 
     </main>
 
@@ -393,16 +410,20 @@
     <script>
         function openChest() {
 
+            if (chestOpened) return;
+
             const img = document.getElementById('chestImg');
 
-            // Animação visual (mantemos)
             img.src = "{{ asset('images/chest-open.png') }}";
             img.classList.remove('chest-pulse');
             img.classList.add('chest-opened');
 
             document.getElementById('chestBtn').disabled = true;
 
-            // Simula delay (sensação de "gerando prêmio")
+            // 👉 SALVA ESTADO
+            chestOpened = true;
+            localStorage.setItem('chest_opened', todayKey);
+
             setTimeout(() => {
 
                 showModal(`
@@ -432,6 +453,9 @@
         `);
 
             }, 800);
+
+            // 👉 já prepara CTA fora do modal
+            showChestOpenedCTA();
         }
 
         function unlockReward() {
@@ -470,6 +494,45 @@
         `);
 
             }, 1000);
+        }
+
+        const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+        let chestOpened = localStorage.getItem('chest_opened') === todayKey;
+
+        function applyChestState() {
+            const img = document.getElementById('chestImg');
+            const btn = document.getElementById('chestBtn');
+
+            if (chestOpened) {
+                img.src = "{{ asset('images/chest-open.png') }}";
+                img.classList.remove('chest-pulse');
+                img.classList.add('chest-opened');
+
+                btn.disabled = true;
+
+                showChestOpenedCTA();
+            }
+        }
+
+        function showChestOpenedCTA() {
+
+            if (document.getElementById('chestAfterCTA')) return;
+
+            const container = document.querySelector('#chestBtn').parentNode;
+
+            container.insertAdjacentHTML('beforeend', `
+        <a href="/recompensas"
+            id="chestAfterCTA"
+            class="mt-3 inline-block text-center
+                   px-4 py-3 rounded-xl
+                   bg-amber-400 text-zinc-900
+                   text-sm font-semibold
+                   hover:bg-amber-300 transition">
+
+            🚀 Continuar ganhando recompensas
+
+        </a>
+    `);
         }
 
         let pollInterval = 800;
@@ -791,6 +854,10 @@
             slot.classList.add('border-amber-400');
             slot.onclick = null;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyChestState();
+        });
 
 
         @if ($match)
