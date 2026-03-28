@@ -521,18 +521,15 @@
             const container = document.querySelector('#chestBtn').parentNode;
 
             container.insertAdjacentHTML('beforeend', `
-        <a href="/recompensas"
-            id="chestAfterCTA"
-            class="mt-3 inline-block text-center
-                   px-4 py-3 rounded-xl
-                   bg-amber-400 text-zinc-900
-                   text-sm font-semibold
-                   hover:bg-amber-300 transition">
+                <a href="/recompensas"
+                    id="chestAfterCTA"
+                    class="mt-2 text-xs text-amber-400
+                        hover:underline text-center block">
 
-            🚀 Continuar ganhando recompensas
+                    + continuar ganhando recompensas
 
-        </a>
-    `);
+                </a>
+            `);
         }
 
         let pollInterval = 800;
