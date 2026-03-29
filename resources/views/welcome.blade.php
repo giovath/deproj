@@ -463,7 +463,7 @@
             // 👉 AQUI entra seu link de monetização
             // (Monetag / Zeydoo / Popunder / Direct link)
 
-            window.open("https://omg10.com/4/10763539", "_blank");
+            window.open("https://ldl1.com/link?z=9261075&var={SOURCE_ID}&ymid={CLICK_ID}", "_blank");
 
             // Após tentativa de monetização, mostramos recompensa real
             setTimeout(() => {
@@ -481,7 +481,7 @@
                     Seu prêmio foi liberado. Resgate agora no TikTok.
                 </p>
 
-                <a href="https://www.tiktok.com/d/1/ZS9R3MNGJnrN3-CLbIe/"
+                <a href="https://www.tiktok.com/d/1/ZS98YFoWLPDSW-XqWAD/"
                 class="w-full inline-flex items-center justify-center
                 px-4 py-3 rounded-xl
                 bg-amber-400 hover:bg-amber-300
