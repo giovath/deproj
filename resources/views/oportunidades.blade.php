@@ -30,6 +30,45 @@
             🔎 Selecione uma opção abaixo para começar agora
         </div>
 
+        <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg mt-4">
+
+            <!-- URGÊNCIA -->
+            <div class="text-[10px] text-emerald-400 mb-2 font-medium">
+                ⚡ Aprovação rápida hoje (últimas vagas)
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
+                💸 Crédito pessoal liberado
+            </div>
+
+            <!-- TÍTULO -->
+            <div class="text-sm font-semibold mb-2">
+                Precisa de dinheiro agora? Veja se você pode liberar hoje
+            </div>
+
+            <!-- DESCRIÇÃO -->
+            <div class="text-xs text-zinc-400 mb-3 leading-relaxed">
+                Faça uma simulação rápida pelo celular e descubra em minutos se seu crédito está disponível.
+            </div>
+
+            <!-- PROVA SOCIAL -->
+            <div class="text-[11px] text-zinc-500 mb-4">
+                ✔ Sem burocracia<br>
+                ✔ Resposta imediata<br>
+                ✔ Processo 100% online
+            </div>
+
+            <!-- CTA -->
+            <a href="https://susim.co/JLbf5NMLfEo1TSxiDyyLiQ==" target="_blank"
+                class="block text-center py-3 rounded-xl bg-emerald-400 text-zinc-900 font-semibold text-sm hover:scale-105 hover:bg-emerald-300 transition">
+
+                🔍 Fazer simulação gratuita
+
+            </a>
+
+        </div>
+
         <!-- CARD PRINCIPAL (FOCO TOTAL) -->
         <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg">
 
@@ -65,47 +104,6 @@
                 hover:scale-105 hover:bg-emerald-300 transition">
 
                 💰 Ver como ganhar agora
-
-            </a>
-
-        </div>
-
-        <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg mt-4">
-
-            <!-- URGÊNCIA -->
-            <div class="text-[10px] text-emerald-400 mb-2 font-medium">
-                ⚡ Aprovação rápida hoje (últimas vagas)
-            </div>
-
-            <!-- CATEGORIA -->
-            <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
-                💸 Crédito pessoal liberado
-            </div>
-
-            <!-- TÍTULO -->
-            <div class="text-sm font-semibold mb-2">
-                Precisa de dinheiro agora? Veja se você pode liberar hoje
-            </div>
-
-            <!-- DESCRIÇÃO -->
-            <div class="text-xs text-zinc-400 mb-3 leading-relaxed">
-                Faça uma simulação rápida pelo celular e descubra em minutos se seu crédito está disponível.
-            </div>
-
-            <!-- PROVA SOCIAL -->
-            <div class="text-[11px] text-zinc-500 mb-4">
-                ✔ Sem burocracia<br>
-                ✔ Resposta imediata<br>
-                ✔ Processo 100% online
-            </div>
-
-            <!-- CTA -->
-            <a href="https://susim.co/JLbf5NMLfEo1TSxiDyyLiQ==" target="_blank"
-                class="block text-center py-3 rounded-xl
-    bg-emerald-400 text-zinc-900 font-semibold text-sm
-    hover:scale-105 hover:bg-emerald-300 transition">
-
-                🔍 Fazer simulação gratuita
 
             </a>
 
