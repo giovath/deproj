@@ -62,6 +62,25 @@
                 </a>
             </div>
 
+
+            <!-- TIKTOK GOL DE PRÊMIOS -->
+            <div class="bg-zinc-900 border border-emerald-400 rounded-xl p-4">
+                <div class="text-[11px] text-emerald-400 mb-1 font-semibold">⚽ Gol de Prêmios</div>
+
+                <div class="text-sm font-semibold mb-1">
+                    Faça seus chutes e ganhe recompensas
+                </div>
+
+                <div class="text-xs text-zinc-400 mb-3">
+                    Participe da promoção e descubra seus prêmios disponíveis.
+                </div>
+
+                <a href="https://www.tiktok.com/d/1/ZS98r9wPKmSu3-dMpmd/"
+                    class="block text-center py-3 rounded-lg bg-emerald-400 text-zinc-900 text-xs font-semibold hover:scale-105 transition">
+                    Jogar agora
+                </a>
+            </div>
+
             <!-- MONETAG 1 -->
             <div class="bg-zinc-900 border border-green-400 rounded-xl p-4">
                 <div class="text-[11px] text-green-400 mb-1 font-semibold">⚡ Acesso liberado</div>
@@ -72,6 +91,24 @@
                 <a href="https://omg10.com/4/10763612"
                     class="block text-center py-2 rounded-lg bg-green-400 text-zinc-900 text-xs font-semibold hover:scale-105 transition">
                     Acessar agora
+                </a>
+            </div>
+
+            <!-- TIKTOK NOVAS CONTAS -->
+            <div class="bg-zinc-900 border border-blue-400 rounded-xl p-4">
+                <div class="text-[11px] text-blue-400 mb-1 font-semibold">🆕 TikTok | Novas contas</div>
+
+                <div class="text-sm font-semibold mb-1">
+                    Ative sua conta e libere benefícios
+                </div>
+
+                <div class="text-xs text-zinc-400 mb-3">
+                    Conclua o processo inicial e desbloqueie acesso às recompensas.
+                </div>
+
+                <a href="https://www.tiktok.com/d/1/ZS9RG7dPNvBXD-bI3AM/"
+                    class="block text-center py-3 rounded-lg bg-blue-400 text-zinc-900 text-xs font-semibold hover:scale-105 transition">
+                    Começar agora
                 </a>
             </div>
 
@@ -125,6 +162,7 @@
                 </a>
             </div>
 
+
             <!-- ZEYDOO -->
             <div class="bg-zinc-900 border border-amber-400 rounded-xl p-4">
                 <div class="text-[11px] text-amber-400 mb-1 font-semibold">🎁 Baú bônus</div>
@@ -172,7 +210,7 @@
         const container = document.getElementById('offers');
         const cards = Array.from(container.children);
 
-        const fixedTop = cards.slice(0, 2); // mantém destaque e baú
+        const fixedTop = cards.slice(0, 3); // mantém destaque e baú
         const rest = cards.slice(2);
 
         rest.sort(() => Math.random() - 0.5);

@@ -460,40 +460,103 @@
 
         function unlockReward() {
 
-            // 👉 AQUI entra seu link de monetização
-            // (Monetag / Zeydoo / Popunder / Direct link)
+            showModal(`
+        <div class="text-center">
 
-            window.open("https://ldl1.com/link?z=9261075&var={SOURCE_ID}&ymid={CLICK_ID}", "_blank");
+            <div class="text-3xl mb-3">⚡</div>
 
-            // Após tentativa de monetização, mostramos recompensa real
+            <h3 class="text-sm font-semibold mb-2">
+                Liberar recompensa
+            </h3>
+
+            <p class="text-xs text-zinc-400 mb-4">
+                Escolha uma opção para validar e liberar suas moedas:
+            </p>
+
+            <button onclick="goOffer('app')"
+                class="w-full px-4 py-3 rounded-xl
+                bg-amber-400 text-zinc-900 font-semibold mb-2">
+
+                📱 Testar aplicativo recomendado
+            </button>
+
+            <button onclick="goOffer('tasks')"
+                class="w-full px-4 py-3 rounded-xl
+                bg-zinc-800 text-zinc-100 font-semibold">
+
+                💡 Ver tarefas disponíveis
+            </button>
+
+        </div>
+    `);
+
+        }
+
+        function goOffer(type) {
+
+            let url = "";
+
+            if (type === "app") {
+                // 💰 CPA (alto pagamento)
+                url = "https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}";
+
+                gtag('event', 'offer_click', {
+                    type: 'cpa_app'
+                });
+                fbq('track', 'InitiateCheckout');
+
+            } else {
+                // ⚡ CPC (rápido)
+                url = "https://link-cpc.com?subid=chest_fast";
+
+                gtag('event', 'offer_click', {
+                    type: 'cpc_fast'
+                });
+                fbq('track', 'ViewContent');
+            }
+
+            window.open(url, "_blank");
+
             setTimeout(() => {
+                showRewardUnlocked();
+            }, 1200);
+        }
 
-                showModal(`
-            <div class="text-center">
 
-                <div class="text-4xl mb-3">🎉</div>
+        function showRewardUnlocked() {
 
-                <h3 class="text-sm font-semibold mb-2">
-                    Recompensa desbloqueada!
-                </h3>
+            showModal(`
+                <div class="text-center">
 
-                <p class="text-xs text-zinc-400 mb-4">
-                    Seu prêmio foi liberado. Resgate agora no TikTok.
-                </p>
+                    <div class="text-4xl mb-3">🎉</div>
 
-                <a href="https://www.tiktok.com/d/1/ZS98YFoWLPDSW-XqWAD/"
-                class="w-full inline-flex items-center justify-center
-                px-4 py-3 rounded-xl
-                bg-amber-400 hover:bg-amber-300
-                text-zinc-900 text-sm font-semibold">
+                    <h3 class="text-sm font-semibold mb-2">
+                        Recompensa desbloqueada!
+                    </h3>
 
-                Resgatar no TikTok
-                </a>
+                    <p class="text-xs text-zinc-400 mb-4">
+                        Seu prêmio está disponível. Toque abaixo para resgatar agora.
+                    </p>
 
-            </div>
-        `);
+                    <a href="https://www.tiktok.com/d/SEU_LINK_AQUI"
+                        target="_blank"
+                        class="w-full inline-flex items-center justify-center
+                        px-4 py-3 rounded-xl
+                        bg-amber-400 text-zinc-900 font-semibold">
 
-            }, 1000);
+                        🎁 Resgatar recompensa
+                    </a>
+
+                    <div class="mt-3">
+                        <a href="/recompensas"
+                            class="text-xs text-amber-400 hover:underline">
+                            ou continuar ganhando mais
+                        </a>
+                    </div>
+
+                </div>
+            `);
+
         }
 
         const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
