@@ -429,25 +429,31 @@
                 showModal(`
             <div class="text-center">
 
-                <div class="text-4xl mb-3">🎁</div>
+                <div class="text-4xl mb-3">🎉</div>
 
                 <h3 class="text-sm font-semibold mb-2">
-                    Prêmio encontrado!
+                    Recompensa desbloqueada!
                 </h3>
 
                 <p class="text-xs text-zinc-400 mb-4">
-                    Você ganhou entre <span class="text-amber-400 font-medium">1 e 500 moedas</span>.
-                    <br>Toque abaixo para desbloquear.
+                    Você já tem <span class="text-amber-400 font-medium">até 500 moedas</span> disponíveis.<br>
+                    Falta só um passo para liberar.
                 </p>
 
                 <button onclick="unlockReward()"
                     class="w-full inline-flex items-center justify-center
                     px-4 py-3 rounded-xl
                     bg-amber-400 hover:bg-amber-300
-                    text-zinc-900 text-sm font-semibold">
+                    text-zinc-900 text-sm font-semibold
+                    animate-pulse">
 
-                    Desbloquear recompensa
+                    ⚡ Liberar minhas moedas
+
                 </button>
+
+                <div class="text-[10px] text-zinc-500 mt-3">
+                    leva menos de 1 minuto
+                </div>
 
             </div>
         `);
@@ -466,54 +472,40 @@
             <div class="text-3xl mb-3">⚡</div>
 
             <h3 class="text-sm font-semibold mb-2">
-                Liberar recompensa
+                Falta só 1 passo
             </h3>
 
             <p class="text-xs text-zinc-400 mb-4">
-                Escolha uma opção para validar e liberar suas moedas:
+                Para liberar suas moedas, acesse a página abaixo e volte em seguida.
             </p>
 
-            <button onclick="goOffer('app')"
+            <button onclick="goOffer()"
                 class="w-full px-4 py-3 rounded-xl
-                bg-amber-400 text-zinc-900 font-semibold mb-2">
+                bg-amber-400 text-zinc-900 font-semibold
+                animate-pulse">
 
-                📱 Testar aplicativo recomendado
+                🚀 Liberar minhas moedas
+
             </button>
 
-            <button onclick="goOffer('tasks')"
-                class="w-full px-4 py-3 rounded-xl
-                bg-zinc-800 text-zinc-100 font-semibold">
-
-                💡 Ver tarefas disponíveis
-            </button>
+            <div class="text-[10px] text-zinc-500 mt-3">
+                rápido • gratuito • menos de 1 minuto
+            </div>
 
         </div>
     `);
 
         }
 
-        function goOffer(type) {
+        function goOffer() {
 
-            let url = "";
+            let url = "https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}"; // AviateX aqui
 
-            if (type === "app") {
-                // 💰 CPA (alto pagamento)
-                url = "https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}";
+            gtag('event', 'offer_click', {
+                type: 'main_unlock_flow'
+            });
 
-                gtag('event', 'offer_click', {
-                    type: 'cpa_app'
-                });
-                fbq('track', 'InitiateCheckout');
-
-            } else {
-                // ⚡ CPC (rápido)
-                url = "https://omg10.com/4/10807758";
-
-                gtag('event', 'offer_click', {
-                    type: 'cpc_fast'
-                });
-                fbq('track', 'ViewContent');
-            }
+            fbq('track', 'InitiateCheckout');
 
             window.open(url, "_blank");
 
@@ -538,7 +530,7 @@
                         Seu prêmio está disponível. Toque abaixo para resgatar agora.
                     </p>
 
-                    <a href="https://www.tiktok.com/d/SEU_LINK_AQUI"
+                    <a href="https://www.tiktok.com/d/1/ZS98rbTC1jkY2-C1dfa/"
                         target="_blank"
                         class="w-full inline-flex items-center justify-center
                         px-4 py-3 rounded-xl
