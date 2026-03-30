@@ -26,6 +26,10 @@
             </p>
         </div>
 
+        <div class="text-[11px] text-zinc-500 text-center mb-4">
+            🔎 Selecione uma opção abaixo para começar agora
+        </div>
+
         <!-- CARD PRINCIPAL (FOCO TOTAL) -->
         <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg">
 
