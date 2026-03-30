@@ -507,7 +507,7 @@
 
             } else {
                 // ⚡ CPC (rápido)
-                url = "https://link-cpc.com?subid=chest_fast";
+                url = "https://omg10.com/4/10807758";
 
                 gtag('event', 'offer_click', {
                     type: 'cpc_fast'
