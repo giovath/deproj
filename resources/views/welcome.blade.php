@@ -499,7 +499,7 @@
 
         function goOffer() {
 
-            let url = "https://ldl1.com/link?z=10013657&var={SOURCE_ID}&ymid={CLICK_ID}"; // AviateX aqui
+            let url = "https://omg10.com/4/10807758"; // Link Monetização Baú aqui
 
             gtag('event', 'offer_click', {
                 type: 'main_unlock_flow'
