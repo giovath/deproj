@@ -34,29 +34,25 @@
 
             <!-- URGÊNCIA -->
             <div class="text-[10px] text-emerald-400 mb-2 font-medium">
-                ⚡ Aprovação rápida hoje (últimas vagas)
+                ⚡ Verificação disponível agora
             </div>
 
-            <!-- CATEGORIA -->
             <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
-                💸 Crédito pessoal liberado
+                💸 Crédito pessoal
             </div>
 
-            <!-- TÍTULO -->
             <div class="text-sm font-semibold mb-2">
-                Precisa de dinheiro agora? Veja se você pode liberar hoje
+                Veja em minutos se você tem crédito liberado
             </div>
 
-            <!-- DESCRIÇÃO -->
             <div class="text-xs text-zinc-400 mb-3 leading-relaxed">
-                Faça uma simulação rápida pelo celular e descubra em minutos se seu crédito está disponível.
+                Simulação rápida direto no celular. Sem burocracia e com resposta imediata.
             </div>
 
-            <!-- PROVA SOCIAL -->
             <div class="text-[11px] text-zinc-500 mb-4">
-                ✔ Sem burocracia<br>
-                ✔ Resposta imediata<br>
-                ✔ Processo 100% online
+                ✔ Processo 100% online<br>
+                ✔ Sem compromisso<br>
+                ✔ Resultado na hora
             </div>
 
             <!-- CTA -->
@@ -66,6 +62,8 @@
                 🔍 Fazer simulação gratuita
 
             </a>
+
+
 
         </div>
 
