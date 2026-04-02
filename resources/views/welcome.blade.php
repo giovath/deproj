@@ -374,7 +374,7 @@
                 </p>
             </div>
 
-            <a href="https://www.tiktok.com/d/1/ZS9RG7dPNvBXD-bI3AM/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS985r3h9QahB-Hi675/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                    px-4 py-2 rounded-xl border border-zinc-700
                    hover:border-amber-400 hover:text-amber-400
@@ -530,7 +530,7 @@
                         Seu prêmio está disponível. Toque abaixo para resgatar agora.
                     </p>
 
-                    <a href="https://www.tiktok.com/d/1/ZS98rbTC1jkY2-C1dfa/"
+                    <a href="https://www.tiktok.com/d/1/ZS985rn19wAbn-aVdC7/"
                         target="_blank"
                         class="w-full inline-flex items-center justify-center
                         px-4 py-3 rounded-xl
