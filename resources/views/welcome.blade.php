@@ -959,17 +959,19 @@
             let content = '';
             const repeatCount = Math.ceil(window.innerWidth / 40) * 20;
 
-            let lastEmoji = null;
+            let lastEmojis = [];
 
             for (let i = 0; i < repeatCount; i++) {
                 let emoji;
 
                 do {
                     emoji = emojis[Math.floor(Math.random() * emojis.length)];
-                } while (emoji === lastEmoji);
+                } while (lastEmojis.includes(emoji));
 
                 content += emoji + ' ';
-                lastEmoji = emoji;
+
+                lastEmojis.push(emoji);
+                if (lastEmojis.length > 2) lastEmojis.shift();
             }
 
             const fullContent = content + content;
