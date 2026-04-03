@@ -151,11 +151,75 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        .emoji-bg {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            background: #000;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .row {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .track {
+            display: inline-flex;
+            white-space: nowrap;
+            font-size: 26px;
+            opacity: 0.05;
+            letter-spacing: 12px;
+            will-change: transform;
+        }
+
+        /* animações suaves e diferentes */
+        .move-left {
+            animation: moveLeft linear infinite;
+        }
+
+        .move-right {
+            animation: moveRight linear infinite;
+        }
+
+        @keyframes moveLeft {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes moveRight {
+            from {
+                transform: translateX(-50%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        body>*:not(.emoji-bg) {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+
+    <div class="emoji-bg" id="emojiBg"></div>
 
     <!-- HEADER -->
     @include('partials.header')
@@ -530,7 +594,7 @@
                         Seu prêmio está disponível. Toque abaixo para resgatar agora.
                     </p>
 
-                    <a href="https://www.tiktok.com/d/1/ZS985rn19wAbn-aVdC7/"
+                    <a href="https://www.tiktok.com/d/1/ZS989JyUkwN2f-XOsE3/"
                         target="_blank"
                         class="w-full inline-flex items-center justify-center
                         px-4 py-3 rounded-xl
@@ -568,6 +632,7 @@
                 showChestOpenedCTA();
             }
         }
+
 
         function showChestOpenedCTA() {
 
@@ -888,7 +953,63 @@
             location.reload();
         }
 
+        function generateEmojiRow(direction = 'left', index = 0) {
+            const emojis = ['🎮', '🏆', '📈', '🍀'];
 
+            let content = '';
+            const repeatCount = Math.ceil(window.innerWidth / 40) * 20;
+
+            let lastEmoji = null;
+
+            for (let i = 0; i < repeatCount; i++) {
+                let emoji;
+
+                do {
+                    emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                } while (emoji === lastEmoji);
+
+                content += emoji + ' ';
+                lastEmoji = emoji;
+            }
+
+            const fullContent = content + content;
+
+            const row = document.createElement('div');
+            row.className = 'row';
+
+            const track = document.createElement('div');
+            track.className = `track ${direction === 'left' ? 'move-left' : 'move-right'}`;
+
+            // 👇 CAMADAS (isso muda tudo)
+            const baseSpeed = 360; // velocidade principal
+            const variation = (index % 3) * 20; // cria grupos
+            const duration = baseSpeed + variation;
+
+            track.style.animationDuration = `${duration}s`;
+
+            track.innerHTML = fullContent;
+
+            row.appendChild(track);
+
+            return row;
+        }
+
+        function initEmojiBackground() {
+            const bg = document.getElementById('emojiBg');
+
+            const rows = 12; // quantidade de linhas (ajuste fino)
+
+            for (let i = 0; i < rows; i++) {
+                const direction = i % 2 === 0 ? 'left' : 'right';
+                const row = generateEmojiRow(direction, i);
+                bg.appendChild(row);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyChestState();
+            initEmojiBackground(); // 👈 FALTAVA ISSO
+        });
 
 
         function hydrateSlot(slotNumber, player) {
