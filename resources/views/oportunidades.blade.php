@@ -18,21 +18,22 @@
             <div class="text-4xl mb-2">📱</div>
 
             <h1 class="text-lg font-semibold">
-                Oportunidade disponível hoje
+                Oportunidades disponíveis hoje
             </h1>
 
             <p class="text-xs text-zinc-400 mt-1">
-                Comece agora usando apenas seu celular
+                Você pode começar agora usando apenas seu celular
             </p>
         </div>
 
-        <div class="text-[11px] text-zinc-500 text-center mb-4">
-            🔎 Selecione uma opção abaixo para começar agora
+        <!-- CONTEXTO (AO INVÉS DE "ESCOLHA") -->
+        <div class="text-[11px] text-zinc-500 text-center mb-5">
+            ⚡ Hoje você tem 2 formas reais de aproveitar online
         </div>
 
-        <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg mt-4">
+        <!-- CARD PRINCIPAL (CRÉDITO) -->
+        <div class="bg-zinc-900 border-2 border-emerald-400 rounded-2xl p-5 shadow-lg mb-5">
 
-            <!-- URGÊNCIA -->
             <div class="text-[10px] text-emerald-400 mb-2 font-medium">
                 ⚡ Verificação disponível agora
             </div>
@@ -42,7 +43,7 @@
             </div>
 
             <div class="text-sm font-semibold mb-2">
-                Veja em minutos se você tem crédito liberado
+                Veja agora se você tem um valor disponível no seu CPF
             </div>
 
             <div class="text-xs text-zinc-400 mb-3 leading-relaxed">
@@ -52,54 +53,52 @@
             <div class="text-[11px] text-zinc-500 mb-4">
                 ✔ Processo 100% online<br>
                 ✔ Sem compromisso<br>
+                ✔ Não afeta seu score<br>
                 ✔ Resultado na hora
             </div>
 
-            <!-- CTA -->
             <a href="https://susim.co/JLbf5NMLfEo1TSxiDyyLiQ==" target="_blank"
                 class="block text-center py-3 rounded-xl bg-emerald-400 text-zinc-900 font-semibold text-sm hover:scale-105 hover:bg-emerald-300 transition">
 
-                🔍 Fazer simulação gratuita
+                🔓 Ver meu valor disponível agora
 
             </a>
 
-
-
         </div>
 
-        <!-- CARD PRINCIPAL (FOCO TOTAL) -->
-        <div class="bg-zinc-900 border border-emerald-400 rounded-2xl p-5 shadow-lg">
+        <!-- CONTEXTO PARA SEGUNDA OPÇÃO -->
+        <div class="text-[11px] text-zinc-500 mb-3 text-center">
+            💡 Prefere ganhar dinheiro online ao invés de crédito?
+        </div>
 
-            <!-- URGÊNCIA -->
-            <div class="text-[10px] text-emerald-400 mb-2 font-medium">
-                🔥 Disponível hoje por tempo limitado
+        <!-- CARD SECUNDÁRIO (RENDA DIGITAL) -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg">
+
+            <div class="text-[10px] text-amber-400 mb-2 font-medium">
+                🔥 Alternativa disponível hoje
             </div>
 
-            <!-- CATEGORIA -->
-            <div class="text-[11px] text-emerald-400 mb-1 font-semibold">
+            <div class="text-[11px] text-amber-400 mb-1 font-semibold">
                 💻 Renda digital
             </div>
 
-            <!-- TÍTULO -->
             <div class="text-sm font-semibold mb-2">
                 Ganhe comissões divulgando produtos
             </div>
 
-            <!-- DESCRIÇÃO -->
             <div class="text-xs text-zinc-400 mb-3 leading-relaxed">
                 Método simples para começar hoje, sem precisar investir.
             </div>
 
-            <!-- PROVA SOCIAL -->
             <div class="text-[11px] text-zinc-500 mb-4">
-                Comissões de até 50% com pagamentos semanais. Já utilizado por milhares de pessoas.
+                Comissões de até 50% com pagamentos semanais.<br>
+                Já utilizado por milhares de pessoas.
             </div>
 
-            <!-- CTA -->
             <a href="https://mypubly.com/joorcwh2"
                 class="block text-center py-3 rounded-xl
-                bg-emerald-400 text-zinc-900 font-semibold text-sm
-                hover:scale-105 hover:bg-emerald-300 transition">
+                bg-amber-400 text-zinc-900 font-semibold text-sm
+                hover:scale-105 hover:bg-amber-300 transition">
 
                 💰 Ver como ganhar agora
 
@@ -107,13 +106,11 @@
 
         </div>
 
-        <!-- OPÇÃO SECUNDÁRIA (LOW PRIORITY) -->
+        <!-- OPÇÃO TERCIÁRIA -->
         <div class="mt-5 text-center">
-
             <a href="/recompensas" class="text-xs text-zinc-500 hover:text-amber-400 transition">
                 ou começar com tarefas rápidas →
             </a>
-
         </div>
 
         <!-- VOLTAR -->

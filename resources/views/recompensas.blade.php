@@ -75,7 +75,7 @@
                     Participe da promoção e descubra seus prêmios disponíveis.
                 </div>
 
-                <a href="https://www.tiktok.com/d/1/ZS989Juo7F2sU-xiDwQ/"
+                <a href="https://www.tiktok.com/d/1/ZS98sUPwLK2GK-SgqLp/"
                     class="block text-center py-3 rounded-lg bg-emerald-400 text-zinc-900 text-xs font-semibold hover:scale-105 transition">
                     Jogar agora
                 </a>

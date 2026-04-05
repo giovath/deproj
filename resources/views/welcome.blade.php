@@ -594,7 +594,7 @@
                         Seu prêmio está disponível. Toque abaixo para resgatar agora.
                     </p>
 
-                    <a href="https://www.tiktok.com/d/1/ZS989JyUkwN2f-XOsE3/"
+                    <a href="https://www.tiktok.com/d/1/ZS98sUBumsFJE-ZxDev/"
                         target="_blank"
                         class="w-full inline-flex items-center justify-center
                         px-4 py-3 rounded-xl
