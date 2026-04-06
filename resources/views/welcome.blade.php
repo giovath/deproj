@@ -999,7 +999,12 @@
         function initEmojiBackground() {
             const bg = document.getElementById('emojiBg');
 
-            const rows = 12; // quantidade de linhas (ajuste fino)
+            if (!bg) {
+                console.warn('emojiBg não encontrado');
+                return;
+            }
+
+            const rows = 12;
 
             for (let i = 0; i < rows; i++) {
                 const direction = i % 2 === 0 ? 'left' : 'right';
@@ -1029,11 +1034,6 @@
             slot.classList.add('border-amber-400');
             slot.onclick = null;
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applyChestState();
-        });
-
 
         @if ($match)
             function copyInviteLink() {

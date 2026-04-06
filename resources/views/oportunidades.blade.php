@@ -106,6 +106,21 @@
 
         </div>
 
+        <div class="mt-6 text-center">
+            <button onclick="sharePage()"
+                class="w-full py-3 rounded-xl
+        bg-gradient-to-r from-amber-400 to-yellow-300
+        text-zinc-900 font-semibold
+        animate-pulse">
+
+                🚀 Compartilhe com alguém que precisa ver isso
+
+                <div class="text-[10px] opacity-70 font-normal">
+                    pode ajudar alguém hoje
+                </div>
+            </button>
+        </div>
+
         <!-- OPÇÃO TERCIÁRIA -->
         <div class="mt-5 text-center">
             <a href="/recompensas" class="text-xs text-zinc-500 hover:text-amber-400 transition">
