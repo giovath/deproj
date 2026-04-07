@@ -115,6 +115,7 @@
 
     <script src="/js/chest.js"></script>
     <script src="/js/bg.js"></script>
+    <link rel="stylesheet" href="/css/bg.css">
 
     <style>
         @keyframes pulseSoft {
@@ -153,68 +154,6 @@
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
-        }
-
-        .emoji-bg {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-            pointer-events: none;
-            background: #000;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        .row {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .track {
-            display: inline-flex;
-            white-space: nowrap;
-            font-size: 26px;
-            opacity: 0.05;
-            letter-spacing: 12px;
-            will-change: transform;
-        }
-
-        /* animações suaves e diferentes */
-        .move-left {
-            animation: moveLeft linear infinite;
-        }
-
-        .move-right {
-            animation: moveRight linear infinite;
-        }
-
-        @keyframes moveLeft {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-        }
-
-        @keyframes moveRight {
-            from {
-                transform: translateX(-50%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        body>*:not(.emoji-bg) {
-            position: relative;
-            z-index: 1;
         }
     </style>
 
