@@ -87,6 +87,10 @@ Route::get('/oportunidades', function () {
     return view('oportunidades');
 })->name('oportunidades');
 
+Route::get('/gol-de-premios', function () {
+    return view('gol-de-premios');
+})->name('gol-de-premios');
+
 /**
  * Healthcheck
  */
