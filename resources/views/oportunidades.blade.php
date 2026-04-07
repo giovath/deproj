@@ -7,10 +7,13 @@
     <title>Oportunidades | {{ config('app.name', 'premio.click') }}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/bg.css">
+    <script src="/js/bg.js"></script>
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100">
 
+    <div id="emojiBg" class="emoji-bg"></div>
     <div class="max-w-md mx-auto px-4 py-6">
 
         <!-- HEADER -->
@@ -136,6 +139,23 @@
         </div>
 
     </div>
+
+    <script>
+        function sharePage() {
+            const url = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Oportunidades disponíveis hoje',
+                    text: 'Olha isso, pode te ajudar 👇',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert('Link copiado! Compartilhe com alguém 😉');
+            }
+        }
+    </script>
 
 </body>
 

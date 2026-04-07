@@ -7,6 +7,9 @@
     <title>Tarefas e Recompensas | {{ config('app.name', 'premio.click') }}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="/css/bg.css">
+    <script src="/js/bg.js"></script>
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100">

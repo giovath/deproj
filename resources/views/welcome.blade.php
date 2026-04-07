@@ -113,6 +113,9 @@
         }
     </script>
 
+    <script src="/js/chest.js"></script>
+    <script src="/js/bg.js"></script>
+
     <style>
         @keyframes pulseSoft {
             0% {
@@ -331,25 +334,8 @@
             <div class="space-y-2">
 
                 <!-- BAÚ DIÁRIO -->
-                <div class="flex flex-col items-center">
-
-
-                    <button id="chestBtn" onclick="openChest()"
-                        class="p-0 bg-transparent hover:opacity-80 transition cursor-pointer">
-                        <img id="chestImg" src="{{ asset('images/chest-closed.png') }}" alt="Baú"
-                            class="w-56 h-56 chest-pulse transition-transform duration-300 hover:scale-105">
-                    </button>
-
-                    <div class="text-center mb-2">
-                        <div class="text-xs text-amber-400 font-semibold">
-                            🎁 Baú de recompensa diária
-                        </div>
-                        <div class="text-[10px] text-zinc-400">
-                            Disponível agora
-                        </div>
-                    </div>
-
-                </div>
+                <x-chest offer-url="https://omg10.com/4/10807758"
+                    reward-url="https://www.tiktok.com/d/1/ZS98sUBumsFJE-ZxDev/" max-reward="500" />
 
             </div>
 
@@ -472,186 +458,6 @@
 
     <!-- SCRIPTS -->
     <script>
-        function openChest() {
-
-            if (chestOpened) return;
-
-            const img = document.getElementById('chestImg');
-
-            img.src = "{{ asset('images/chest-open.png') }}";
-            img.classList.remove('chest-pulse');
-            img.classList.add('chest-opened');
-
-            document.getElementById('chestBtn').disabled = true;
-
-            // 👉 SALVA ESTADO
-            chestOpened = true;
-            localStorage.setItem('chest_opened', todayKey);
-
-            setTimeout(() => {
-
-                showModal(`
-            <div class="text-center">
-
-                <div class="text-4xl mb-3">🎉</div>
-
-                <h3 class="text-sm font-semibold mb-2">
-                    Recompensa desbloqueada!
-                </h3>
-
-                <p class="text-xs text-zinc-400 mb-4">
-                    Você já tem <span class="text-amber-400 font-medium">até 500 moedas</span> disponíveis.<br>
-                    Falta só um passo para liberar.
-                </p>
-
-                <button onclick="unlockReward()"
-                    class="w-full inline-flex items-center justify-center
-                    px-4 py-3 rounded-xl
-                    bg-amber-400 hover:bg-amber-300
-                    text-zinc-900 text-sm font-semibold
-                    animate-pulse">
-
-                    ⚡ Liberar minhas moedas
-
-                </button>
-
-                <div class="text-[10px] text-zinc-500 mt-3">
-                    leva menos de 1 minuto
-                </div>
-
-            </div>
-        `);
-
-            }, 800);
-
-            // 👉 já prepara CTA fora do modal
-            showChestOpenedCTA();
-        }
-
-        function unlockReward() {
-
-            showModal(`
-        <div class="text-center">
-
-            <div class="text-3xl mb-3">⚡</div>
-
-            <h3 class="text-sm font-semibold mb-2">
-                Falta só 1 passo
-            </h3>
-
-            <p class="text-xs text-zinc-400 mb-4">
-                Para liberar suas moedas, acesse a página abaixo e volte em seguida.
-            </p>
-
-            <button onclick="goOffer()"
-                class="w-full px-4 py-3 rounded-xl
-                bg-amber-400 text-zinc-900 font-semibold
-                animate-pulse">
-
-                🚀 Liberar minhas moedas
-
-            </button>
-
-            <div class="text-[10px] text-zinc-500 mt-3">
-                rápido • gratuito • menos de 1 minuto
-            </div>
-
-        </div>
-    `);
-
-        }
-
-        function goOffer() {
-
-            let url = "https://omg10.com/4/10807758"; // Link Monetização Baú aqui
-
-            gtag('event', 'offer_click', {
-                type: 'main_unlock_flow'
-            });
-
-            fbq('track', 'InitiateCheckout');
-
-            window.open(url, "_blank");
-
-            setTimeout(() => {
-                showRewardUnlocked();
-            }, 1200);
-        }
-
-
-        function showRewardUnlocked() {
-
-            showModal(`
-                <div class="text-center">
-
-                    <div class="text-4xl mb-3">🎉</div>
-
-                    <h3 class="text-sm font-semibold mb-2">
-                        Recompensa desbloqueada!
-                    </h3>
-
-                    <p class="text-xs text-zinc-400 mb-4">
-                        Seu prêmio está disponível. Toque abaixo para resgatar agora.
-                    </p>
-
-                    <a href="https://www.tiktok.com/d/1/ZS98sUBumsFJE-ZxDev/"
-                        target="_blank"
-                        class="w-full inline-flex items-center justify-center
-                        px-4 py-3 rounded-xl
-                        bg-amber-400 text-zinc-900 font-semibold">
-
-                        🎁 Resgatar recompensa
-                    </a>
-
-                    <div class="mt-3">
-                        <a href="/recompensas"
-                            class="text-xs text-amber-400 hover:underline">
-                            ou continuar ganhando mais
-                        </a>
-                    </div>
-
-                </div>
-            `);
-
-        }
-
-        const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-        let chestOpened = localStorage.getItem('chest_opened') === todayKey;
-
-        function applyChestState() {
-            const img = document.getElementById('chestImg');
-            const btn = document.getElementById('chestBtn');
-
-            if (chestOpened) {
-                img.src = "{{ asset('images/chest-open.png') }}";
-                img.classList.remove('chest-pulse');
-                img.classList.add('chest-opened');
-
-                btn.disabled = true;
-
-                showChestOpenedCTA();
-            }
-        }
-
-
-        function showChestOpenedCTA() {
-
-            if (document.getElementById('chestAfterCTA')) return;
-
-            const container = document.querySelector('#chestBtn').parentNode;
-
-            container.insertAdjacentHTML('beforeend', `
-                <a href="/recompensas"
-                    id="chestAfterCTA"
-                    class="mt-2 text-xs text-amber-400
-                        hover:underline text-center block">
-
-                    + continuar ganhando recompensas
-
-                </a>
-            `);
-        }
-
         let pollInterval = 800;
         let pollTimer = null;
 
@@ -952,72 +758,6 @@
 
             location.reload();
         }
-
-        function generateEmojiRow(direction = 'left', index = 0) {
-            const emojis = ['🎮', '🏆', '📈', '🍀'];
-
-            let content = '';
-            const repeatCount = Math.ceil(window.innerWidth / 40) * 20;
-
-            let lastEmojis = [];
-
-            for (let i = 0; i < repeatCount; i++) {
-                let emoji;
-
-                do {
-                    emoji = emojis[Math.floor(Math.random() * emojis.length)];
-                } while (lastEmojis.includes(emoji));
-
-                content += emoji + ' ';
-
-                lastEmojis.push(emoji);
-                if (lastEmojis.length > 2) lastEmojis.shift();
-            }
-
-            const fullContent = content + content;
-
-            const row = document.createElement('div');
-            row.className = 'row';
-
-            const track = document.createElement('div');
-            track.className = `track ${direction === 'left' ? 'move-left' : 'move-right'}`;
-
-            // 👇 CAMADAS (isso muda tudo)
-            const baseSpeed = 360; // velocidade principal
-            const variation = (index % 3) * 20; // cria grupos
-            const duration = baseSpeed + variation;
-
-            track.style.animationDuration = `${duration}s`;
-
-            track.innerHTML = fullContent;
-
-            row.appendChild(track);
-
-            return row;
-        }
-
-        function initEmojiBackground() {
-            const bg = document.getElementById('emojiBg');
-
-            if (!bg) {
-                console.warn('emojiBg não encontrado');
-                return;
-            }
-
-            const rows = 12;
-
-            for (let i = 0; i < rows; i++) {
-                const direction = i % 2 === 0 ? 'left' : 'right';
-                const row = generateEmojiRow(direction, i);
-                bg.appendChild(row);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applyChestState();
-            initEmojiBackground(); // 👈 FALTAVA ISSO
-        });
-
 
         function hydrateSlot(slotNumber, player) {
             if (!player || !player.id || !player.name || !player.avatar) return;
