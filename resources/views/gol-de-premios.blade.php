@@ -38,7 +38,7 @@
         </div>
 
         <!-- CTA PRINCIPAL -->
-        <a href="SEU_LINK_TIKTOK_AQUI"
+        <a href="https://www.tiktok.com/d/1/ZS983r5pJAQwK-il1UW/"
             class="block w-full py-4 rounded-2xl
        bg-emerald-400 text-zinc-900 font-bold text-lg
        hover:scale-105 transition">
