@@ -65,16 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `);
 
-                setTimeout(() => {
-                    const unlockBtn = document.querySelector('#genericModalContent .unlock-btn');
-                    if (!unlockBtn) return;
+                document.addEventListener('click', (e) => {
 
-                    unlockBtn.onclick = () => {
+                    // BOTÃO DE LIBERAR MOEDAS
+                    if (e.target.classList.contains('unlock-btn')) {
+
+                        const modal = document.getElementById('genericModalContent');
+
+                        // pega o container original (o primeiro que tiver)
+                        const container = document.querySelector('[data-offer-url]');
+
+                        const offerUrl = container?.dataset.offerUrl;
+                        const rewardUrl = container?.dataset.rewardUrl;
+
+                        if (!offerUrl) return;
 
                         window.open(offerUrl, "_blank");
 
                         setTimeout(() => {
-                            showModal(`
+                            const content = document.getElementById('genericModalContent');
+
+                            content.innerHTML = `
                 <div class="text-center">
                     <div class="text-4xl mb-3">🎉</div>
 
@@ -87,12 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
                        🎁 Resgatar recompensa
                     </a>
                 </div>
-            `);
+            `;
                         }, 1200);
+                    }
 
-                    };
-
-                }, 50);
+                });
 
             }, 800);
 
