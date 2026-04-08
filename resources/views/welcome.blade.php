@@ -274,7 +274,7 @@
 
                 <!-- BAÚ DIÁRIO -->
                 <x-chest offer-url="https://omg10.com/4/10807758"
-                    reward-url="https://www.tiktok.com/d/1/ZS983rQxQ51ba-wDp7F/" max-reward="500" />
+                    reward-url="https://www.tiktok.com/d/1/ZS98EsNm5V6cG-TJHlO/" max-reward="500" />
 
             </div>
 
