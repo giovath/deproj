@@ -91,6 +91,14 @@ Route::get('/gol-de-premios', function () {
     return view('gol-de-premios');
 })->name('gol-de-premios');
 
+Route::get('/credito', function () {
+    return view('credito');
+})->name('credito');
+
+Route::get('/renda', function () {
+    return view('renda');
+})->name('renda');
+
 /**
  * Healthcheck
  */

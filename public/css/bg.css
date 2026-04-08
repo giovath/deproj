@@ -35,16 +35,24 @@
 }
 
 @keyframes moveLeft {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 @keyframes moveRight {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
-body > *:not(.emoji-bg) {
+body > *:not(.emoji-bg):not(#genericModal) {
     position: relative;
     z-index: 1;
 }
