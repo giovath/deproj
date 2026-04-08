@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `);
 
                 setTimeout(() => {
-                    const unlockBtn = container.querySelector('.unlock-btn') || document.querySelector('.unlock-btn');
+                    const unlockBtn = document.querySelector('#genericModalContent .unlock-btn');
                     if (!unlockBtn) return;
 
                     unlockBtn.onclick = () => {
