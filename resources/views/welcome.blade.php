@@ -363,7 +363,7 @@
                 </p>
             </div>
 
-            <a href="https://www.tiktok.com/d/1/ZS985r3h9QahB-Hi675/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.tiktok.com/d/1/ZS98KBVeKDoY3-348QU/" target="_blank" rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center
                    px-4 py-2 rounded-xl border border-zinc-700
                    hover:border-amber-400 hover:text-amber-400

@@ -109,7 +109,7 @@
                     Conclua o processo inicial e desbloqueie acesso às recompensas.
                 </div>
 
-                <a href="https://www.tiktok.com/d/1/ZS985r3h9QahB-Hi675/"
+                <a href="https://www.tiktok.com/d/1/ZS98KBVeKDoY3-348QU/"
                     class="block text-center py-3 rounded-lg bg-blue-400 text-zinc-900 text-xs font-semibold hover:scale-105 transition">
                     Começar agora
                 </a>
