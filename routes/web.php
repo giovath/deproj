@@ -99,6 +99,11 @@ Route::get('/renda', function () {
     return view('renda');
 })->name('renda');
 
+
+Route::get('/campanha', function () {
+    return view('campanha');
+})->name('campanha');
+
 /**
  * Healthcheck
  */
