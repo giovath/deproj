@@ -11,7 +11,8 @@
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n;
             n.push = n;
@@ -110,7 +111,7 @@
 <body>
 
     <div class="header">
-        <img src="vic1.png" class="contact-image" onerror="this.src='https://via.placeholder.com/40'">
+        <img src="/images/vic1.png" class="contact-image">
         <div>
             Atendimento
             <div class="typing-status">Digitando...</div>
@@ -135,7 +136,8 @@
             "Estamos selecionando pessoas para participar de campanhas promocionais com grandes marcas.",
             "Algumas campanhas incluem produtos como smartphones e outros benefícios.",
             "Preciso fazer uma verificação rápida com você.",
-            "Podemos continuar?"
+            "É importante seguir até o final para validar sua participação.",
+            "Posso liberar seu acesso agora?"
         ];
 
         let i = 0;
@@ -185,8 +187,8 @@
             setTimeout(() => {
                 fbq('track', 'Lead');
 
-                // 🔥 TROCAR AQUI PELO LINK DA ZEYDOO (Interest Survey)
-                window.location.href = "https://ldl1.com/link?z=9201663&var={SOURCE_ID}&ymid={CLICK_ID}";
+                // 🔥 LINK FINAL (FUN BOXES)
+                window.location.href = "https://ldl1.com/link?z=9201663";
 
             }, 5000);
         }
