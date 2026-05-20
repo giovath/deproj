@@ -8,21 +8,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
-    <script>
-        (function(s) {
-            s.dataset.zone = '11030912',
-                s.src = 'https://al5sm.com/tag.min.js'
-        })
-        (
-            [document.documentElement, document.body]
-            .filter(Boolean)
-            .pop()
-            .appendChild(document.createElement('script'))
-        )
-    </script>
-
-
-
     <title>Mapa do Tesouro</title>
 
     <style>
@@ -252,7 +237,7 @@
         </svg>
 
         <!-- Espaços das missões -->
-        <a id="mission1" class="mission mission-1 pulse" href="#">
+        <a id="mission1" class="mission mission-1 pulse" href="/ilha-da-fortuna">
             <img src="/images/treasure-island.png" alt="Ilha da Fortuna">
         </a>
 
@@ -275,48 +260,7 @@
 
         checkMissionReset();
 
-        // verifica progresso salvo
         if (localStorage.getItem('mission1_completed') === 'true') {
-
-            unlockMission2();
-
-        }
-
-        mission1.addEventListener('click', () => {
-
-            if (localStorage.getItem('mission1_completed') === 'true') {
-                return;
-            }
-
-            localStorage.setItem('mission1_completed', 'true');
-
-            localStorage.setItem(
-                'mission1_completed_at',
-                Date.now()
-            );
-
-        });
-
-        function loadMonetag() {
-
-            const script = document.createElement('script');
-
-            script.dataset.zone = '11030912';
-
-            script.src = 'https://al5sm.com/tag.min.js';
-
-            document.body.appendChild(script);
-
-        }
-
-        function completeMission1() {
-
-            localStorage.setItem('mission1_completed', 'true');
-
-            localStorage.setItem(
-                'mission1_completed_at',
-                Date.now()
-            );
 
             unlockMission2();
 
@@ -324,23 +268,20 @@
 
         function unlockMission2() {
 
-            // trava missão 1
             mission1.classList.remove('pulse');
 
             mission1.style.opacity = '0.7';
 
             mission1.style.pointerEvents = 'none';
+
             mission1.style.cursor = 'default';
 
-
-            // libera missão 2
             mission2.classList.remove('locked');
 
             mission2.classList.remove('locked-disabled');
 
             mission2.classList.add('pulse');
 
-            // libera X visual
             document.querySelectorAll('#x2 .treasure-x').forEach(line => {
 
                 line.classList.remove('x-locked');
@@ -363,7 +304,6 @@
 
             const hoursPassed = diff / (1000 * 60 * 60);
 
-            // reset após 24h
             if (hoursPassed >= RESET_HOURS) {
 
                 localStorage.removeItem('mission1_completed');

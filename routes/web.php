@@ -104,6 +104,10 @@ Route::get('/campanha', function () {
     return view('campanha');
 })->name('campanha');
 
+Route::get('/ilha-da-fortuna', function () {
+    return view('ilha-da-fortuna');
+})->name('ilha-da-fortuna');
+
 /**
  * Healthcheck
  */
