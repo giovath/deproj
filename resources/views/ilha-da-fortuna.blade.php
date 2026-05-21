@@ -301,100 +301,49 @@
 
         exploreLinks.forEach(link => {
 
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (event) => {
 
-                // impede múltiplos cliques no mesmo item
+                // impede navegar para #
+                event.preventDefault();
+
+                // impede múltiplos cliques
                 if (link.classList.contains('done')) {
                     return;
                 }
 
+                // marca missão
                 link.classList.add('done');
 
                 exploredCount++;
 
+                // atualiza progresso
                 progressText.innerText =
                     exploredCount + ' / 2 locais explorados';
 
-                // visual concluído
+                // feedback visual
                 link.style.opacity = '.55';
 
                 link.style.pointerEvents = 'none';
 
-                // mensagens temáticas
+                // narrativa
                 if (exploredCount === 1) {
 
                     status.innerText =
-                        'Boa! Você encontrou uma pista do tesouro principal.';
-
+                        '🌊 Você atravessou parte do oceano de anúncios. Falta apenas mais uma exploração.';
                 }
 
+                // desbloqueia botão
                 if (exploredCount >= 2) {
 
                     status.innerText =
-                        'Mapa completo! A próxima missão foi desbloqueada.';
-
-                    completeButton.disabled = false;
-
-                    completeButton.classList.add('active');
-
-                }
-
-            });
-
-        });
-
-        const exploreLinks =
-            document.querySelectorAll('.explore-link');
-
-        const status =
-            document.getElementById('status');
-
-        const progressText =
-            document.getElementById('progressText');
-
-        const completeButton =
-            document.getElementById('completeButton');
-
-        let exploredCount = 0;
-
-        exploreLinks.forEach(link => {
-
-            link.addEventListener('click', () => {
-
-                if (link.classList.contains('done')) {
-                    return;
-                }
-
-                link.classList.add('done');
-
-                exploredCount++;
-
-                progressText.innerText =
-                    exploredCount + ' / 2 locais explorados';
-
-                link.style.opacity = '.55';
-
-                link.style.pointerEvents = 'none';
-
-                if (exploredCount === 1) {
-
-                    status.innerText =
-                        'Boa! Você encontrou uma pista rara da ilha.';
-
-                }
-
-                if (exploredCount >= 2) {
-
-                    status.innerText =
-                        'Mapa completo! A próxima missão foi desbloqueada.';
+                        '🏴‍☠️ Você sobreviveu à travessia e encontrou o mapa secreto do tesouro.';
 
                     completeButton.disabled = false;
 
                     completeButton.classList.add('active');
 
                     completeButton.innerText =
-                        '🔓 Desbloquear Próxima Missão';
-
+                        '🗺️ Desbloquear Próxima Missão';
                 }
 
             });
@@ -403,10 +352,12 @@
 
         completeButton.addEventListener('click', () => {
 
+            // segurança
             if (completeButton.disabled) {
                 return;
             }
 
+            // salva progresso
             localStorage.setItem(
                 'mission1_completed',
                 'true'
@@ -417,8 +368,8 @@
                 Date.now()
             );
 
+            // volta ao mapa
             window.location.href = '/';
-
         });
     </script>
 
