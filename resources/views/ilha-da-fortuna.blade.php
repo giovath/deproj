@@ -27,7 +27,7 @@
 
             background:
                 linear-gradient(rgba(0, 0, 0, .45),
-                    rgba(0, 0, 0, .55)),
+                    rgba(0, 0, 0, .65)),
                 url('/images/treasure-island-bg.jpg');
 
             background-size: cover;
@@ -37,29 +37,29 @@
             align-items: center;
             justify-content: center;
 
-            overflow: hidden;
+            padding: 20px;
 
             font-family: Arial, sans-serif;
         }
 
         .container {
 
-            width: 92%;
+            width: 100%;
             max-width: 420px;
 
-            padding: 28px;
-
-            border-radius: 24px;
-
-            background: rgba(20, 12, 5, 0.78);
+            background: rgba(20, 12, 5, .82);
 
             border: 2px solid rgba(194, 139, 44, .25);
 
-            backdrop-filter: blur(6px);
+            border-radius: 24px;
 
-            text-align: center;
+            padding: 28px;
+
+            backdrop-filter: blur(8px);
 
             color: #f5deb3;
+
+            text-align: center;
 
             box-shadow:
                 0 10px 40px rgba(0, 0, 0, .45);
@@ -69,78 +69,101 @@
 
             font-family: 'Cinzel', serif;
 
+            color: #f0c36a;
+
             font-size: 2rem;
 
-            margin-bottom: 16px;
-
-            color: #f0c36a;
+            margin-bottom: 14px;
         }
 
-        #status {
+        .description {
 
             line-height: 1.6;
 
-            font-size: 1rem;
+            opacity: .9;
 
-            min-height: 52px;
-
-            opacity: .92;
+            margin-bottom: 24px;
         }
 
-        .loader {
+        .mission-box {
 
-            width: 70px;
-            height: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
 
-            margin: 28px auto;
-
-            border-radius: 50%;
-
-            border: 5px solid rgba(255, 255, 255, .12);
-
-            border-top-color: #d4a64a;
-
-            animation: spin 1.1s linear infinite;
+            margin-bottom: 24px;
         }
 
-        @keyframes spin {
+        .mission-link {
 
-            to {
-                transform: rotate(360deg);
-            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
+            text-decoration: none;
+
+            padding: 16px 18px;
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, .06);
+
+            border: 1px solid rgba(255, 255, 255, .08);
+
+            color: #fff;
+
+            font-weight: bold;
+
+            transition: .2s;
         }
 
-        #rewardButton {
+        .mission-link:active {
 
-            display: none;
+            transform: scale(.98);
+        }
+
+        .mission-link span {
+
+            opacity: .7;
+        }
+
+        .status {
+
+            margin-top: 10px;
+
+            font-size: .95rem;
+
+            opacity: .85;
+
+            min-height: 24px;
+        }
+
+        #completeButton {
 
             width: 100%;
+
+            margin-top: 22px;
 
             padding: 16px;
 
             border: none;
 
-            border-radius: 14px;
+            border-radius: 16px;
 
-            background: linear-gradient(180deg,
+            background:
+                linear-gradient(180deg,
                     #d6a84d,
                     #b98526);
 
             color: #fff;
 
             font-size: 1rem;
+
             font-weight: bold;
 
             cursor: pointer;
 
-            transition: .2s;
-        }
-
-        #rewardButton:active {
-
-            transform: scale(.98);
-
+            display: none;
         }
     </style>
 
@@ -152,81 +175,93 @@
 
         <h1>Ilha da Fortuna</h1>
 
-        <p id="status">
+        <p class="description">
 
-            Explorando ruínas antigas...
+            Os guardiões da ilha esconderam o tesouro principal.
+
+            Antes de retornar ao mapa, explore os locais secretos abaixo para encontrar pistas valiosas.
 
         </p>
 
-        <div class="loader"></div>
+        <div class="mission-box">
 
-        <button id="rewardButton">
+            <a href="#" class="mission-link explore-link">
 
-            Coletar Recompensa
+                ⛏️ Visitar Minas de Ouro
+
+                <span>↗</span>
+
+            </a>
+
+            <a href="#" class="mission-link explore-link">
+
+                🕯️ Explorar Caverna Encantada
+
+                <span>↗</span>
+
+            </a>
+
+        </div>
+
+        <p class="status" id="status">
+
+            Explore pelo menos um local da ilha.
+
+        </p>
+
+        <button id="completeButton">
+
+            Voltar ao Mapa do Tesouro
 
         </button>
 
     </div>
 
     <script>
-        const statusText =
+        const exploreLinks =
+            document.querySelectorAll('.explore-link');
+
+        const status =
             document.getElementById('status');
 
-        const rewardButton =
-            document.getElementById('rewardButton');
+        const completeButton =
+            document.getElementById('completeButton');
 
-        // sequência da missão
+        let explored = false;
 
-        setTimeout(() => {
+        exploreLinks.forEach(link => {
 
-            statusText.innerText =
-                'Encontrando pistas escondidas...';
+            link.addEventListener('click', () => {
 
-        }, 2500);
+                if (explored) {
+                    return;
+                }
 
-        setTimeout(() => {
+                explored = true;
 
-            statusText.innerText =
-                'Tesouro localizado!';
+                status.innerText =
+                    'Pistas encontradas! Você já pode retornar ao mapa.';
 
-        }, 5000);
+                completeButton.style.display =
+                    'block';
 
-        setTimeout(() => {
+            });
 
-            document
-                .querySelector('.loader')
-                .style.display = 'none';
+        });
 
-            rewardButton.style.display =
-                'block';
+        completeButton.addEventListener('click', () => {
 
-        }, 6500);
+            localStorage.setItem(
+                'mission1_completed',
+                'true'
+            );
 
-        // conclusão da missão
+            localStorage.setItem(
+                'mission1_completed_at',
+                Date.now()
+            );
 
-        rewardButton.addEventListener('click', () => {
-
-            statusText.innerText =
-                'Coletando recompensa...';
-
-            rewardButton.style.display =
-                'none';
-
-            setTimeout(() => {
-
-                localStorage.setItem(
-                    'mission1_completed',
-                    'true'
-                );
-
-                localStorage.setItem(
-                    'mission1_completed_at',
-                    Date.now()
-                );
-
-                window.location.href = '/';
-
-            }, 1800);
+            window.location.href = '/';
 
         });
     </script>
