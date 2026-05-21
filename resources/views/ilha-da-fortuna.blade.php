@@ -138,49 +138,14 @@
             min-height: 24px;
         }
 
-        #completeButton {
 
-            width: 100%;
 
-            margin-top: 22px;
-
-            padding: 16px;
-
-            border: none;
-
-            border-radius: 16px;
-
-            background:
-                linear-gradient(180deg,
-                    #d6a84d,
-                    #b98526);
-
-            color: #fff;
-
-            font-size: 1rem;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-        }
 
         #progressText {
-
             margin-top: 18px;
-
             font-size: .95rem;
-
-            opacity: .75;
-        }
-
-        #progressText {
-
-            margin-top: 18px;
-
-            font-size: .95rem;
-
-            opacity: .75;
+            opacity: .9;
+            color: #f0c36a;
         }
 
         #completeButton {
@@ -226,6 +191,53 @@
 
             opacity: .5;
         }
+
+        .progress-bar {
+
+            width: 100%;
+            height: 12px;
+
+            background: rgba(255, 255, 255, .08);
+
+            border-radius: 999px;
+
+            overflow: hidden;
+
+            margin-top: 18px;
+        }
+
+        .progress-fill {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: linear-gradient(90deg,
+                    #d6a84d,
+                    #f0c36a);
+
+            transition: .35s;
+        }
+
+        #completeButton.active {
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+
+            0% {
+                box-shadow: 0 0 0 rgba(240, 195, 106, .0);
+            }
+
+            50% {
+                box-shadow: 0 0 18px rgba(240, 195, 106, .45);
+            }
+
+            100% {
+                box-shadow: 0 0 0 rgba(240, 195, 106, .0);
+            }
+
+        }
     </style>
 
 </head>
@@ -269,6 +281,9 @@
             0 / 2 locais explorados
 
         </p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
 
         <p class="status" id="status">
 
@@ -294,49 +309,65 @@
         const progressText =
             document.getElementById('progressText');
 
+        const progressFill =
+            document.getElementById('progressFill');
+
         const completeButton =
             document.getElementById('completeButton');
 
         let exploredCount = 0;
 
+        const TOTAL_MISSIONS = 2;
+
         exploreLinks.forEach(link => {
 
             link.addEventListener('click', (event) => {
 
-                // impede navegar para #
                 event.preventDefault();
 
-                // impede múltiplos cliques
+                // evita repetir
                 if (link.classList.contains('done')) {
                     return;
                 }
 
-                // marca missão
+                // marca concluído
                 link.classList.add('done');
-
-                exploredCount++;
-
-                // atualiza progresso
-                progressText.innerText =
-                    exploredCount + ' / 2 locais explorados';
 
                 // feedback visual
                 link.style.opacity = '.55';
 
                 link.style.pointerEvents = 'none';
 
-                // narrativa
+                // adiciona check
+                link.querySelector('span').innerText = '✔';
+
+                exploredCount++;
+
+                // atualiza progresso
+                progressText.innerText =
+                    exploredCount + ' / ' +
+                    TOTAL_MISSIONS +
+                    ' locais explorados';
+
+                // atualiza barra
+                const progressPercent =
+                    (exploredCount / TOTAL_MISSIONS) * 100;
+
+                progressFill.style.width =
+                    progressPercent + '%';
+
+                // narrativa dinâmica
                 if (exploredCount === 1) {
 
                     status.innerText =
                         '🌊 Você atravessou parte do oceano de anúncios. Falta apenas mais uma exploração.';
+
                 }
 
-                // desbloqueia botão
-                if (exploredCount >= 2) {
+                if (exploredCount >= TOTAL_MISSIONS) {
 
                     status.innerText =
-                        '🏴‍☠️ Você sobreviveu à travessia e encontrou o mapa secreto do tesouro.';
+                        '🏴‍☠️ Você encontrou o mapa secreto do tesouro principal.';
 
                     completeButton.disabled = false;
 
@@ -344,6 +375,21 @@
 
                     completeButton.innerText =
                         '🗺️ Desbloquear Próxima Missão';
+
+                    // pequena animação
+                    completeButton.animate([{
+                            transform: 'scale(1)'
+                        },
+                        {
+                            transform: 'scale(1.05)'
+                        },
+                        {
+                            transform: 'scale(1)'
+                        }
+                    ], {
+                        duration: 500
+                    });
+
                 }
 
             });
@@ -352,12 +398,10 @@
 
         completeButton.addEventListener('click', () => {
 
-            // segurança
             if (completeButton.disabled) {
                 return;
             }
 
-            // salva progresso
             localStorage.setItem(
                 'mission1_completed',
                 'true'
@@ -368,8 +412,8 @@
                 Date.now()
             );
 
-            // volta ao mapa
             window.location.href = '/';
+
         });
     </script>
 
