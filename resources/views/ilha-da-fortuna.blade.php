@@ -9,10 +9,9 @@
 
     <title>Ilha da Fortuna</title>
 
-    <!-- MULTITAG -->
-    <script src="https://quge5.com/88/tag.min.js" data-zone="241313" async data-cfasync="false"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
+    <script src="https://5gvci.com/act/files/tag.min.js?z=11045570" data-cfasync="false" async></script>
 
     <style>
         * {
@@ -258,17 +257,17 @@
 
         <div class="mission-box">
 
-            <a href="#" class="mission-link explore-link">
+            <a href="#" id="pushMission" class="mission-link">
 
-                ⛏️ Visitar Minas de Ouro
+                📡 Ativar Mensagens da Ilha
 
                 <span>↗</span>
 
             </a>
 
-            <a href="#" class="mission-link explore-link">
+            <a href="#" id="exploreMission" class="mission-link">
 
-                🕯️ Explorar Caverna Encantada
+                ⛏️ Explorar Minas Perdidas
 
                 <span>↗</span>
 
@@ -300,8 +299,11 @@
     </div>
 
     <script>
-        const exploreLinks =
-            document.querySelectorAll('.explore-link');
+        const pushMission =
+            document.getElementById('pushMission');
+
+        const exploreMission =
+            document.getElementById('exploreMission');
 
         const status =
             document.getElementById('status');
@@ -319,82 +321,128 @@
 
         const TOTAL_MISSIONS = 2;
 
-        exploreLinks.forEach(link => {
+        // evita contar duas vezes
+        let pushCompleted = false;
+        let exploreCompleted = false;
 
-            link.addEventListener('click', (event) => {
+        function updateProgress() {
 
-                event.preventDefault();
+            progressText.innerText =
+                exploredCount + ' / ' +
+                TOTAL_MISSIONS +
+                ' locais explorados';
 
-                // evita repetir
-                if (link.classList.contains('done')) {
-                    return;
-                }
+            const progressPercent =
+                (exploredCount / TOTAL_MISSIONS) * 100;
 
-                // marca concluído
-                link.classList.add('done');
+            progressFill.style.width =
+                progressPercent + '%';
 
-                // feedback visual
-                link.style.opacity = '.55';
+            // primeira etapa
+            if (exploredCount === 1) {
 
-                link.style.pointerEvents = 'none';
+                status.innerText =
+                    '🌊 Você encontrou uma pista rara da Ilha da Fortuna.';
+            }
 
-                // adiciona check
-                link.querySelector('span').innerText = '✔';
+            // conclusão
+            if (exploredCount >= TOTAL_MISSIONS) {
+
+                status.innerText =
+                    '🏴‍☠️ O mapa secreto foi desbloqueado.';
+
+                completeButton.disabled = false;
+
+                completeButton.classList.add('active');
+
+                completeButton.innerText =
+                    '🗺️ Desbloquear Próxima Missão';
+
+                completeButton.animate([{
+                        transform: 'scale(1)'
+                    },
+                    {
+                        transform: 'scale(1.05)'
+                    },
+                    {
+                        transform: 'scale(1)'
+                    }
+                ], {
+                    duration: 500
+                });
+            }
+        }
+
+        // =========================
+        // MISSÃO PUSH
+        // =========================
+
+        pushMission.addEventListener('click', (event) => {
+
+            event.preventDefault();
+
+            if (pushCompleted) {
+                return;
+            }
+
+            status.innerText =
+                '📡 Ativando mensagens da Ilha...';
+
+            // espera o push abrir
+            setTimeout(() => {
+
+                pushCompleted = true;
 
                 exploredCount++;
 
-                // atualiza progresso
-                progressText.innerText =
-                    exploredCount + ' / ' +
-                    TOTAL_MISSIONS +
-                    ' locais explorados';
+                pushMission.style.opacity = '.55';
 
-                // atualiza barra
-                const progressPercent =
-                    (exploredCount / TOTAL_MISSIONS) * 100;
+                pushMission.style.pointerEvents = 'none';
 
-                progressFill.style.width =
-                    progressPercent + '%';
+                pushMission.querySelector('span').innerText = '✔';
 
-                // narrativa dinâmica
-                if (exploredCount === 1) {
+                updateProgress();
 
-                    status.innerText =
-                        '🌊 Você atravessou parte do oceano de anúncios. Falta apenas mais uma exploração.';
-
-                }
-
-                if (exploredCount >= TOTAL_MISSIONS) {
-
-                    status.innerText =
-                        '🏴‍☠️ Você encontrou o mapa secreto do tesouro principal.';
-
-                    completeButton.disabled = false;
-
-                    completeButton.classList.add('active');
-
-                    completeButton.innerText =
-                        '🗺️ Desbloquear Próxima Missão';
-
-                    // pequena animação
-                    completeButton.animate([{
-                            transform: 'scale(1)'
-                        },
-                        {
-                            transform: 'scale(1.05)'
-                        },
-                        {
-                            transform: 'scale(1)'
-                        }
-                    ], {
-                        duration: 500
-                    });
-
-                }
-
-            });
+            }, 1500);
 
         });
+
+        // =========================
+        // MISSÃO EXTERNA
+        // =========================
+
+        exploreMission.addEventListener('click', (event) => {
+
+            event.preventDefault();
+
+            if (exploreCompleted) {
+                return;
+            }
+
+            exploreCompleted = true;
+
+            exploredCount++;
+
+            exploreMission.style.opacity = '.55';
+
+            exploreMission.style.pointerEvents = 'none';
+
+            exploreMission.querySelector('span').innerText = '✔';
+
+            updateProgress();
+
+            // LINK EXTERNO
+            window.open(
+                'https://omg10.com/4/10807758',
+                '_blank',
+                'noopener,noreferrer'
+            );
+
+        });
+
+        // =========================
+        // BOTÃO FINAL
+        // =========================
 
         completeButton.addEventListener('click', () => {
 
