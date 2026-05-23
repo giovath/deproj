@@ -377,7 +377,7 @@
         // MISSÃO PUSH
         // =========================
 
-        pushMission.addEventListener('click', (event) => {
+        pushMission.addEventListener('click', async (event) => {
 
             event.preventDefault();
 
@@ -388,9 +388,20 @@
             status.innerText =
                 '📡 Ativando mensagens da Ilha...';
 
-            // espera o push abrir
-            setTimeout(() => {
+            try {
 
+                const permission =
+                    await Notification.requestPermission();
+
+                if (permission !== 'granted') {
+
+                    status.innerText =
+                        '❌ Você recusou as mensagens da Ilha.';
+
+                    return;
+                }
+
+                // ACEITOU
                 pushCompleted = true;
 
                 exploredCount++;
@@ -401,9 +412,18 @@
 
                 pushMission.querySelector('span').innerText = '✔';
 
+                status.innerText =
+                    '📜 As mensagens secretas foram ativadas.';
+
                 updateProgress();
 
-            }, 1500);
+            } catch (error) {
+
+                console.log(error);
+
+                status.innerText =
+                    '⚠️ Não foi possível ativar as mensagens.';
+            }
 
         });
 
