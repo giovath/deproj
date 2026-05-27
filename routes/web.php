@@ -108,6 +108,10 @@ Route::get('/ilha-da-fortuna', function () {
     return view('ilha-da-fortuna');
 })->name('ilha-da-fortuna');
 
+Route::get('/navio', function () {
+    return view('navio');
+})->name('navio');
+
 /**
  * Healthcheck
  */

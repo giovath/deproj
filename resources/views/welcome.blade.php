@@ -241,9 +241,11 @@
             <img src="/images/treasure-island.png" alt="Ilha da Fortuna">
         </a>
 
-        <div id="mission2" class="mission mission-2 locked locked-disabled">
+        <a id="mission2" class="mission mission-2 locked locked-disabled" href="/navio">
+
             <img src="/images/treasure-tripulation.png" alt="Tripulação do Tesouro">
-        </div>
+
+        </a>
 
         <!-- Baú final -->
         <div id="treasureChest" class="chest locked">
