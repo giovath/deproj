@@ -388,6 +388,14 @@
             status.innerText =
                 '📡 Ativando mensagens da Ilha...';
 
+            if (!('Notification' in window)) {
+
+                status.innerText =
+                    '⚠️ Seu navegador não suporta mensagens da Ilha.';
+
+                return;
+            }
+
             try {
 
                 const permission =
@@ -470,17 +478,29 @@
                 return;
             }
 
-            localStorage.setItem(
-                'mission1_completed',
-                'true'
-            );
+            completeButton.disabled = true;
 
-            localStorage.setItem(
-                'mission1_completed_at',
-                Date.now()
-            );
+            completeButton.innerText =
+                '🧭 Retornando ao mapa...';
 
-            window.location.href = '/';
+            fetch('/mission1/complete', {
+
+                method: 'POST',
+
+                credentials: 'same-origin',
+
+                headers: {
+
+                    'Content-Type': 'application/json',
+
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+
+            }).then(() => {
+
+                window.location.href = '/';
+
+            });
 
         });
     </script>

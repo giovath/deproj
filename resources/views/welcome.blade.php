@@ -255,16 +255,29 @@
     </div>
 
     <script>
+        const mission1Completed =
+            @json($mission1Completed);
+
+        const mission2Completed =
+            @json($mission2Completed);
+    </script>
+
+    <script>
         const mission1 = document.getElementById('mission1');
         const mission2 = document.getElementById('mission2');
 
-        const RESET_HOURS = 24;
 
-        checkMissionReset();
-
-        if (localStorage.getItem('mission1_completed') === 'true') {
+        if (mission1Completed) {
 
             unlockMission2();
+
+        }
+
+        if (mission2Completed) {
+
+            unlockMission2();
+
+            unlockTreasure();
 
         }
 
@@ -292,28 +305,29 @@
 
         }
 
-        function checkMissionReset() {
+        function unlockTreasure() {
 
-            const completedAt = localStorage.getItem('mission1_completed_at');
+            const chest =
+                document.getElementById('treasureChest');
 
-            if (!completedAt) {
-                return;
-            }
+            chest.classList.remove('locked');
 
-            const now = Date.now();
+            chest.classList.add('pulse');
 
-            const diff = now - Number(completedAt);
+            chest.style.cursor = 'pointer';
 
-            const hoursPassed = diff / (1000 * 60 * 60);
+            chest.innerHTML = `
 
-            if (hoursPassed >= RESET_HOURS) {
+        <img src="/images/chest-open.png"
+             alt="Baú Aberto">
 
-                localStorage.removeItem('mission1_completed');
+    `;
 
-                localStorage.removeItem('mission1_completed_at');
+            chest.addEventListener('click', () => {
 
-            }
+                alert('🏆 Tesouro desbloqueado!');
 
+            });
         }
     </script>
 

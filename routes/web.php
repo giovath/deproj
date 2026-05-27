@@ -4,10 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TikTokAuthController;
 use App\Http\Controllers\ArenaController;
 use App\Models\GameMatch;
+use App\Models\Captain;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    $match = \App\Models\GameMatch::latest()->first();
-    return view('welcome', compact('match'));
+
+    return view('welcome', [
+
+        'mission1Completed' =>
+        session('mission1_completed', false),
+
+        'mission2Completed' =>
+        session('mission2_completed', false)
+
+    ]);
 })->name('home');
 
 
@@ -91,26 +102,98 @@ Route::get('/gol-de-premios', function () {
     return view('gol-de-premios');
 })->name('gol-de-premios');
 
-Route::get('/credito', function () {
-    return view('credito');
-})->name('credito');
 
-Route::get('/renda', function () {
-    return view('renda');
-})->name('renda');
+Route::get('/ilha-da-fortuna', function (Request $request) {
 
+    $ref =
+        $request->query('ref');
 
-Route::get('/campanha', function () {
-    return view('campanha');
-})->name('campanha');
+    if ($ref) {
 
-Route::get('/ilha-da-fortuna', function () {
+        $captain =
+            Captain::where(
+                'ref_code',
+                $ref
+            )->first();
+
+        if ($captain) {
+
+            $captain->update([
+
+                'referral_completed' => true
+
+            ]);
+        }
+    }
+
     return view('ilha-da-fortuna');
 })->name('ilha-da-fortuna');
 
 Route::get('/navio', function () {
-    return view('navio');
+
+    if (!session('mission1_completed')) {
+
+        return redirect('/');
+    }
+
+    $captain = null;
+
+    if (session()->has('captain_id')) {
+
+        $captain =
+            Captain::find(
+                session('captain_id')
+            );
+    }
+
+    if (!$captain) {
+
+        $captain = Captain::create([
+
+            'ref_code' => Str::random(8),
+
+        ]);
+
+        session([
+            'captain_id' => $captain->id
+        ]);
+    }
+
+    return view('navio', [
+
+        'captain' => $captain,
+
+        'referralCompleted' =>
+        $captain->referral_completed
+
+    ]);
 })->name('navio');
+
+Route::post('/mission1/complete', function (Request $request) {
+
+    session([
+        'mission1_completed' => true,
+        'mission1_completed_at' => now()->timestamp
+    ]);
+
+    return response()->json([
+        'success' => true
+    ]);
+});
+
+Route::post('/mission2/complete', function () {
+
+    session([
+
+        'mission2_completed' => true,
+        'mission2_completed_at' => now()->timestamp
+
+    ]);
+
+    return response()->json([
+        'success' => true
+    ]);
+});
 
 /**
  * Healthcheck

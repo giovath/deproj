@@ -342,7 +342,7 @@
 
             <div class="invite-link" id="inviteLink">
 
-                https://seudominio.com/?ref=abc123
+                {{ url('/ilha-da-fortuna?ref=' . $captain->ref_code) }}
 
             </div>
 
@@ -367,6 +367,11 @@
         </button>
 
     </div>
+
+    <script>
+        const referralCompleted =
+            @json($referralCompleted);
+    </script>
 
     <script>
         const slot2 =
@@ -408,19 +413,10 @@
         });
 
         // =========================
-        // SIMULAÇÃO TEMPORÁRIA
-        // backend substituirá isso depois
+        // ESTADO REAL DO BACKEND
         // =========================
 
-        let referralCompleted = false;
-
-        document.body.addEventListener('dblclick', () => {
-
-            if (referralCompleted) {
-                return;
-            }
-
-            referralCompleted = true;
+        if (referralCompleted) {
 
             slot2.classList.remove('locked');
 
@@ -438,8 +434,7 @@
 
             unlockButton.innerText =
                 '🗝️ Abrir Baú do Tesouro';
-
-        });
+        }
 
         // =========================
         // FINALIZAÇÃO
@@ -451,17 +446,29 @@
                 return;
             }
 
-            localStorage.setItem(
-                'mission2_completed',
-                'true'
-            );
+            unlockButton.disabled = true;
 
-            localStorage.setItem(
-                'mission2_completed_at',
-                Date.now()
-            );
+            unlockButton.innerText =
+                '🏴‍☠️ Abrindo tesouro...';
 
-            window.location.href = '/';
+            fetch('/mission2/complete', {
+
+                method: 'POST',
+
+                credentials: 'same-origin',
+
+                headers: {
+
+                    'Content-Type': 'application/json',
+
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+
+            }).then(() => {
+
+                window.location.href = '/';
+
+            });
 
         });
     </script>
