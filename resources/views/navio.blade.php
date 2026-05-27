@@ -416,7 +416,11 @@
         // ESTADO REAL DO BACKEND
         // =========================
 
-        if (referralCompleted) {
+        function activateReferralSuccess() {
+
+            if (!unlockButton.disabled) {
+                return;
+            }
 
             slot2.classList.remove('locked');
 
@@ -434,6 +438,49 @@
 
             unlockButton.innerText =
                 '🗝️ Abrir Baú do Tesouro';
+        }
+
+        if (referralCompleted) {
+
+            activateReferralSuccess();
+
+        }
+
+        let referralInterval = null;
+
+        async function checkReferralStatus() {
+
+            try {
+
+                const response =
+                    await fetch('/mission2/status');
+
+                const data =
+                    await response.json();
+
+                if (!data.completed) {
+                    return;
+                }
+
+                activateReferralSuccess();
+
+                clearInterval(referralInterval);
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+        }
+
+        if (!referralCompleted) {
+
+            referralInterval = setInterval(() => {
+
+                checkReferralStatus();
+
+            }, 4000);
+
         }
 
         // =========================

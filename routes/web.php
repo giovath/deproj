@@ -195,6 +195,25 @@ Route::post('/mission2/complete', function () {
     ]);
 });
 
+Route::get('/mission2/status', function () {
+
+    $captain = null;
+
+    if (session()->has('captain_id')) {
+
+        $captain = Captain::find(
+            session('captain_id')
+        );
+    }
+
+    return response()->json([
+
+        'completed' =>
+        $captain?->referral_completed ?? false
+
+    ]);
+});
+
 /**
  * Healthcheck
  */
