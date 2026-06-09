@@ -318,14 +318,14 @@
 
             chest.innerHTML = `
 
-        <img src="/images/chest-open.png"
+        <img src="/images/chest-closed.png"
              alt="Baú Aberto">
 
     `;
 
             chest.addEventListener('click', () => {
 
-                alert('🏆 Tesouro desbloqueado!');
+                window.location.href = '/tesouro';
 
             });
         }
