@@ -105,23 +105,28 @@ Route::get('/gol-de-premios', function () {
 
 Route::get('/ilha-da-fortuna', function (Request $request) {
 
-    $ref =
-        $request->query('ref');
+    $ref = $request->query('ref');
 
     if ($ref) {
 
-        $captain =
-            Captain::where(
-                'ref_code',
-                $ref
-            )->first();
+        $captain = Captain::where(
+            'ref_code',
+            $ref
+        )->first();
 
         if ($captain) {
 
-            $captain->update([
+            if (
+                session()->has('captain_id')
+                &&
+                session('captain_id') == $captain->id
+            ) {
 
-                'referral_completed' => true
+                return view('ilha-da-fortuna');
+            }
 
+            session([
+                'referred_by' => $captain->id
             ]);
         }
     }
@@ -176,17 +181,35 @@ Route::post('/mission1/complete', function (Request $request) {
         'mission1_completed_at' => now()->timestamp
     ]);
 
+    if (session()->has('referred_by')) {
+
+        $captain =
+            Captain::find(
+                session('referred_by')
+            );
+
+        if ($captain) {
+
+            $captain->update([
+                'referral_completed' => true
+            ]);
+        }
+
+        session()->forget('referred_by');
+    }
+
     return response()->json([
         'success' => true
     ]);
 });
-
 Route::post('/mission2/complete', function () {
 
     session([
 
         'mission2_completed' => true,
-        'mission2_completed_at' => now()->timestamp
+        'mission2_completed_at' => now()->timestamp,
+
+        'treasure_available' => true
 
     ]);
 
@@ -195,24 +218,9 @@ Route::post('/mission2/complete', function () {
     ]);
 });
 
-Route::get('/mission2/status', function () {
-
-    $captain = null;
-
-    if (session()->has('captain_id')) {
-
-        $captain = Captain::find(
-            session('captain_id')
-        );
-    }
-
-    return response()->json([
-
-        'completed' =>
-        $captain?->referral_completed ?? false
-
-    ]);
-});
+Route::get('/tesouro', function () {
+    return view('tesouro');
+})->name('tesouro');
 
 /**
  * Healthcheck
