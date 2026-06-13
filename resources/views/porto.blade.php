@@ -4,27 +4,195 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Porto do Tesouro</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background:
+                linear-gradient(rgba(0, 0, 0, .75),
+                    rgba(0, 0, 0, .85)),
+                url('/images/treasure-room-bg.jpg');
+
+            background-size: cover;
+
+            background-position: center;
+
+            font-family: Arial, sans-serif;
+
+            padding: 20px;
+        }
+
+        .container {
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background: rgba(20, 12, 5, .90);
+
+            border-radius: 24px;
+
+            border: 2px solid rgba(212, 170, 74, .25);
+
+            padding: 30px;
+
+            color: #f5deb3;
+
+            text-align: center;
+        }
+
+        h1 {
+
+            color: #f0c36a;
+
+            margin-bottom: 20px;
+        }
+
+        .wallet {
+
+            background: rgba(255, 255, 255, .05);
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .wallet-value {
+
+            font-size: 2rem;
+
+            font-weight: bold;
+
+            color: #f0c36a;
+        }
+
+        .section {
+
+            background: rgba(255, 255, 255, .05);
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .section h2 {
+
+            margin-bottom: 10px;
+
+            color: #f0c36a;
+
+            font-size: 1.1rem;
+        }
+
+        button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            font-size: 1rem;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            color: white;
+
+            background:
+                linear-gradient(180deg,
+                    #d6a84d,
+                    #b98526);
+        }
+
+        .small {
+
+            opacity: .8;
+
+            font-size: .9rem;
+
+            margin-top: 8px;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <h1>⚓ Porto do Tesouro</h1>
+    <div class="container">
 
-    <p>
-        Você chegou às docas.
-    </p>
+        <h1>⚓ Porto do Tesouro</h1>
 
-    <p>
-        As moedas encontradas poderão ser usadas aqui.
-    </p>
+        <div class="wallet">
 
-    <button>
-        Participar do Ranking Diário
-    </button>
+            <div>Saldo disponível</div>
+
+            <div class="wallet-value">
+                {{ $coins }}
+            </div>
+
+            <div>moedas</div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>🎟️ Participações</h2>
+
+            <p>
+                Participações disponíveis:
+                <strong>0</strong>
+            </p>
+
+            <p class="small">
+                Cada participação custa 100 moedas.
+            </p>
+
+        </div>
+
+        <div class="section">
+
+            <h2>🏆 Ranking Semanal</h2>
+
+            <p>
+                Jogue, envie sua pontuação e dispute
+                prêmios com outros capitães.
+            </p>
+
+        </div>
+
+        <button>
+
+            Comprar Participação (100 moedas)
+
+        </button>
+
+    </div>
 
 </body>
 
