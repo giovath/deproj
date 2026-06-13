@@ -22,18 +22,6 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/recompensas', function () {
-    return view('recompensas');
-})->name('recompensas');
-
-
-Route::get('/sorteios', function () {
-    return view('sorteios');
-})->name('sorteios');
-
-Route::get('/jogos', function () {
-    return view('jogos');
-})->name('jogos');
 
 Route::get('/como-funciona', function () {
     return view('como-funciona');
@@ -94,13 +82,6 @@ Route::middleware('auth')->post(
     [ArenaController::class, 'leave']
 )->name('arena.leave');
 
-Route::get('/oportunidades', function () {
-    return view('oportunidades');
-})->name('oportunidades');
-
-Route::get('/gol-de-premios', function () {
-    return view('gol-de-premios');
-})->name('gol-de-premios');
 
 
 Route::get('/ilha-da-fortuna', function (Request $request) {
@@ -218,10 +199,52 @@ Route::post('/mission2/complete', function () {
     ]);
 });
 
-Route::get('/tesouro', function () {
-    return view('tesouro');
-})->name('tesouro');
 
+Route::get('/tesouro', function () {
+
+    if (!session('treasure_available')) {
+        return redirect('/');
+    }
+
+    if (session('treasure_collected')) {
+        return redirect('/porto');
+    }
+
+    return view('tesouro');
+});
+
+Route::get('/porto', function () {
+
+    if (!session('treasure_collected')) {
+        return redirect('/');
+    }
+
+    return view('porto', [
+
+        'coins' => session('coins', 0)
+
+    ]);
+})->name('porto');
+
+Route::post('/tesouro/coletar', function () {
+
+    if (session('treasure_collected')) {
+
+        return response()->json([
+            'success' => false
+        ]);
+    }
+
+    session([
+        'coins' => session('coins', 0) + 184,
+        'treasure_collected' => true,
+        'treasure_available' => false,
+    ]);
+
+    return response()->json([
+        'success' => true
+    ]);
+});
 /**
  * Healthcheck
  */

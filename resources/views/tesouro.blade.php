@@ -223,30 +223,57 @@
 
             let current = 0;
 
-            const interval =
-                setInterval(() => {
+            const interval = setInterval(() => {
 
-                    current += 4;
+                current += 4;
+
+                coins.innerText =
+                    current + ' moedas';
+
+                if (current >= target) {
+
+                    clearInterval(interval);
 
                     coins.innerText =
-                        current + ' moedas';
+                        target + ' moedas';
 
-                    if (current >= target) {
+                    fetch('/tesouro/coletar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
 
-                        clearInterval(interval);
+                            if (!data.success) {
 
-                        coins.innerText =
-                            target + ' moedas';
+                                status.innerText =
+                                    '⚠️ Tesouro já coletado.';
 
-                        openButton.innerText =
-                            '💰 Guardar Tesouro';
+                                return;
+                            }
 
-                        openButton.disabled =
-                            false;
+                            status.innerText =
+                                '⚓ Seu tesouro foi carregado para as docas.';
 
-                    }
+                            openButton.innerText =
+                                '⚓ Ir para as Docas';
 
-                }, 20);
+                            openButton.disabled = false;
+
+                            openButton.onclick = () => {
+
+                                window.location.href = '/porto';
+
+                            };
+
+                        });
+
+                }
+
+            }, 20);
 
         }
     </script>
