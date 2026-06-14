@@ -220,9 +220,8 @@ Route::get('/porto', function () {
     }
 
     return view('porto', [
-
-        'coins' => session('coins', 0)
-
+        'coins' => session('coins', 0),
+        'entries' => session('entries', 0),
     ]);
 })->name('porto');
 
@@ -245,6 +244,32 @@ Route::post('/tesouro/coletar', function () {
         'success' => true
     ]);
 });
+
+Route::post('/porto/comprar-participacao', function () {
+
+    $coins = session('coins', 0);
+
+    if ($coins < 100) {
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Moedas insuficientes'
+        ]);
+    }
+
+    session([
+        'coins' => $coins - 100,
+        'entries' => session('entries', 0) + 1,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'coins' => session('coins'),
+        'entries' => session('entries'),
+    ]);
+});
+
+
 /**
  * Healthcheck
  */

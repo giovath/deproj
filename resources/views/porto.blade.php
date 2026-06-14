@@ -152,7 +152,7 @@
 
             <div>Saldo disponível</div>
 
-            <div class="wallet-value">
+            <div class="wallet-value" id="coins">
                 {{ $coins }}
             </div>
 
@@ -166,7 +166,9 @@
 
             <p>
                 Participações disponíveis:
-                <strong>0</strong>
+                <strong id="entries">
+                    {{ $entries }}
+                </strong>
             </p>
 
             <p class="small">
@@ -186,13 +188,59 @@
 
         </div>
 
-        <button>
+        <button id="buyEntryButton">
 
             Comprar Participação (100 moedas)
 
         </button>
 
     </div>
+
+    <script>
+        const buyEntryButton =
+            document.getElementById('buyEntryButton');
+
+        const coins =
+            document.getElementById('coins');
+
+        const entries =
+            document.getElementById('entries');
+
+        buyEntryButton.addEventListener('click', () => {
+
+            fetch('/porto/comprar-participacao', {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+                    }
+
+                })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (!data.success) {
+
+                        alert(data.message);
+
+                        return;
+                    }
+
+                    coins.innerText =
+                        data.coins;
+
+                    entries.innerText =
+                        data.entries;
+
+                });
+
+        });
+    </script>
 
 </body>
 
