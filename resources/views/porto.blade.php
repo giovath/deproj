@@ -194,11 +194,18 @@
 
         </button>
 
+        <button id="playButton">
+            🎮 Jogar Agora
+        </button>
+
     </div>
 
     <script>
         const buyEntryButton =
             document.getElementById('buyEntryButton');
+
+        const playButton =
+            document.getElementById('playButton');
 
         const coins =
             document.getElementById('coins');
@@ -236,6 +243,41 @@
 
                     entries.innerText =
                         data.entries;
+
+                });
+
+        });
+
+        playButton.addEventListener('click', () => {
+
+            fetch('/porto/usar-participacao', {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+                    }
+
+                })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (!data.success) {
+
+                        alert(data.message);
+
+                        return;
+                    }
+
+                    entries.innerText =
+                        data.entries;
+
+                    window.location.href =
+                        '/jogo';
 
                 });
 

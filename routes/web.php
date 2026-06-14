@@ -269,6 +269,33 @@ Route::post('/porto/comprar-participacao', function () {
     ]);
 });
 
+Route::post('/porto/usar-participacao', function () {
+
+    $entries = session('entries', 0);
+
+    if ($entries <= 0) {
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Nenhuma participação disponível'
+        ]);
+    }
+
+    session([
+        'entries' => $entries - 1,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'entries' => session('entries'),
+    ]);
+});
+
+Route::get('/jogo', function () {
+
+    return view('jogo');
+});
+
 
 /**
  * Healthcheck
