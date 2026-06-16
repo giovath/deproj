@@ -293,14 +293,20 @@ Route::post('/porto/usar-participacao', function () {
     ]);
 });
 
-Route::get('/jogo', function () {
+Route::get('/jogo', function (
+    GamezopService $gamezop
+) {
 
-    if (!session('treasure_collected')) {
-        return redirect('/');
-    }
+    $game = $gamezop->getGameByCode(
+        config('gamezop_games.featured_game.code')
+    );
 
-    return view('jogo');
-})->name('jogo');
+    abort_if(!$game, 404);
+
+    return view('jogo', [
+        'gameUrl' => $game['url']
+    ]);
+});
 
 
 Route::get('/teste-gamezop', function (
@@ -312,7 +318,6 @@ Route::get('/teste-gamezop', function (
             config('gamezop_games.featured_game.code')
         )
     );
-
 });
 
 

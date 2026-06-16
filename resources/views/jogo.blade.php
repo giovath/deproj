@@ -2,20 +2,16 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <title>Área de Jogo</title>
-
+    <title>Carregando jogo...</title>
 </head>
 
 <body>
 
-    <h1>🎮 Preparando sua aventura...</h1>
-
-    <p>
-        Conectando ao jogo.
-    </p>
+    <script>
+        window.location.href =
+            "{{ $gameUrl }}";
+    </script>
 
 </body>
 
