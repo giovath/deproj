@@ -204,9 +204,6 @@
         const buyEntryButton =
             document.getElementById('buyEntryButton');
 
-        const playButton =
-            document.getElementById('playButton');
-
         const coins =
             document.getElementById('coins');
 
@@ -247,6 +244,9 @@
                 });
 
         });
+
+        const playButton =
+            document.getElementById('playButton');
 
         playButton.addEventListener('click', () => {
 

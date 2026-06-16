@@ -2,6 +2,8 @@
 
 return [
 
+
+
     /*
     |--------------------------------------------------------------------------
     | SYNC — CORE 1v1 (prioridade máxima)
@@ -236,6 +238,11 @@ return [
         'H1Hgyn6XqAS', // Carrom Hero
         'hgempP8Sc',   // Pool Master
         'rJ57aMJDcJm' // Go Chicken Go
+    ],
+
+    'featured_game' => [
+        'code' => 'B1gBpzJwqJQ',
+        'name' => 'Caça aos Piratas',
     ],
 
 ];

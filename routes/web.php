@@ -8,6 +8,8 @@ use App\Models\Captain;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
+use App\Services\GamezopService;
+
 Route::get('/', function () {
 
     return view('welcome', [
@@ -293,7 +295,24 @@ Route::post('/porto/usar-participacao', function () {
 
 Route::get('/jogo', function () {
 
+    if (!session('treasure_collected')) {
+        return redirect('/');
+    }
+
     return view('jogo');
+})->name('jogo');
+
+
+Route::get('/teste-gamezop', function (
+    GamezopService $gamezop
+) {
+
+    dd(
+        $gamezop->getGameByCode(
+            config('gamezop_games.featured_game.code')
+        )
+    );
+
 });
 
 

@@ -11,14 +11,10 @@
 
 <body>
 
-    <h1>🎮 Área de Jogo</h1>
+    <h1>🎮 Preparando sua aventura...</h1>
 
     <p>
-        Sua participação foi utilizada.
-    </p>
-
-    <p>
-        Em breve os jogos Gamezop serão carregados aqui.
+        Conectando ao jogo.
     </p>
 
 </body>
