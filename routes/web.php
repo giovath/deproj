@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Log;
+
 use App\Services\GamezopService;
 use App\Http\Controllers\GamezopWebhookController;
 
@@ -326,6 +328,19 @@ Route::post(
     '/webhooks/gamezop/score',
     [GamezopWebhookController::class, 'score']
 );
+
+Route::any('/webhooks/gamezop/teste', function (Request $request) {
+
+    Log::info('WEBHOOK TESTE', [
+        'method' => $request->method(),
+        'payload' => $request->all(),
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'method' => $request->method(),
+    ]);
+});
 
 /*
 Route::get('/teste-gamezop', function (
