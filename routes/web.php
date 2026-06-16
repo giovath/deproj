@@ -223,11 +223,18 @@ Route::get('/porto', function () {
         return redirect('/');
     }
 
+    if (!session()->has('player_uuid')) {
+
+        session([
+            'player_uuid' => (string) Str::uuid()
+        ]);
+    }
+
     return view('porto', [
         'coins' => session('coins', 0),
         'entries' => session('entries', 0),
     ]);
-})->name('porto');
+});
 
 Route::post('/tesouro/coletar', function () {
 
@@ -308,7 +315,7 @@ Route::get('/jogo', function (
     $gameUrl =
         $game['url']
         . '&sub='
-        . Auth::id();
+        . session('player_uuid');
 
     return view('jogo', [
         'gameUrl' => $gameUrl
