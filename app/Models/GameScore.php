@@ -8,7 +8,7 @@ class GameScore extends Model
 {
     protected $fillable = [
 
-        'user_id',
+        'player_uuid',
         'game_code',
         'score',
         'session_id',
