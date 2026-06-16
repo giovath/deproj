@@ -9,16 +9,11 @@ class GamezopWebhookController extends Controller
 {
     public function score(Request $request)
     {
-        Log::info(
-            'GAMEZOP SCORE RECEIVED',
-            [
-                'headers' => $request->headers->all(),
-                'payload' => $request->all(),
-            ]
-        );
+        Log::info('GAMEZOP SCORE', $request->all());
 
         return response()->json([
-            'success' => true
-        ], 200);
+            'success' => true,
+            'received' => $request->all(),
+        ]);
     }
 }
