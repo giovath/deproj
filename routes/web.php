@@ -7,8 +7,10 @@ use App\Models\GameMatch;
 use App\Models\Captain;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Services\GamezopService;
+use App\Http\Controllers\GamezopWebhookController;
 
 Route::get('/', function () {
 
@@ -303,12 +305,22 @@ Route::get('/jogo', function (
 
     abort_if(!$game, 404);
 
+    $gameUrl =
+        $game['url']
+        . '&sub='
+        . Auth::id();
+
     return view('jogo', [
-        'gameUrl' => $game['url']
+        'gameUrl' => $gameUrl
     ]);
 });
 
+Route::post(
+    '/webhooks/gamezop/score',
+    [GamezopWebhookController::class, 'score']
+);
 
+/*
 Route::get('/teste-gamezop', function (
     GamezopService $gamezop
 ) {
@@ -319,7 +331,7 @@ Route::get('/teste-gamezop', function (
         )
     );
 });
-
+*/
 
 /**
  * Healthcheck
