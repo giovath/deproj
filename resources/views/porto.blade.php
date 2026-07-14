@@ -16,6 +16,7 @@
             box-sizing: border-box;
         }
 
+
         body {
 
             min-height: 100vh;
@@ -31,6 +32,7 @@
                     rgba(0, 0, 0, .85)),
                 url('/images/treasure-room-bg.jpg');
 
+
             background-size: cover;
 
             background-position: center;
@@ -38,7 +40,10 @@
             font-family: Arial, sans-serif;
 
             padding: 20px;
+
         }
+
+
 
         .container {
 
@@ -46,44 +51,59 @@
 
             max-width: 460px;
 
-            background: rgba(20, 12, 5, .92);
+            background:
+                rgba(20, 12, 5, .92);
 
             border-radius: 24px;
 
-            border: 2px solid rgba(212, 170, 74, .25);
+            border:
+                2px solid rgba(212, 170, 74, .25);
 
             padding: 30px;
 
             color: #f5deb3;
 
             text-align: center;
+
         }
+
+
 
         h1 {
 
             color: #f0c36a;
 
             margin-bottom: 20px;
+
         }
+
+
 
         .wallet,
         .section {
 
-            background: rgba(255, 255, 255, .05);
+            background:
+                rgba(255, 255, 255, .05);
 
             border-radius: 16px;
 
             padding: 18px;
 
             margin-bottom: 18px;
+
         }
+
+
 
         .wallet-title {
 
             font-size: .95rem;
 
             opacity: .9;
+
         }
+
+
 
         .wallet-value {
 
@@ -94,7 +114,10 @@
             color: #f0c36a;
 
             margin: 6px 0;
+
         }
+
+
 
         .section h2 {
 
@@ -103,12 +126,18 @@
             margin-bottom: 10px;
 
             font-size: 1.1rem;
+
         }
+
+
 
         .section p {
 
             line-height: 1.5;
+
         }
+
+
 
         .small {
 
@@ -117,7 +146,10 @@
             opacity: .75;
 
             font-size: .9rem;
+
         }
+
+
 
         .reward-list {
 
@@ -130,7 +162,10 @@
             gap: 6px;
 
             text-align: left;
+
         }
+
+
 
         .reward-item {
 
@@ -138,12 +173,16 @@
 
             justify-content: space-between;
 
-            background: rgba(255, 255, 255, .05);
+            background:
+                rgba(255, 255, 255, .05);
 
             padding: 8px 12px;
 
             border-radius: 10px;
+
         }
+
+
 
         button {
 
@@ -171,41 +210,46 @@
             transition: .2s;
 
             margin-top: 12px;
+
         }
+
+
 
         button:hover {
 
             transform: translateY(-2px);
+
         }
+
+
 
         .secondary {
 
             background:
-
                 linear-gradient(180deg,
                     #4b82d6,
                     #2757b8);
-        }
 
-        .timer {
-
-            color: #f0c36a;
-
-            font-weight: bold;
-
-            margin-top: 6px;
         }
     </style>
 
 </head>
 
+
 <body>
+
 
     <div class="container">
 
-        <h1>⚓ Porto do Tesouro</h1>
+
+        <h1>
+            ⚓ Porto do Tesouro
+        </h1>
+
+
 
         <div class="wallet">
+
 
             <div class="wallet-title">
 
@@ -213,11 +257,13 @@
 
             </div>
 
-            <div class="wallet-value" id="coins">
+
+            <div class="wallet-value">
 
                 {{ $coins }}
 
             </div>
+
 
             <div>
 
@@ -225,192 +271,128 @@
 
             </div>
 
-        </div>
-
-        <div class="section">
-
-            <h2>🎁 Próxima Expedição Gratuita</h2>
-
-            <div class="timer">
-
-                Em breve...
-
-            </div>
-
-            <div class="small">
-
-                Em uma próxima atualização este tempo será contabilizado automaticamente.
-
-            </div>
 
         </div>
 
+
+
+
         <div class="section">
 
-            <h2>⚓ Expedições</h2>
+
+            <h2>
+                ⚓ Expedições Premiadas
+            </h2>
+
 
             <p>
 
-                Participações disponíveis:
+                Você possui:
 
-                <strong id="participations">
-
+                <strong>
                     {{ $participations }}
-
                 </strong>
 
+                participação(ões) disponível(is).
+
             </p>
+
+
 
             <div class="small">
 
-                Cada expedição permite explorar os mares durante até
-                <strong>15 minutos</strong>.
+                Use suas participações no catálogo de jogos para iniciar uma expedição premiada.
 
-                Ao concluir sua jornada você conquista uma
-                <strong>Relíquia</strong> e participa do Ranking Semanal dos Capitães.
+                Durante a aventura você poderá conquistar
+                <strong>Relíquias</strong>
+                e participar do Ranking Semanal dos Capitães.
 
             </div>
 
+
         </div>
+
+
+
 
         <div class="section">
 
-            <h2>🏆 Ranking Semanal dos Capitães</h2>
+
+            <h2>
+                🏆 Ranking Semanal dos Capitães
+            </h2>
+
 
             <p>
 
-                Quanto mais expedições você concluir, maiores serão suas chances de conquistar os primeiros lugares.
+                Quanto mais relíquias conquistar, maiores suas chances de alcançar os primeiros lugares.
 
             </p>
+
+
 
             <div class="reward-list">
 
-                <div class="reward-item">
-
-                    <span>🥇 1º Lugar</span>
-
-                    <strong>R$ 30</strong>
-
-                </div>
 
                 <div class="reward-item">
 
-                    <span>🥈 2º Lugar</span>
+                    <span>
+                        🥇 1º Lugar
+                    </span>
 
-                    <strong>R$ 10</strong>
+                    <strong>
+                        R$ 30
+                    </strong>
 
                 </div>
+
+
 
                 <div class="reward-item">
 
-                    <span>🥉 3º Lugar</span>
+                    <span>
+                        🥈 2º Lugar
+                    </span>
 
-                    <strong>R$ 5</strong>
+                    <strong>
+                        R$ 10
+                    </strong>
 
                 </div>
+
+
+
+                <div class="reward-item">
+
+                    <span>
+                        🥉 3º Lugar
+                    </span>
+
+                    <strong>
+                        R$ 5
+                    </strong>
+
+                </div>
+
 
             </div>
 
+
         </div>
 
-        <button id="buyParticipationButton">
 
-            ⚓ Comprar Participação (100 moedas)
 
-        </button>
 
-        <button id="playButton" class="secondary">
+        <button onclick="window.location.href='/jogos'">
 
-            🗺️ Iniciar Expedição
+            🎮 Explorar Jogos
 
         </button>
+
+
 
     </div>
 
-    <script>
-        const buyParticipationButton =
-            document.getElementById('buyParticipationButton');
-
-        const playButton =
-            document.getElementById('playButton');
-
-        const coins =
-            document.getElementById('coins');
-
-        const participations =
-            document.getElementById('participations');
-
-        buyParticipationButton.addEventListener('click', () => {
-
-            fetch('/porto/comprar-participacao', {
-
-                    method: 'POST',
-
-                    headers: {
-
-                        'Content-Type': 'application/json',
-
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-
-                    }
-
-                })
-
-                .then(response => response.json())
-
-                .then(data => {
-
-                    if (!data.success) {
-
-                        alert(data.message);
-
-                        return;
-                    }
-
-                    coins.innerText = data.coins;
-
-                    participations.innerText = data.participations;
-
-                });
-
-        });
-
-        playButton.addEventListener('click', () => {
-
-            fetch('/porto/usar-participacao', {
-
-                    method: 'POST',
-
-                    headers: {
-
-                        'Content-Type': 'application/json',
-
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-
-                    }
-
-                })
-
-                .then(response => response.json())
-
-                .then(data => {
-
-                    if (!data.success) {
-
-                        alert(data.message);
-
-                        return;
-                    }
-
-                    participations.innerText = data.participations;
-
-                    // Na próxima etapa mudaremos para /games
-                    window.location.href = '/jogos';
-
-                });
-
-        });
-    </script>
 
 </body>
 

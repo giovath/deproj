@@ -267,51 +267,40 @@ Route::get('/porto', function () {
     ]);
 });
 
-Route::post('/porto/comprar-participacao', function () {
+Route::post(
+    '/jogos/comprar-participacao',
+    function () {
 
-    $coins = session('coins', 0);
+        $coins = session('coins', 0);
 
-    if ($coins < 100) {
+        if ($coins < 100) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Moedas insuficientes'
+            ]);
+        }
+
+
+        session([
+            'coins' => $coins - 100,
+
+            'participations' =>
+            session('participations', 0) + 1
+        ]);
+
 
         return response()->json([
-            'success' => false,
-            'message' => 'Moedas insuficientes'
+
+            'success' => true,
+
+            'coins' => session('coins'),
+
+            'participations' => session('participations')
+
         ]);
     }
-
-    session([
-        'coins' => $coins - 100,
-        'participations' => session('participations', 0) + 1,
-    ]);
-
-    return response()->json([
-        'success' => true,
-        'coins' => session('coins'),
-        'participations' => session('participations'),
-    ]);
-});
-
-Route::post('/porto/usar-participacao', function () {
-
-    $participations = session('participations', 0);
-
-    if ($participations <= 0) {
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Nenhuma participação disponível'
-        ]);
-    }
-
-    session([
-        'participations' => $participations - 1,
-    ]);
-
-    return response()->json([
-        'success' => true,
-        'participations' => session('participations'),
-    ]);
-});
+);
 
 Route::get('/jogos', [GameController::class, 'index']);
 
@@ -327,6 +316,13 @@ Route::get(
     [ExpeditionController::class, 'play']
 );
 
+Route::post(
+    '/expedicao/finalizar',
+    [ExpeditionController::class, 'finish']
+);
+
+
+/*
 Route::post(
     '/webhooks/gamezop/score',
     [GamezopWebhookController::class, 'score']
@@ -344,7 +340,7 @@ Route::any('/webhooks/gamezop/teste', function (Request $request) {
         'method' => $request->method(),
     ]);
 });
-
+*/
 
 Route::get('/games-test', function (GameCatalogService $catalog) {
 

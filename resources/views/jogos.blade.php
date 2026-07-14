@@ -7,7 +7,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mapa de Expedições</title>
+    <title>Catálogo de Jogos</title>
+
 
     <style>
         * {
@@ -15,6 +16,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
 
         body {
 
@@ -32,7 +34,9 @@
             padding: 20px;
 
             color: #f5deb3;
+
         }
+
 
 
         .container {
@@ -44,71 +48,84 @@
         }
 
 
+
         h1 {
 
             text-align: center;
 
             color: #f0c36a;
 
-            margin-bottom: 30px;
+            margin-bottom: 25px;
 
         }
 
 
-        .games {
 
-            display: grid;
+        .top-panel {
 
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-
-            gap: 20px;
-
-        }
-
-
-        .card {
 
             background:
                 rgba(20, 12, 5, .9);
 
-            border-radius: 20px;
-
-            padding: 20px;
-
-            text-align: center;
 
             border:
                 1px solid rgba(212, 170, 74, .3);
 
+
+            border-radius: 20px;
+
+
+            padding: 20px;
+
+
+            margin-bottom: 25px;
+
+
+            text-align: center;
+
         }
 
 
-        .card img {
 
-            width: 100%;
-
-            border-radius: 14px;
-
-        }
-
-
-        .card h2 {
-
-            margin: 15px 0;
+        .top-panel strong {
 
             color: #f0c36a;
 
         }
 
 
-        .card p {
 
-            opacity: .8;
+        .stats {
 
-            min-height: 40px;
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 15px;
 
         }
+
+
+
+        .stat {
+
+
+            background:
+                rgba(255, 255, 255, .05);
+
+
+            padding: 12px 20px;
+
+
+            border-radius: 14px;
+
+
+        }
+
 
 
         button {
@@ -135,7 +152,85 @@
             cursor: pointer;
 
         }
+
+
+
+        .games {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(220px, 1fr));
+
+            gap: 20px;
+
+        }
+
+
+
+        .card {
+
+            background:
+                rgba(20, 12, 5, .9);
+
+
+            border-radius: 20px;
+
+
+            padding: 20px;
+
+
+            text-align: center;
+
+
+            border:
+                1px solid rgba(212, 170, 74, .3);
+
+        }
+
+
+
+        .card img {
+
+            width: 100%;
+
+            border-radius: 14px;
+
+        }
+
+
+
+        .card h2 {
+
+            margin: 15px 0;
+
+            color: #f0c36a;
+
+        }
+
+
+
+        .card p {
+
+            opacity: .8;
+
+            min-height: 40px;
+
+        }
+
+
+
+        .free {
+
+            background:
+                linear-gradient(180deg,
+                    #4b82d6,
+                    #2757b8);
+
+        }
     </style>
+
 
 </head>
 
@@ -146,9 +241,74 @@
     <div class="container">
 
 
+
         <h1>
-            ⚓ Escolha sua Expedição
+            🎮 Catálogo de Jogos
         </h1>
+
+
+
+        <div class="top-panel">
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    💰 Moedas
+
+                    <br>
+
+                    <strong>
+                        {{ session('coins', 0) }}
+                    </strong>
+
+
+                </div>
+
+
+
+                <div class="stat">
+
+                    ⚓ Participações
+
+                    <br>
+
+                    <strong id="participations">
+
+                        {{ session('participations', 0) }}
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <p>
+
+                Cada participação permite iniciar uma Expedição Premiada e conquistar Relíquias.
+
+            </p>
+
+
+
+            <button id="buyParticipationButton">
+
+                ⚓ Comprar Participação (100 moedas)
+
+            </button>
+
+
+
+        </div>
+
+
+
 
 
         <div class="games">
@@ -161,9 +321,11 @@
                     <img src="{{ $game->cover }}">
 
 
+
                     <h2>
                         {{ $game->title }}
                     </h2>
+
 
 
                     <p>
@@ -171,27 +333,114 @@
                     </p>
 
 
-                    <form method="POST" action="/expedicao/iniciar/{{ $game->id }}">
 
-                        @csrf
+                    <form method="GET" action="/jogo/{{ $game->id }}">
 
-                        <button>
 
-                            🗺️ Iniciar Expedição
+                        <button class="free">
+
+                            🎮 Jogar Livremente
 
                         </button>
 
+
                     </form>
+
+
+
+
+                    <form method="POST" action="/expedicao/iniciar/{{ $game->id }}">
+
+
+                        @csrf
+
+
+                        <button>
+
+                            ⚓ Expedição Premiada
+
+                        </button>
+
+
+                    </form>
+
 
 
                 </div>
             @endforeach
 
 
+
         </div>
 
 
     </div>
+
+
+
+    <script>
+        const buyButton =
+            document.getElementById('buyParticipationButton');
+
+
+        const participation =
+            document.getElementById('participations');
+
+
+
+        buyButton.addEventListener('click', () => {
+
+
+            fetch('/jogos/comprar-participacao', {
+
+
+                    method: 'POST',
+
+
+                    headers: {
+
+
+                        'Content-Type': 'application/json',
+
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+
+
+                    }
+
+
+                })
+
+
+                .then(response => response.json())
+
+
+                .then(data => {
+
+
+                    if (!data.success) {
+
+
+                        alert(data.message);
+
+                        return;
+
+
+                    }
+
+
+                    participation.innerText =
+                        data.participations;
+
+
+                    alert('Participação adquirida!');
+
+
+                });
+
+
+        });
+    </script>
+
 
 
 </body>
