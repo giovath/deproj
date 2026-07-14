@@ -59,10 +59,11 @@ class ExpeditionController extends Controller
             return redirect('/porto');
         }
 
+        /*
         dd(
             session('expedition_duration'),
             session('expedition_started_at')
-        );
+        );*/
 
         return view('expedicao-jogar', [
             'gameTitle' => session('expedition_game_title'),

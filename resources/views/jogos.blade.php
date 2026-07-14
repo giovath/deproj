@@ -260,8 +260,10 @@
 
                     <br>
 
-                    <strong>
+                    <strong id="coins">
+
                         {{ session('coins', 0) }}
+
                     </strong>
 
 
@@ -386,6 +388,9 @@
         const participation =
             document.getElementById('participations');
 
+        const coins =
+            document.getElementById('coins');
+
 
 
         buyButton.addEventListener('click', () => {
@@ -426,6 +431,9 @@
 
 
                     }
+
+                    coins.innerText =
+                        data.coins;
 
 
                     participation.innerText =
