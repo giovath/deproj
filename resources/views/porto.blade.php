@@ -251,11 +251,11 @@
 
             <p>
 
-                Expedições disponíveis:
+                Participações disponíveis:
 
-                <strong id="entries">
+                <strong id="participations">
 
-                    {{ $entries }}
+                    {{ $participations }}
 
                 </strong>
 
@@ -263,10 +263,11 @@
 
             <div class="small">
 
-                Cada expedição permite explorar os mares durante até <strong>30 minutos</strong>.
+                Cada expedição permite explorar os mares durante até
+                <strong>15 minutos</strong>.
 
-                Ao final da viagem você recebe moedas conforme o tempo de exploração e conquista um Ticket para o
-                Ranking.
+                Ao concluir sua jornada você conquista uma
+                <strong>Relíquia</strong> e participa do Ranking Semanal dos Capitães.
 
             </div>
 
@@ -312,9 +313,9 @@
 
         </div>
 
-        <button id="buyEntryButton">
+        <button id="buyParticipationButton">
 
-            ⚓ Comprar Expedição (100 moedas)
+            ⚓ Comprar Participação (100 moedas)
 
         </button>
 
@@ -327,8 +328,8 @@
     </div>
 
     <script>
-        const buyEntryButton =
-            document.getElementById('buyEntryButton');
+        const buyParticipationButton =
+            document.getElementById('buyParticipationButton');
 
         const playButton =
             document.getElementById('playButton');
@@ -336,10 +337,10 @@
         const coins =
             document.getElementById('coins');
 
-        const entries =
-            document.getElementById('entries');
+        const participations =
+            document.getElementById('participations');
 
-        buyEntryButton.addEventListener('click', () => {
+        buyParticipationButton.addEventListener('click', () => {
 
             fetch('/porto/comprar-participacao', {
 
@@ -368,7 +369,7 @@
 
                     coins.innerText = data.coins;
 
-                    entries.innerText = data.entries;
+                    participations.innerText = data.participations;
 
                 });
 
@@ -401,10 +402,10 @@
                         return;
                     }
 
-                    entries.innerText = data.entries;
+                    participations.innerText = data.participations;
 
                     // Na próxima etapa mudaremos para /games
-                    window.location.href = '/jogo';
+                    window.location.href = '/jogos';
 
                 });
 

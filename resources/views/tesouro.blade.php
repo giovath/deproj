@@ -188,6 +188,7 @@
         const coins =
             document.getElementById('coins');
 
+
         openButton.addEventListener('click', () => {
 
             openButton.disabled = true;
@@ -208,16 +209,48 @@
                     '/images/chest-open.png';
 
                 status.innerText =
-                    '🪙 Tesouro encontrado!';
+                    '🪙 Tesouro encontrado! Sua recompensa está sendo revelada...';
 
                 coins.style.display =
                     'block';
 
-                animateCoins(184);
+
+                collectTreasure();
 
             }, 2200);
 
         });
+
+        function collectTreasure() {
+
+            fetch('/tesouro/coletar', {
+
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+
+                })
+
+                .then(response => response.json())
+
+                .then(data => {
+
+                    if (!data.success) {
+
+                        status.innerText =
+                            '⚠️ Tesouro já coletado.';
+
+                        return;
+                    }
+
+                    animateCoins(data.coins);
+
+                });
+
+        }
 
         function animateCoins(target) {
 
@@ -227,51 +260,35 @@
 
                 current += 4;
 
-                coins.innerText =
-                    current + ' moedas';
-
                 if (current >= target) {
+
+                    current = target;
 
                     clearInterval(interval);
 
                     coins.innerText =
                         target + ' moedas';
 
-                    fetch('/tesouro/coletar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
+                    status.innerText =
+                        '✨ Você encontrou ' + target + ' moedas!';
 
-                            if (!data.success) {
+                    openButton.innerText =
+                        '⚓ Ir para as Docas';
 
-                                status.innerText =
-                                    '⚠️ Tesouro já coletado.';
+                    openButton.disabled = false;
 
-                                return;
-                            }
+                    openButton.onclick = () => {
 
-                            status.innerText =
-                                '⚓ Seu tesouro foi carregado para as docas.';
+                        window.location.href = '/porto';
 
-                            openButton.innerText =
-                                '⚓ Ir para as Docas';
+                    };
 
-                            openButton.disabled = false;
-
-                            openButton.onclick = () => {
-
-                                window.location.href = '/porto';
-
-                            };
-
-                        });
-
+                    return;
                 }
+
+                coins.innerText =
+                    current + ' moedas';
+
 
             }, 20);
 

@@ -11,6 +11,6 @@ class GameController extends Controller
     {
         $games = $catalog->games();
 
-        return view('games.index', compact('games'));
+        return view('jogos', compact('games'));
     }
 }

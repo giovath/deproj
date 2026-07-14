@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\GameController;
 use App\Services\Games\GameCatalogService;
 
 use Illuminate\Support\Facades\Log;
@@ -221,6 +222,30 @@ Route::get('/tesouro', function () {
     return view('tesouro');
 });
 
+
+Route::post('/tesouro/coletar', function () {
+
+    if (session('treasure_collected')) {
+
+        return response()->json([
+            'success' => false
+        ]);
+    }
+
+    $coins = random_int(100, 199);
+
+    session([
+        'coins' => session('coins', 0) + $coins,
+        'treasure_collected' => true,
+        'treasure_available' => false,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'coins' => $coins
+    ]);
+});
+
 Route::get('/porto', function () {
 
     if (!session('treasure_collected')) {
@@ -236,27 +261,7 @@ Route::get('/porto', function () {
 
     return view('porto', [
         'coins' => session('coins', 0),
-        'entries' => session('entries', 0),
-    ]);
-});
-
-Route::post('/tesouro/coletar', function () {
-
-    if (session('treasure_collected')) {
-
-        return response()->json([
-            'success' => false
-        ]);
-    }
-
-    session([
-        'coins' => session('coins', 0) + 184,
-        'treasure_collected' => true,
-        'treasure_available' => false,
-    ]);
-
-    return response()->json([
-        'success' => true
+        'participations' => session('participations', 0),
     ]);
 });
 
@@ -274,21 +279,21 @@ Route::post('/porto/comprar-participacao', function () {
 
     session([
         'coins' => $coins - 100,
-        'entries' => session('entries', 0) + 1,
+        'participations' => session('participations', 0) + 1,
     ]);
 
     return response()->json([
         'success' => true,
         'coins' => session('coins'),
-        'entries' => session('entries'),
+        'participations' => session('participations'),
     ]);
 });
 
 Route::post('/porto/usar-participacao', function () {
 
-    $entries = session('entries', 0);
+    $participations = session('participations', 0);
 
-    if ($entries <= 0) {
+    if ($participations <= 0) {
 
         return response()->json([
             'success' => false,
@@ -297,34 +302,16 @@ Route::post('/porto/usar-participacao', function () {
     }
 
     session([
-        'entries' => $entries - 1,
+        'participations' => $participations - 1,
     ]);
 
     return response()->json([
         'success' => true,
-        'entries' => session('entries'),
+        'participations' => session('participations'),
     ]);
 });
 
-Route::get('/jogo', function (
-    GamezopService $gamezop
-) {
-
-    $game = $gamezop->getGameByCode(
-        config('gamezop_games.featured_game.code')
-    );
-
-    abort_if(!$game, 404);
-
-    $gameUrl =
-        $game['url']
-        . '&sub='
-        . session('player_uuid');
-
-    return view('jogo', [
-        'gameUrl' => $gameUrl
-    ]);
-});
+Route::get('/jogos', [GameController::class, 'index']);
 
 Route::post(
     '/webhooks/gamezop/score',
