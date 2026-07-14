@@ -90,9 +90,7 @@ class ExpeditionController extends Controller
 
         $duration = session('expedition_duration', 20);
 
-
-        $elapsed = now()->diffInSeconds($startedAt);
-
+        $elapsed = now()->timestamp - $startedAt->timestamp;
 
         if ($elapsed < $duration) {
 
@@ -127,7 +125,10 @@ class ExpeditionController extends Controller
 
             'success' => true,
 
-            'relics' => $relics
+            'relics' => $relics,
+
+            'elapsed' => $elapsed,
+            'duration' => $duration,
 
         ]);
     }
