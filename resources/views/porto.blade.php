@@ -274,6 +274,22 @@
 
         </div>
 
+        <div class="wallet">
+
+            <div class="wallet-title">
+                🏺 Relíquias
+            </div>
+
+            <div class="wallet-value">
+                {{ session('expedition_relics', 0) }}
+            </div>
+
+            <div>
+                relíquias conquistadas
+            </div>
+
+        </div>
+
 
 
 

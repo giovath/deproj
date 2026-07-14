@@ -286,6 +286,20 @@
 
                 </div>
 
+                <div class="stat">
+
+                    🏺 Relíquias
+
+                    <br>
+
+                    <strong id="relics">
+
+                        {{ session('expedition_relics', 0) }}
+
+                    </strong>
+
+                </div>
+
 
             </div>
 
@@ -391,7 +405,8 @@
         const coins =
             document.getElementById('coins');
 
-
+        const relics =
+            document.getElementById('relics');
 
         buyButton.addEventListener('click', () => {
 
@@ -438,6 +453,10 @@
 
                     participation.innerText =
                         data.participations;
+
+                    if (data.relics !== undefined) {
+                        relics.innerText = data.relics;
+                    }
 
 
                     alert('Participação adquirida!');

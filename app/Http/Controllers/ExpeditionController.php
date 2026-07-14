@@ -45,8 +45,6 @@ class ExpeditionController extends Controller
             'expedition_started_at' => now(),
 
             'expedition_duration' => 20,
-
-            'expedition_relics' => 0,
         ]);
 
         return redirect('/expedicao/jogar');
@@ -109,14 +107,13 @@ class ExpeditionController extends Controller
     */
 
 
-        $relics = random_int(1, 1);
+        $relics = random_int(1, 5);
 
+        $currentRelics = session('expedition_relics', 0);
 
         session([
-            'expedition_relics' => $relics,
-
+            'expedition_relics' => $currentRelics + $relics,
             'expedition_finished' => true,
-
             'expedition_active' => false,
         ]);
 
