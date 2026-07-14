@@ -46,4 +46,14 @@ return [
         'lang'  => env('GAMEZOP_LANG', 'pt'),
     ],
 
+    'gamepix' => [
+
+        'feed' => env('GAMEPIX_FEED'),
+
+        'sid' => env('GAMEPIX_SID'),
+
+        'pagination' => env('GAMEPIX_PAGINATION', 12),
+
+    ],
+
 ];

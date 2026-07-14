@@ -44,9 +44,9 @@
 
             width: 100%;
 
-            max-width: 450px;
+            max-width: 460px;
 
-            background: rgba(20, 12, 5, .90);
+            background: rgba(20, 12, 5, .92);
 
             border-radius: 24px;
 
@@ -66,26 +66,7 @@
             margin-bottom: 20px;
         }
 
-        .wallet {
-
-            background: rgba(255, 255, 255, .05);
-
-            border-radius: 16px;
-
-            padding: 18px;
-
-            margin-bottom: 18px;
-        }
-
-        .wallet-value {
-
-            font-size: 2rem;
-
-            font-weight: bold;
-
-            color: #f0c36a;
-        }
-
+        .wallet,
         .section {
 
             background: rgba(255, 255, 255, .05);
@@ -97,13 +78,71 @@
             margin-bottom: 18px;
         }
 
-        .section h2 {
+        .wallet-title {
 
-            margin-bottom: 10px;
+            font-size: .95rem;
+
+            opacity: .9;
+        }
+
+        .wallet-value {
+
+            font-size: 2rem;
+
+            font-weight: bold;
 
             color: #f0c36a;
 
+            margin: 6px 0;
+        }
+
+        .section h2 {
+
+            color: #f0c36a;
+
+            margin-bottom: 10px;
+
             font-size: 1.1rem;
+        }
+
+        .section p {
+
+            line-height: 1.5;
+        }
+
+        .small {
+
+            margin-top: 10px;
+
+            opacity: .75;
+
+            font-size: .9rem;
+        }
+
+        .reward-list {
+
+            margin-top: 12px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+            text-align: left;
+        }
+
+        .reward-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            background: rgba(255, 255, 255, .05);
+
+            padding: 8px 12px;
+
+            border-radius: 10px;
         }
 
         button {
@@ -128,15 +167,33 @@
                 linear-gradient(180deg,
                     #d6a84d,
                     #b98526);
+
+            transition: .2s;
+
+            margin-top: 12px;
         }
 
-        .small {
+        button:hover {
 
-            opacity: .8;
+            transform: translateY(-2px);
+        }
 
-            font-size: .9rem;
+        .secondary {
 
-            margin-top: 8px;
+            background:
+
+                linear-gradient(180deg,
+                    #4b82d6,
+                    #2757b8);
+        }
+
+        .timer {
+
+            color: #f0c36a;
+
+            font-weight: bold;
+
+            margin-top: 6px;
         }
     </style>
 
@@ -150,52 +207,121 @@
 
         <div class="wallet">
 
-            <div>Saldo disponível</div>
+            <div class="wallet-title">
 
-            <div class="wallet-value" id="coins">
-                {{ $coins }}
+                💰 Ouro do Capitão
+
             </div>
 
-            <div>moedas</div>
+            <div class="wallet-value" id="coins">
+
+                {{ $coins }}
+
+            </div>
+
+            <div>
+
+                moedas disponíveis
+
+            </div>
 
         </div>
 
         <div class="section">
 
-            <h2>🎟️ Participações</h2>
+            <h2>🎁 Próxima Expedição Gratuita</h2>
+
+            <div class="timer">
+
+                Em breve...
+
+            </div>
+
+            <div class="small">
+
+                Em uma próxima atualização este tempo será contabilizado automaticamente.
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h2>⚓ Expedições</h2>
 
             <p>
-                Participações disponíveis:
+
+                Expedições disponíveis:
+
                 <strong id="entries">
+
                     {{ $entries }}
+
                 </strong>
+
             </p>
 
-            <p class="small">
-                Cada participação custa 100 moedas.
-            </p>
+            <div class="small">
+
+                Cada expedição permite explorar os mares durante até <strong>30 minutos</strong>.
+
+                Ao final da viagem você recebe moedas conforme o tempo de exploração e conquista um Ticket para o
+                Ranking.
+
+            </div>
 
         </div>
 
         <div class="section">
 
-            <h2>🏆 Ranking Semanal</h2>
+            <h2>🏆 Ranking Semanal dos Capitães</h2>
 
             <p>
-                Jogue, envie sua pontuação e dispute
-                prêmios com outros capitães.
+
+                Quanto mais expedições você concluir, maiores serão suas chances de conquistar os primeiros lugares.
+
             </p>
+
+            <div class="reward-list">
+
+                <div class="reward-item">
+
+                    <span>🥇 1º Lugar</span>
+
+                    <strong>R$ 30</strong>
+
+                </div>
+
+                <div class="reward-item">
+
+                    <span>🥈 2º Lugar</span>
+
+                    <strong>R$ 10</strong>
+
+                </div>
+
+                <div class="reward-item">
+
+                    <span>🥉 3º Lugar</span>
+
+                    <strong>R$ 5</strong>
+
+                </div>
+
+            </div>
 
         </div>
 
         <button id="buyEntryButton">
 
-            Comprar Participação (100 moedas)
+            ⚓ Comprar Expedição (100 moedas)
 
         </button>
 
-        <button id="playButton">
-            🎮 Jogar Agora
+        <button id="playButton" class="secondary">
+
+            🗺️ Iniciar Expedição
+
         </button>
 
     </div>
@@ -203,6 +329,9 @@
     <script>
         const buyEntryButton =
             document.getElementById('buyEntryButton');
+
+        const playButton =
+            document.getElementById('playButton');
 
         const coins =
             document.getElementById('coins');
@@ -225,7 +354,9 @@
                     }
 
                 })
+
                 .then(response => response.json())
+
                 .then(data => {
 
                     if (!data.success) {
@@ -235,18 +366,13 @@
                         return;
                     }
 
-                    coins.innerText =
-                        data.coins;
+                    coins.innerText = data.coins;
 
-                    entries.innerText =
-                        data.entries;
+                    entries.innerText = data.entries;
 
                 });
 
         });
-
-        const playButton =
-            document.getElementById('playButton');
 
         playButton.addEventListener('click', () => {
 
@@ -263,7 +389,9 @@
                     }
 
                 })
+
                 .then(response => response.json())
+
                 .then(data => {
 
                     if (!data.success) {
@@ -273,11 +401,10 @@
                         return;
                     }
 
-                    entries.innerText =
-                        data.entries;
+                    entries.innerText = data.entries;
 
-                    window.location.href =
-                        '/jogo';
+                    // Na próxima etapa mudaremos para /games
+                    window.location.href = '/jogo';
 
                 });
 

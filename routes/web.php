@@ -342,18 +342,12 @@ Route::any('/webhooks/gamezop/teste', function (Request $request) {
     ]);
 });
 
-/*
-Route::get('/teste-gamezop', function (
-    GamezopService $gamezop
-) {
+Route::get('/games-test', function () {
 
-    dd(
-        $gamezop->getGameByCode(
-            config('gamezop_games.featured_game.code')
-        )
-    );
+    $provider = app(App\Services\Games\Providers\GamePixProvider::class);
+
+    return $provider->games();
 });
-*/
 
 /**
  * Healthcheck
