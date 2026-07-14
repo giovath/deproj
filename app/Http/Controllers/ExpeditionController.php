@@ -36,11 +36,12 @@ class ExpeditionController extends Controller
     public function play()
     {
         if (!session('expedition_active')) {
-
             return redirect('/porto');
         }
 
-
-        return view('expedicao-jogar');
+        return view('expedicao-jogar', [
+            'game' => session('expedition_game'),
+            'startedAt' => session('expedition_started_at')
+        ]);
     }
 }

@@ -23,10 +23,18 @@
     </p>
 
 
-    <p>
-        Jogo escolhido:
-        {{ session('expedition_game') }}
-    </p>
+    <h1>
+        ⚓ Expedição em andamento
+    </h1>
+
+
+    <h2>
+        {{ $game->title }}
+    </h2>
+
+
+    <iframe src="{{ $game->playUrl }}" width="100%" height="600" frameborder="0">
+    </iframe>
 
 
     <p>
