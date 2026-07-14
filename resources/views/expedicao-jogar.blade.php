@@ -394,7 +394,17 @@
 
                 })
 
-                .then(response => response.json())
+                .then(async response => {
+
+                    const text = await response.text();
+
+                    console.log('Resposta do servidor:', text);
+
+                    const data = JSON.parse(text);
+
+                    return data;
+
+                })
 
                 .then(data => {
 
