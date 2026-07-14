@@ -90,13 +90,6 @@ class ExpeditionController extends Controller
 
         $duration = session('expedition_duration', 20);
 
-        dd([
-            'duration' => $duration,
-            'started_at' => $startedAt,
-            'now' => now(),
-            'elapsed' => now()->diffInSeconds($startedAt),
-        ]);
-
 
         $elapsed = now()->diffInSeconds($startedAt);
 
