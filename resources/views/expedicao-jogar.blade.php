@@ -316,12 +316,14 @@
 
 
     <script>
+        let startedAt =
+            new Date("{{ $startedAt->toIso8601String() }}").getTime();
+
+
         let remaining =
             {{ $duration }} -
             Math.floor(
-                (Date.now() -
-                    new Date("{{ $startedAt }}").getTime()) /
-                1000
+                (Date.now() - startedAt) / 1000
             );
 
 

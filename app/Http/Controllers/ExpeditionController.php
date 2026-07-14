@@ -59,11 +59,16 @@ class ExpeditionController extends Controller
             return redirect('/porto');
         }
 
+        dd(
+            session('expedition_duration'),
+            session('expedition_started_at')
+        );
+
         return view('expedicao-jogar', [
             'gameTitle' => session('expedition_game_title'),
             'gameUrl' => session('expedition_game_url'),
             'startedAt' => session('expedition_started_at'),
-            'duration' => session('expedition_duration'),
+            'duration' => session('expedition_duration', 20),
         ]);
     }
 
@@ -82,7 +87,7 @@ class ExpeditionController extends Controller
             session('expedition_started_at')
         );
 
-        $duration = session('expedition_duration', 900);
+        $duration = session('expedition_duration', 20);
 
 
         $elapsed = now()->diffInSeconds($startedAt);
