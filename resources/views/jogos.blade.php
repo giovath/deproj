@@ -171,11 +171,17 @@
                     </p>
 
 
-                    <button>
+                    <form method="POST" action="/expedicao/iniciar/{{ $game->id }}">
 
-                        🗺️ Explorar este território
+                        @csrf
 
-                    </button>
+                        <button>
+
+                            🗺️ Iniciar Expedição
+
+                        </button>
+
+                    </form>
 
 
                 </div>

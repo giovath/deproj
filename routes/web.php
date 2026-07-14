@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Log;
 use App\Services\GamezopService;
 use App\Http\Controllers\GamezopWebhookController;
 
+use App\Http\Controllers\ExpeditionController;
+
 Route::get('/', function () {
 
     return view('welcome', [
@@ -312,6 +314,18 @@ Route::post('/porto/usar-participacao', function () {
 });
 
 Route::get('/jogos', [GameController::class, 'index']);
+
+
+Route::post(
+    '/expedicao/iniciar/{game}',
+    [ExpeditionController::class, 'start']
+);
+
+
+Route::get(
+    '/expedicao/jogar',
+    [ExpeditionController::class, 'play']
+);
 
 Route::post(
     '/webhooks/gamezop/score',
