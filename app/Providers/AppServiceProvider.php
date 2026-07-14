@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\TikTok\TikTokExtendSocialite;
+use App\Services\Games\Contracts\GameProviderInterface;
+use App\Services\Games\Providers\GamePixProvider;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            GameProviderInterface::class,
+            GamePixProvider::class
+        );
     }
 
     /**
@@ -28,10 +33,10 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         };
 
-                // Registro do provider TikTok
+        // Registro do provider TikTok
         $this->app->events->listen(
             SocialiteWasCalled::class,
-            TikTokExtendSocialite::class.'@handle'
+            TikTokExtendSocialite::class . '@handle'
         );
     }
 }

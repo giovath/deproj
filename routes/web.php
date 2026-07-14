@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Services\Games\GameCatalogService;
+
 use Illuminate\Support\Facades\Log;
 
 use App\Services\GamezopService;
@@ -342,11 +344,10 @@ Route::any('/webhooks/gamezop/teste', function (Request $request) {
     ]);
 });
 
-Route::get('/games-test', function () {
 
-    $provider = app(App\Services\Games\Providers\GamePixProvider::class);
+Route::get('/games-test', function (GameCatalogService $catalog) {
 
-    return $provider->games();
+    return $catalog->games();
 });
 
 /**
