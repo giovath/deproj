@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use App\Services\CaptainService;
 use App\Services\CaptainWalletService;
 use App\Services\CaptainStateService;
+use App\Services\CaptainRankingService;
 
 use App\Services\GamezopService;
 use App\Http\Controllers\GamezopWebhookController;
@@ -271,7 +272,8 @@ Route::post('/tesouro/coletar', function (
 });
 
 Route::get('/porto', function (
-    CaptainStateService $stateService
+    CaptainStateService $stateService,
+    CaptainRankingService $rankingService
 ) {
 
 
@@ -313,7 +315,7 @@ Route::get('/porto', function (
         }
     }
 
-
+    $ranking = $rankingService->top();
 
     return view('porto', [
 
@@ -322,6 +324,8 @@ Route::get('/porto', function (
         'participations' => $participations,
 
         'relics' => $relics,
+
+        'ranking' => $ranking,
 
     ]);
 });

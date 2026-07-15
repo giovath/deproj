@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserProvider;
+use App\Services\LinkCaptainService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use App\Services\EnterArenaService;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class TikTokAuthController extends Controller
 {
@@ -21,37 +20,75 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback(EnterArenaService $arena)
+    public function callback(LinkCaptainService $linkCaptain)
     {
         try {
+
             $tiktokUser = Socialite::driver('tiktok')->user();
         } catch (\Exception $e) {
-            Log::error('Erro ao obter usuário TikTok: ' . $e->getMessage());
-            return redirect('/')->withErrors('Falha ao autenticar no TikTok.');
+
+            Log::error(
+                'Erro ao obter usuário TikTok: ' .
+                    $e->getMessage()
+            );
+
+            return redirect('/')
+                ->withErrors('Falha ao autenticar no TikTok.');
         }
 
         $providerUserId = $tiktokUser->getId();
+
         $userData = $tiktokUser->user ?? [];
 
-        $name = $userData['display_name'] ?? 'TikTok User';
-        $avatar = $userData['avatar_large_url'] ?? null;
+        $name =
+            $userData['display_name']
+            ?? 'TikTok User';
+
+        $avatar =
+            $userData['avatar_large_url']
+            ?? null;
+
+        // TikTok não fornece e-mail.
         $email = $providerUserId . '@tiktok.local';
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Usuário
+        |--------------------------------------------------------------------------
+        */
+
         $user = User::firstOrCreate(
-            ['email' => $email],
+
+            [
+                'email' => $email,
+            ],
+
             [
                 'name' => $name,
                 'password' => bcrypt(Str::random(32)),
             ]
+
         );
 
-        $user->update(['name' => $name]);
+        $user->update([
+            'name' => $name,
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Provider
+        |--------------------------------------------------------------------------
+        */
 
         UserProvider::updateOrCreate(
+
             [
                 'user_id' => $user->id,
                 'provider' => 'tiktok',
             ],
+
             [
                 'provider_user_id' => $providerUserId,
                 'nickname' => $name,
@@ -60,34 +97,34 @@ class TikTokAuthController extends Controller
                 'refresh_token' => $tiktokUser->refreshToken ?? null,
                 'raw_payload' => $userData,
             ]
+
         );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Login
+        |--------------------------------------------------------------------------
+        */
 
         Auth::login($user);
 
-        if (session()->has('invited_match_id')) {
 
-            $match = \App\Models\GameMatch::find(session('invited_match_id'));
+        /*
+        |--------------------------------------------------------------------------
+        | Vincula o Capitão Anônimo
+        |--------------------------------------------------------------------------
+        */
 
-            if ($match && !$match->slot_2_user_id && $match->slot_1_user_id !== $user->id) {
+        $linkCaptain->execute($user);
 
-                $match->slot_2_user_id = $user->id;
-                $match->save();
 
-                session(['match_id' => $match->id]);
-            } else {
+        /*
+        |--------------------------------------------------------------------------
+        | Volta para o Porto
+        |--------------------------------------------------------------------------
+        */
 
-                // fallback caso o match esteja cheio ou inválido
-                $match = $arena->handle($user);
-                session(['match_id' => $match->id]);
-            }
-
-            session()->forget('invited_match_id');
-        } else {
-
-            $match = $arena->handle($user);
-            session(['match_id' => $match->id]);
-        }
-
-        return redirect()->route('home');
+        return redirect('/porto');
     }
 }
