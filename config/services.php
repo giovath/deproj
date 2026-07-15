@@ -52,7 +52,7 @@ return [
 
         'sid' => env('GAMEPIX_SID'),
 
-        'pagination' => env('GAMEPIX_PAGINATION', 12),
+        'pagination' => env('GAMEPIX_PAGINATION', 48),
 
     ],
 
