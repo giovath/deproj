@@ -14,6 +14,10 @@ use App\Services\Games\GameCatalogService;
 
 use Illuminate\Support\Facades\Log;
 
+use App\Services\CaptainService;
+use App\Services\CaptainWalletService;
+use App\Services\CaptainStateService;
+
 use App\Services\GamezopService;
 use App\Http\Controllers\GamezopWebhookController;
 
@@ -93,38 +97,40 @@ Route::middleware('auth')->post(
     [ArenaController::class, 'leave']
 )->name('arena.leave');
 
+Route::get('/ilha-da-fortuna', function (
+    Request $request,
+    CaptainService $captainService,
+    CaptainWalletService $walletService
+) {
+
+    $captain = $captainService->getOrCreate();
 
 
-Route::get('/ilha-da-fortuna', function (Request $request) {
+    $wallet = $walletService->getOrCreate($captain);
+
 
     $ref = $request->query('ref');
 
+
     if ($ref) {
 
-        $captain = Captain::where(
+        $referrer = Captain::where(
             'ref_code',
             $ref
         )->first();
 
-        if ($captain) {
 
-            if (
-                session()->has('captain_id')
-                &&
-                session('captain_id') == $captain->id
-            ) {
-
-                return view('ilha-da-fortuna');
-            }
+        if ($referrer && $referrer->id !== $captain->id) {
 
             session([
-                'referred_by' => $captain->id
+                'referred_by' => $referrer->id
             ]);
         }
     }
 
-    return view('ilha-da-fortuna');
-})->name('ilha-da-fortuna');
+
+    return view('ilha-da-fortuna', compact('wallet'));
+});
 
 Route::get('/navio', function () {
 
@@ -224,8 +230,10 @@ Route::get('/tesouro', function () {
     return view('tesouro');
 });
 
-
-Route::post('/tesouro/coletar', function () {
+Route::post('/tesouro/coletar', function (
+    CaptainService $captainService,
+    CaptainStateService $stateService
+) {
 
     if (session('treasure_collected')) {
 
@@ -234,13 +242,27 @@ Route::post('/tesouro/coletar', function () {
         ]);
     }
 
+
     $coins = random_int(100, 199);
+
+
+    $captain = $captainService->getOrCreate();
+
+
+    $stateService->addCoins(
+        $captain,
+        $coins
+    );
+
 
     session([
         'coins' => session('coins', 0) + $coins,
+
         'treasure_collected' => true,
+
         'treasure_available' => false,
     ]);
+
 
     return response()->json([
         'success' => true,
@@ -248,32 +270,88 @@ Route::post('/tesouro/coletar', function () {
     ]);
 });
 
-Route::get('/porto', function () {
+Route::get('/porto', function (
+    CaptainStateService $stateService
+) {
+
 
     if (!session('treasure_collected')) {
         return redirect('/');
     }
 
-    if (!session()->has('player_uuid')) {
 
-        session([
-            'player_uuid' => (string) Str::uuid()
-        ]);
+    $coins = session('coins', 0);
+
+    $participations = session('participations', 0);
+
+    $relics = session('expedition_relics', 0);
+
+
+
+    if (session()->has('captain_id')) {
+
+
+        $captain = Captain::find(
+            session('captain_id')
+        );
+
+
+        if ($captain) {
+
+            $wallet = $stateService->wallet(
+                $captain
+            );
+
+
+            $coins = $wallet->coins;
+
+            $participations =
+                $wallet->participations;
+
+            $relics =
+                $wallet->relics;
+        }
     }
 
+
+
     return view('porto', [
-        'coins' => session('coins', 0),
-        'participations' => session('participations', 0),
+
+        'coins' => $coins,
+
+        'participations' => $participations,
+
+        'relics' => $relics,
+
     ]);
 });
 
 Route::post(
     '/jogos/comprar-participacao',
-    function () {
+    function (
+        CaptainService $captainService,
+        CaptainStateService $stateService
+    ) {
 
-        $coins = session('coins', 0);
 
-        if ($coins < 100) {
+        $captain = $captainService->current();
+
+
+        if (!$captain) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Capitão não encontrado'
+            ]);
+        }
+
+
+        $wallet = $stateService->wallet(
+            $captain
+        );
+
+
+        if ($wallet->coins < 100) {
 
             return response()->json([
                 'success' => false,
@@ -282,21 +360,36 @@ Route::post(
         }
 
 
-        session([
-            'coins' => $coins - 100,
 
-            'participations' =>
-            session('participations', 0) + 1
+        $wallet->decrement(
+            'coins',
+            100
+        );
+
+
+        $wallet->increment(
+            'participations'
+        );
+
+
+
+        session([
+
+            'coins' => $wallet->coins,
+
+            'participations' => $wallet->participations
+
         ]);
+
 
 
         return response()->json([
 
             'success' => true,
 
-            'coins' => session('coins'),
+            'coins' => $wallet->coins,
 
-            'participations' => session('participations')
+            'participations' => $wallet->participations
 
         ]);
     }

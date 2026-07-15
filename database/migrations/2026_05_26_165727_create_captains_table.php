@@ -15,10 +15,20 @@ return new class extends Migration
 
             $table->id();
 
-            $table->string('ref_code')->unique();
+
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
+
+            $table->string('ref_code')
+                ->unique();
+
 
             $table->boolean('referral_completed')
                 ->default(false);
+
 
             $table->timestamps();
         });
