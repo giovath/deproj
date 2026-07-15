@@ -321,6 +321,7 @@ Route::post(
     [ExpeditionController::class, 'finish']
 );
 
+Route::get('/jogo/{game}', [GameController::class, 'play']);
 
 /*
 Route::post(
