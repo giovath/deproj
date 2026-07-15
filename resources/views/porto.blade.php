@@ -298,7 +298,7 @@
 
             @guest
 
-                <a href="{{ route('tiktok.redirect') }}" class="login-button">
+                <a href="{{ route('auth.tiktok.redirect') }}" class="login-button">
 
                     Entrar
 
