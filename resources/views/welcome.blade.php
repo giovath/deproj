@@ -6,7 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="preload" as="image" href="/images/treasure-map.webp">
 
     <title>Mapa do Tesouro</title>
 
@@ -25,7 +31,7 @@
 
         body {
             min-height: 100dvh;
-            background-image: url('/images/treasure-map.png');
+            background-image: url('/images/treasure-map.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -238,18 +244,18 @@
 
         <!-- Espaços das missões -->
         <a id="mission1" class="mission mission-1 pulse" href="/ilha-da-fortuna">
-            <img src="/images/treasure-island.png" alt="Ilha da Fortuna">
+            <img src="/images/treasure-island.webp" alt="Ilha da Fortuna">
         </a>
 
         <a id="mission2" class="mission mission-2 locked locked-disabled" href="/navio">
 
-            <img src="/images/treasure-tripulation.png" alt="Tripulação do Tesouro">
+            <img src="/images/treasure-tripulation.webp" alt="Tripulação do Tesouro">
 
         </a>
 
         <!-- Baú final -->
         <div id="treasureChest" class="chest locked">
-            <img src="/images/chest-closed.png" alt="Baú do Tesouro">
+            <img src="/images/chest-closed.webp" alt="Baú do Tesouro">
         </div>
 
     </div>
@@ -307,6 +313,14 @@
 
         function unlockTreasure() {
 
+            mission2.classList.remove('pulse');
+
+            mission2.style.opacity = '0.7';
+
+            mission2.style.pointerEvents = 'none';
+
+            mission2.style.cursor = 'default';
+
             const chest =
                 document.getElementById('treasureChest');
 
@@ -318,7 +332,7 @@
 
             chest.innerHTML = `
 
-        <img src="/images/chest-closed.png"
+        <img src="/images/chest-closed.webp"
              alt="Baú Aberto">
 
     `;
