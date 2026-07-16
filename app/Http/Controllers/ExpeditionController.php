@@ -88,7 +88,7 @@ class ExpeditionController extends Controller
             'expedition_started_at' => now(),
 
 
-            'expedition_duration' => 20,
+            'expedition_duration' => 300,
 
         ]);
 
@@ -118,7 +118,7 @@ class ExpeditionController extends Controller
 
             'startedAt' => session('expedition_started_at'),
 
-            'duration' => session('expedition_duration', 20),
+            'duration' => session('expedition_duration', 300),
 
         ]);
     }
@@ -152,7 +152,7 @@ class ExpeditionController extends Controller
         );
 
 
-        $duration = session('expedition_duration', 20);
+        $duration = session('expedition_duration', 300);
 
 
         $elapsed = now()->timestamp - $startedAt->timestamp;
@@ -184,7 +184,7 @@ class ExpeditionController extends Controller
         */
 
 
-        $relics = random_int(1, 5);
+        $relics = random_int(1, 3);
 
 
 
