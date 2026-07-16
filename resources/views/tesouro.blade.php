@@ -152,7 +152,7 @@
 
         <div class="chest">
 
-            <img id="chestImage" src="/images/chest-closed.png">
+            <img id="chestImage" src="/images/chest-closed.webp">
 
         </div>
 
@@ -206,7 +206,7 @@
             setTimeout(() => {
 
                 chestImage.src =
-                    '/images/chest-open.png';
+                    '/images/chest-open.webp';
 
                 status.innerText =
                     '🪙 Tesouro encontrado! Sua recompensa está sendo revelada...';
