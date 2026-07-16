@@ -119,7 +119,8 @@
 
         .login-button {
 
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
 
             padding: 10px 16px;
 
@@ -284,6 +285,162 @@
             transform: translateY(-2px);
 
         }
+
+        .ranking-avatar {
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 2px solid #d6a84d;
+
+        }
+
+        /*==============================
+    LOGIN MODAL
+==============================*/
+
+        .modal-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, .75);
+
+            z-index: 100;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+
+        .modal-box {
+
+            width: 100%;
+
+            max-width: 350px;
+
+            background: #140c05;
+
+            border: 2px solid rgba(212, 170, 74, .4);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #f5deb3;
+
+        }
+
+
+        .modal-box h2 {
+
+            color: #f0c36a;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .modal-box p {
+
+            font-size: .95rem;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .tiktok-login {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background: #000;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .close-modal {
+
+            margin-top: 15px;
+
+            cursor: pointer;
+
+            opacity: .7;
+
+        }
+
+        .create-account {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background: linear-gradient(180deg, #d6a84d, #b98526);
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+        .explore-button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            font-size: 1rem;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            color: white;
+
+            background: linear-gradient(180deg, #d6a84d, #b98526);
+
+            transition: .2s;
+
+            margin-top: 12px;
+
+        }
     </style>
 
 </head>
@@ -298,11 +455,11 @@
 
             @guest
 
-                <a href="{{ route('auth.tiktok.redirect') }}" class="login-button">
+                <button class="login-button" onclick="openLoginModal()">
 
                     Entrar
 
-                </a>
+                </button>
             @else
                 <div class="profile">
 
@@ -429,9 +586,11 @@
                                     🏴‍☠️
                             @endswitch
 
+                            <img src="{{ $item->captain->avatar }}" class="ranking-avatar" alt="Avatar">
+
                             <span>
 
-                                Capitão {{ $item->captain->id }}
+                                {{ $item->captain->name }}
 
                             </span>
 
@@ -460,13 +619,92 @@
 
 
 
-            <button onclick="location.href='/jogos'">
+            <button class="explore-button" onclick="location.href='/jogos'">
 
                 🎮 Explorar Jogos
 
             </button>
 
         </div>
+
+        <div id="loginModal" class="modal-overlay" onclick="closeLoginOutside(event)">
+
+
+            <div class="modal-box">
+
+
+                <h2>
+                    ⚓ Entrar no Porto
+                </h2>
+
+
+                <p>
+                    Entre para salvar suas moedas,
+                    participar do ranking e conquistar relíquias.
+                </p>
+
+
+                <a href="{{ route('auth.tiktok.redirect') }}" class="tiktok-login">
+
+                    🎵 Já tenho conta
+
+                </a>
+
+
+                <div style="margin:20px 0; opacity:.7;">
+                    ou
+                </div>
+
+
+                <p>
+                    Ainda não possui um capitão?
+                    Crie sua conta e comece sua jornada.
+                </p>
+
+
+                <a href="SEU_LINK_DE_AFILIADO" target="_blank" rel="noopener noreferrer" class="create-account">
+
+                    🚀 Criar conta
+
+                </a>
+
+
+                <div class="close-modal" onclick="closeLoginModal()">
+
+                    Cancelar
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <script>
+            function openLoginModal() {
+
+                document.getElementById('loginModal').style.display = 'flex';
+
+            }
+
+
+            function closeLoginModal() {
+
+                document.getElementById('loginModal').style.display = 'none';
+
+            }
+
+            function closeLoginOutside(event) {
+
+                if (event.target.id === 'loginModal') {
+
+                    closeLoginModal();
+
+                }
+
+            }
+        </script>
 
     </body>
 
