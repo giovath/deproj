@@ -164,7 +164,8 @@
 
         .locked {
             filter: grayscale(1);
-            opacity: 0.45;
+            opacity: .45;
+            pointer-events: none;
         }
 
         .locked-disabled {
@@ -207,6 +208,16 @@
         .x-locked {
             stroke: #777;
             opacity: 0.5;
+        }
+
+        .completed {
+
+            opacity: .7;
+
+            pointer-events: none;
+
+            cursor: default;
+
         }
     </style>
 </head>
@@ -271,13 +282,8 @@
     <script>
         const mission1 = document.getElementById('mission1');
         const mission2 = document.getElementById('mission2');
+        const chest = document.getElementById('treasureChest');
 
-
-        if (mission1Completed) {
-
-            unlockMission2();
-
-        }
 
         if (mission2Completed) {
 
@@ -285,62 +291,41 @@
 
             unlockTreasure();
 
+        } else if (mission1Completed) {
+
+            unlockMission2();
+
         }
 
         function unlockMission2() {
 
             mission1.classList.remove('pulse');
-
-            mission1.style.opacity = '0.7';
-
-            mission1.style.pointerEvents = 'none';
-
-            mission1.style.cursor = 'default';
+            mission1.classList.add('completed');
 
             mission2.classList.remove('locked');
-
             mission2.classList.remove('locked-disabled');
-
             mission2.classList.add('pulse');
 
             document.querySelectorAll('#x2 .treasure-x').forEach(line => {
-
                 line.classList.remove('x-locked');
-
             });
-
         }
 
         function unlockTreasure() {
 
             mission2.classList.remove('pulse');
-
-            mission2.style.opacity = '0.7';
-
-            mission2.style.pointerEvents = 'none';
-
-            mission2.style.cursor = 'default';
-
-            const chest =
-                document.getElementById('treasureChest');
+            mission2.classList.add('completed');
 
             chest.classList.remove('locked');
-
             chest.classList.add('pulse');
 
-            chest.style.cursor = 'pointer';
-
             chest.innerHTML = `
-
         <img src="/images/chest-closed.webp"
-             alt="Baú Aberto">
-
+             alt="Baú do Tesouro">
     `;
 
             chest.addEventListener('click', () => {
-
                 window.location.href = '/tesouro';
-
             });
         }
     </script>
