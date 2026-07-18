@@ -371,7 +371,7 @@
 
             width: 100%;
 
-            padding: 14px;
+            padding: 15px;
 
             border-radius: 14px;
 
@@ -382,6 +382,16 @@
             text-decoration: none;
 
             font-weight: bold;
+
+            font-size: 1rem;
+
+            transition: .2s;
+
+        }
+
+        .tiktok-login:hover {
+
+            transform: translateY(-2px);
 
         }
 
@@ -396,23 +406,27 @@
 
         }
 
-        .create-account {
+        .create-account-link {
 
-            display: block;
+            display: inline-block;
 
-            width: 100%;
+            margin-top: 10px;
 
-            padding: 14px;
-
-            border-radius: 14px;
-
-            background: linear-gradient(180deg, #d6a84d, #b98526);
-
-            color: #fff;
+            color: #d6a84d;
 
             text-decoration: none;
 
-            font-weight: bold;
+            font-size: .92rem;
+
+            transition: .2s;
+
+        }
+
+        .create-account-link:hover {
+
+            color: #f0c36a;
+
+            text-decoration: underline;
 
         }
 
@@ -552,6 +566,67 @@
 
         </div>
 
+        @auth
+
+            @if (!$nextTreasure || now()->gte($nextTreasure))
+                <div class="section">
+
+                    <h2>🎁 Baú Diário</h2>
+
+                    <p>
+                        Seu baú diário já está disponível.
+                    </p>
+
+                    <a href="/" class="explore-button" style="text-decoration:none;text-align:center;display:block;">
+                        🗺️ Buscar Tesouro
+                    </a>
+
+                </div>
+            @else
+                <div class="section">
+
+                    <h2>🎁 Baú Diário</h2>
+
+                    <p>
+                        Próximo baú disponível em
+                    </p>
+
+                    <div class="wallet-value" style="font-size:1.4rem">
+
+                        {{ $nextTreasure->diffForHumans() }}
+
+                    </div>
+
+                </div>
+            @endif
+
+        @endauth
+
+
+        @guest
+
+            <div class="section">
+
+                <h2>🎁 Baú do Tesouro</h2>
+
+                <p>
+
+                    Explore o mapa para encontrar um novo tesouro.
+
+                </p>
+
+                <div class="small">
+
+                    Entre com sua conta para desbloquear o
+                    <strong>Baú Diário</strong>
+                    e salvar permanentemente seu progresso.
+
+                </div>
+
+            </div>
+
+        @endguest
+
 
 
         <div class="section">
@@ -633,41 +708,29 @@
             <div class="modal-box">
 
 
-                <h2>
-                    ⚓ Entrar no Porto
-                </h2>
-
+                <h2>⚓ Entrar no Porto</h2>
 
                 <p>
-                    Entre para salvar suas moedas,
-                    participar do ranking e conquistar relíquias.
+                    Entre no Porto para salvar suas moedas, conquistar relíquias e competir entre os maiores capitães.
                 </p>
-
 
                 <a href="{{ route('auth.tiktok.redirect') }}" class="tiktok-login">
 
-                    🎵 Já tenho conta
+                    🎵 Entrar com TikTok
 
                 </a>
 
+                <p style="margin:18px 0 6px; font-size:.9rem; opacity:.75;">
 
-                <div style="margin:20px 0; opacity:.7;">
-                    ou
-                </div>
+                    Ainda não possui uma conta?
 
-
-                <p>
-                    Ainda não possui um capitão?
-                    Crie sua conta e comece sua jornada.
                 </p>
 
+                <a href="SEU_LINK_DE_AFILIADO" target="_blank" rel="noopener noreferrer" class="create-account-link">
 
-                <a href="SEU_LINK_DE_AFILIADO" target="_blank" rel="noopener noreferrer" class="create-account">
-
-                    🚀 Criar conta
+                    Criar conta gratuitamente →
 
                 </a>
-
 
                 <div class="close-modal" onclick="closeLoginModal()">
 

@@ -20,6 +20,8 @@ return new class extends Migration
 
             $table->string('password')->nullable();
 
+            $table->timestamp('next_treasure_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

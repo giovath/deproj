@@ -26,6 +26,22 @@ use App\Http\Controllers\ExpeditionController;
 
 Route::get('/', function () {
 
+    if (Auth::check()) {
+
+        if (
+            !Auth::user()->next_treasure_at ||
+            now()->gte(Auth::user()->next_treasure_at)
+        ) {
+
+            session()->forget([
+                'mission1_completed',
+                'mission2_completed',
+                'treasure_available',
+                'treasure_collected',
+            ]);
+        }
+    }
+
     return view('welcome', [
 
         'mission1Completed' =>
@@ -217,15 +233,31 @@ Route::post('/mission2/complete', function () {
     ]);
 });
 
-
 Route::get('/tesouro', function () {
 
-    if (!session('treasure_available')) {
-        return redirect('/');
+    // Usuário logado: verifica o tempo do baú diário
+    if (Auth::check()) {
+
+        $nextTreasure = Auth::user()->next_treasure_at;
+
+        if ($nextTreasure && now()->lt($nextTreasure)) {
+
+            return redirect('/porto')
+                ->with('message', 'Seu baú diário ainda não está disponível.');
+        }
+    } else {
+
+        // Visitante: usa apenas a sessão
+        if (session('treasure_collected')) {
+
+            return redirect('/porto');
+        }
     }
 
-    if (session('treasure_collected')) {
-        return redirect('/porto');
+    // Precisa concluir as missões antes de abrir o baú
+    if (!session('treasure_available')) {
+
+        return redirect('/');
     }
 
     return view('tesouro');
@@ -236,11 +268,31 @@ Route::post('/tesouro/coletar', function (
     CaptainStateService $stateService
 ) {
 
-    if (session('treasure_collected')) {
+    $user = Auth::user();
+
+
+    // Visitantes só podem coletar uma vez por sessão
+    if (!$user && session('treasure_collected')) {
 
         return response()->json([
             'success' => false
         ]);
+    }
+
+
+    // Usuários logados respeitam o tempo salvo no banco
+    if ($user) {
+
+        if (
+            $user->next_treasure_at &&
+            now()->lt($user->next_treasure_at)
+        ) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Baú diário indisponível.'
+            ]);
+        }
     }
 
 
@@ -256,12 +308,23 @@ Route::post('/tesouro/coletar', function (
     );
 
 
+    // Define próximo baú diário para usuários logados
+    if ($user) {
+
+        $user->next_treasure_at = now()->addDay();
+
+        $user->save();
+    }
+
+
     session([
+
         'coins' => session('coins', 0) + $coins,
 
         'treasure_collected' => true,
 
         'treasure_available' => false,
+
     ]);
 
 
@@ -276,10 +339,6 @@ Route::get('/porto', function (
     CaptainRankingService $rankingService
 ) {
 
-
-    if (!session('treasure_collected')) {
-        return redirect('/');
-    }
 
 
     $coins = session('coins', 0);
@@ -317,17 +376,21 @@ Route::get('/porto', function (
 
     $ranking = $rankingService->top();
 
-    return view('porto', [
+    $nextTreasure = null;
 
-        'coins' => $coins,
+    if (Auth::check()) {
 
-        'participations' => $participations,
+        $nextTreasure = Auth::user()->next_treasure_at;
+    }
 
-        'relics' => $relics,
 
-        'ranking' => $ranking,
-
-    ]);
+    return view('porto', compact(
+        'coins',
+        'relics',
+        'participations',
+        'ranking',
+        'nextTreasure'
+    ));
 });
 
 Route::post(
