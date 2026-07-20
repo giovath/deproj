@@ -8,7 +8,9 @@ class CaptainRankingService
 {
     public function top()
     {
-        return CaptainWallet::with('captain')
+        return CaptainWallet::with([
+            'captain.user'
+        ])
             ->where('relics', '>', 0)
             ->orderByDesc('relics')
             ->orderByDesc('coins')

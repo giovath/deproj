@@ -660,12 +660,12 @@
                                 @default
                                     🏴‍☠️
                             @endswitch
-
-                            <img src="{{ $item->captain->avatar }}" class="ranking-avatar" alt="Avatar">
+                            <img src="{{ $item->captain->user?->avatar ?? asset('images/avatar.png') }}"
+                                class="ranking-avatar" alt="Avatar">
 
                             <span>
 
-                                {{ $item->captain->name }}
+                                {{ $item->captain->user?->name ?? 'Capitão Anônimo' }}
 
                             </span>
 
