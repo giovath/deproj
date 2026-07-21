@@ -50,7 +50,6 @@ Route::get('/', function (
 })->name('home');
 
 
-
 Route::get('/como-funciona', function () {
     return view('como-funciona');
 })->name('como-funciona');
@@ -107,35 +106,27 @@ Route::get('/ilha-da-fortuna', function (
     return view('ilha-da-fortuna', compact('wallet'));
 });
 
-Route::get('/navio', function () {
+Route::get('/navio', function (
+    CaptainService $captainService,
+    TreasureProgressService $progressService
+) {
 
-    if (!session('mission1_completed')) {
+
+    $captain =
+        $captainService->getOrCreate();
+
+
+    $progress =
+        $progressService->getOrCreate(
+            $captain
+        );
+
+
+    if (!$progress->mission1_completed) {
 
         return redirect('/');
     }
 
-    $captain = null;
-
-    if (session()->has('captain_id')) {
-
-        $captain =
-            Captain::find(
-                session('captain_id')
-            );
-    }
-
-    if (!$captain) {
-
-        $captain = Captain::create([
-
-            'ref_code' => Str::random(8),
-
-        ]);
-
-        session([
-            'captain_id' => $captain->id
-        ]);
-    }
 
     return view('navio', [
 
@@ -147,148 +138,266 @@ Route::get('/navio', function () {
     ]);
 })->name('navio');
 
-Route::post('/mission1/complete', function (Request $request) {
+Route::post('/mission1/complete', function (
+    CaptainService $captainService,
+    TreasureProgressService $progressService
+) {
 
-    session([
-        'mission1_completed' => true,
-        'mission1_completed_at' => now()->timestamp
-    ]);
+
+    $captain =
+        $captainService->getOrCreate();
+
+
+    $progressService->completeMission1(
+        $captain
+    );
+
 
     if (session()->has('referred_by')) {
 
-        $captain =
+
+        $referrer =
             Captain::find(
                 session('referred_by')
             );
 
-        if ($captain) {
 
-            $captain->update([
+        if ($referrer) {
+
+            $referrer->update([
                 'referral_completed' => true
             ]);
         }
 
+
         session()->forget('referred_by');
     }
 
-    return response()->json([
-        'success' => true
-    ]);
-});
-Route::post('/mission2/complete', function () {
-
-    session([
-
-        'mission2_completed' => true,
-        'mission2_completed_at' => now()->timestamp,
-
-        'treasure_available' => true
-
-    ]);
 
     return response()->json([
         'success' => true
     ]);
 });
 
-Route::get('/tesouro', function () {
+Route::post('/mission2/complete', function (
+    CaptainService $captainService,
+    TreasureProgressService $progressService
+) {
+
+
+    $captain =
+        $captainService->getOrCreate();
+
+
+    $progressService->completeMission2(
+        $captain
+    );
+
+
+    return response()->json([
+        'success' => true
+    ]);
+});
+
+Route::get('/tesouro', function (
+    CaptainService $captainService,
+    TreasureProgressService $progressService
+) {
+
+
+    $captain =
+        $captainService->getOrCreate();
+
+
+    $progress =
+        $progressService->getOrCreate(
+            $captain
+        );
+
 
     // Usuário logado: verifica o tempo do baú diário
     if (Auth::check()) {
 
-        $nextTreasure = Auth::user()->next_treasure_at;
+
+        $nextTreasure =
+            Auth::user()->next_treasure_at;
+
 
         if ($nextTreasure && now()->lt($nextTreasure)) {
 
+
             return redirect('/porto')
-                ->with('message', 'Seu baú diário ainda não está disponível.');
-        }
-    } else {
-
-        // Visitante: usa apenas a sessão
-        if (session('treasure_collected')) {
-
-            return redirect('/porto');
+                ->with(
+                    'message',
+                    'Seu baú diário ainda não está disponível.'
+                );
         }
     }
 
+
     // Precisa concluir as missões antes de abrir o baú
-    if (!session('treasure_available')) {
+
+    if (!$progress->treasure_available) {
+
 
         return redirect('/');
     }
+
 
     return view('tesouro');
 });
 
 Route::post('/tesouro/coletar', function (
     CaptainService $captainService,
-    CaptainStateService $stateService
+    CaptainStateService $stateService,
+    TreasureProgressService $progressService
 ) {
 
     $user = Auth::user();
 
 
-    // Visitantes só podem coletar uma vez por sessão
-    if (!$user && session('treasure_collected')) {
+    /*
+    |--------------------------------------------------------------------------
+    | Recupera capitão
+    |--------------------------------------------------------------------------
+    */
+
+    $captain = $captainService->getOrCreate();
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verifica progresso das missões
+    |--------------------------------------------------------------------------
+    */
+
+    $progress = $progressService->getOrCreate($captain);
+
+
+    if (!$progress->treasure_available) {
 
         return response()->json([
-            'success' => false
+
+            'success' => false,
+
+            'message' => 'Tesouro ainda não liberado.'
+
         ]);
     }
 
 
-    // Usuários logados respeitam o tempo salvo no banco
+
+    /*
+    |--------------------------------------------------------------------------
+    | Controle diário para usuário autenticado
+    |--------------------------------------------------------------------------
+    */
+
     if ($user) {
+
 
         if (
             $user->next_treasure_at &&
             now()->lt($user->next_treasure_at)
         ) {
 
+
             return response()->json([
+
                 'success' => false,
+
                 'message' => 'Baú diário indisponível.'
+
             ]);
         }
     }
 
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gera recompensa
+    |--------------------------------------------------------------------------
+    */
+
     $coins = random_int(100, 199);
 
 
-    $captain = $captainService->getOrCreate();
 
+    /*
+    |--------------------------------------------------------------------------
+    | Adiciona moedas na carteira
+    |--------------------------------------------------------------------------
+    */
 
     $stateService->addCoins(
+
         $captain,
+
         $coins
+
     );
 
 
-    // Define próximo baú diário para usuários logados
+
+    /*
+    |--------------------------------------------------------------------------
+    | Define próximo baú do usuário autenticado
+    |--------------------------------------------------------------------------
+    */
+
     if ($user) {
 
-        $user->next_treasure_at = now()->addDay();
+
+        $user->next_treasure_at =
+            now()->addDay();
+
 
         $user->save();
     }
 
 
-    session([
 
-        'coins' => session('coins', 0) + $coins,
+    /*
+    |--------------------------------------------------------------------------
+    | Finaliza progresso do tesouro
+    |--------------------------------------------------------------------------
+    */
 
-        'treasure_collected' => true,
+    $progress->update([
 
         'treasure_available' => false,
+
+        'treasure_collected' => true,
 
     ]);
 
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sessões auxiliares (opcional)
+    |--------------------------------------------------------------------------
+    */
+
+    session([
+
+        'coins' =>
+        session('coins', 0) + $coins,
+
+        'treasure_collected' => true,
+
+    ]);
+
+
+
     return response()->json([
+
         'success' => true,
+
         'coins' => $coins
+
     ]);
 });
 
