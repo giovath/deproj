@@ -11,11 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->validateCsrfTokens(
-            except: [
-                'webhooks/gamezop/score',
-            ]
-        );
+        $middleware->append([
+            \App\Http\Middleware\SetLanguage::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -631,6 +631,66 @@
 
         @endguest
 
+        <div class="section reward-box">
+
+            <h2>
+                🎁 Recompensas Semanais
+            </h2>
+
+
+            <div class="reward-list">
+
+                <div class="reward-item">
+
+                    <span>
+                        🥇 1º Capitão
+                    </span>
+
+                    <strong>
+                        R$ 20
+                    </strong>
+
+                </div>
+
+
+                <div class="reward-item">
+
+                    <span>
+                        🥈 2º Capitão
+                    </span>
+
+                    <strong>
+                        R$ 10
+                    </strong>
+
+                </div>
+
+
+                <div class="reward-item">
+
+                    <span>
+                        🥉 3º Capitão
+                    </span>
+
+                    <strong>
+                        R$ 5
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="small">
+
+                Acumule relíquias nas expedições e dispute o topo do ranking.
+
+            </div>
+
+
+        </div>
+
 
 
         <div class="section">

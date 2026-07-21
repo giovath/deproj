@@ -316,7 +316,7 @@
 
         <a href="/porto" data-event="porto_open" class="map-port">
 
-            ⚓ Porto
+            ⚓ {{ __('messages.porto') }}
 
         </a>
 
