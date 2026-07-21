@@ -73,44 +73,6 @@ Route::get('/auth/tiktok/redirect', [TikTokAuthController::class, 'redirect'])
 Route::get('/auth/tiktok/callback', [TikTokAuthController::class, 'callback'])
     ->name('auth.tiktok.callback');
 
-Route::middleware('auth')->post('/arena/enter', [ArenaController::class, 'enter'])
-    ->name('arena.enter');
-
-Route::middleware('auth')->get('/arena/status/{match}', [ArenaController::class, 'status'])
-    ->name('arena.status');
-
-Route::middleware('auth')->get('/play/{match}', [ArenaController::class, 'play'])
-    ->name('arena.play');
-
-// convite público
-Route::get('/invite/{match}', function (GameMatch $match) {
-
-    session(['invited_match_id' => $match->id]);
-
-    return redirect()->route('home');
-})->name('arena.invite.public');
-
-
-Route::middleware('auth')->post('/arena/start/{match}', [ArenaController::class, 'start'])
-    ->name('arena.start');
-
-Route::middleware('auth')->post('/arena/ready/{match}', [ArenaController::class, 'ready'])
-    ->name('arena.ready');
-
-Route::middleware('auth')->post(
-    '/arena/choose-game/{match}',
-    [ArenaController::class, 'chooseGame']
-)->name('arena.choose-game');
-
-Route::middleware('auth')->get(
-    '/arena/games',
-    [ArenaController::class, 'games']
-)->name('arena.games');
-
-Route::middleware('auth')->post(
-    '/arena/leave/{match}',
-    [ArenaController::class, 'leave']
-)->name('arena.leave');
 
 Route::get('/ilha-da-fortuna', function (
     Request $request,
@@ -465,30 +427,6 @@ Route::post(
 
 Route::get('/jogo/{game}', [GameController::class, 'play']);
 
-/*
-Route::post(
-    '/webhooks/gamezop/score',
-    [GamezopWebhookController::class, 'score']
-);
-
-Route::any('/webhooks/gamezop/teste', function (Request $request) {
-
-    Log::info('WEBHOOK TESTE', [
-        'method' => $request->method(),
-        'payload' => $request->all(),
-    ]);
-
-    return response()->json([
-        'success' => true,
-        'method' => $request->method(),
-    ]);
-});
-*/
-
-Route::get('/games-test', function (GameCatalogService $catalog) {
-
-    return $catalog->games();
-});
 
 /**
  * Healthcheck
