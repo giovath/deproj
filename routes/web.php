@@ -24,22 +24,20 @@ use App\Http\Controllers\GamezopWebhookController;
 
 use App\Http\Controllers\ExpeditionController;
 
-Route::get('/', function () {
+Route::get('/', function (
+    CaptainStateService $stateService
+) {
 
-    if (Auth::check()) {
+    $treasureState = $stateService->treasureState();
 
-        if (
-            !Auth::user()->next_treasure_at ||
-            now()->gte(Auth::user()->next_treasure_at)
-        ) {
+    if (Auth::check() && $treasureState['available']) {
 
-            session()->forget([
-                'mission1_completed',
-                'mission2_completed',
-                'treasure_available',
-                'treasure_collected',
-            ]);
-        }
+        session()->forget([
+            'mission1_completed',
+            'mission2_completed',
+            'treasure_available',
+            'treasure_collected',
+        ]);
     }
 
     return view('welcome', [
@@ -48,7 +46,7 @@ Route::get('/', function () {
         session('mission1_completed', false),
 
         'mission2Completed' =>
-        session('mission2_completed', false)
+        session('mission2_completed', false),
 
     ]);
 })->name('home');
@@ -339,18 +337,12 @@ Route::get('/porto', function (
     CaptainRankingService $rankingService
 ) {
 
-
-
     $coins = session('coins', 0);
-
     $participations = session('participations', 0);
-
     $relics = session('expedition_relics', 0);
 
 
-
     if (session()->has('captain_id')) {
-
 
         $captain = Captain::find(
             session('captain_id')
@@ -359,38 +351,28 @@ Route::get('/porto', function (
 
         if ($captain) {
 
-            $wallet = $stateService->wallet(
-                $captain
-            );
-
+            $wallet = $stateService->wallet($captain);
 
             $coins = $wallet->coins;
-
-            $participations =
-                $wallet->participations;
-
-            $relics =
-                $wallet->relics;
+            $participations = $wallet->participations;
+            $relics = $wallet->relics;
         }
     }
 
-    $ranking = $rankingService->top();
 
-    $nextTreasure = null;
+    return view('porto', [
 
-    if (Auth::check()) {
+        'coins' => $coins,
 
-        $nextTreasure = Auth::user()->next_treasure_at;
-    }
+        'participations' => $participations,
 
+        'relics' => $relics,
 
-    return view('porto', compact(
-        'coins',
-        'relics',
-        'participations',
-        'ranking',
-        'nextTreasure'
-    ));
+        'ranking' => $rankingService->top(),
+
+        'treasureState' => $stateService->treasureState(),
+
+    ]);
 });
 
 Route::post(

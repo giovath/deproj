@@ -469,7 +469,7 @@
 
             @guest
 
-                <button class="login-button" onclick="openLoginModal()">
+                <button class="login-button" data-event="login_click" onclick="openLoginModal()">
 
                     Entrar
 
@@ -568,7 +568,7 @@
 
         @auth
 
-            @if (!$nextTreasure || now()->gte($nextTreasure))
+            @if ($treasureState['available'])
                 <div class="section">
 
                     <h2>🎁 Baú Diário</h2>
@@ -578,7 +578,9 @@
                     </p>
 
                     <a href="/" class="explore-button" style="text-decoration:none;text-align:center;display:block;">
+
                         🗺️ Buscar Tesouro
+
                     </a>
 
                 </div>
@@ -588,12 +590,14 @@
                     <h2>🎁 Baú Diário</h2>
 
                     <p>
+
                         Próximo baú disponível em
+
                     </p>
 
                     <div class="wallet-value" style="font-size:1.4rem">
 
-                        {{ $nextTreasure->diffForHumans() }}
+                        {{ $treasureState['remaining'] }}
 
                     </div>
 
@@ -694,7 +698,7 @@
 
 
 
-            <button class="explore-button" onclick="location.href='/jogos'">
+            <button class="explore-button" data-event="games_open" onclick="location.href='/jogos'">
 
                 🎮 Explorar Jogos
 

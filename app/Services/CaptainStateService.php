@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Captain;
 use App\Models\CaptainWallet;
+use Illuminate\Support\Facades\Auth;
 
 class CaptainStateService
 {
@@ -65,5 +66,44 @@ class CaptainStateService
         );
 
         return $wallet;
+    }
+
+    public function treasureState(): array
+    {
+        if (Auth::check()) {
+
+            $nextTreasure = Auth::user()->next_treasure_at;
+
+            return [
+
+                'available' =>
+                !$nextTreasure ||
+                    now()->gte($nextTreasure),
+
+                'nextTreasure' => $nextTreasure,
+
+                'remaining' => $nextTreasure
+                    ? now()->diffForHumans(
+                        $nextTreasure,
+                        [
+                            'parts' => 2,
+                            'short' => true
+                        ]
+                    )
+                    : null,
+
+            ];
+        }
+
+
+        return [
+
+            'available' => true,
+
+            'nextTreasure' => null,
+
+            'remaining' => null,
+
+        ];
     }
 }

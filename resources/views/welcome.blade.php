@@ -219,12 +219,106 @@
             cursor: default;
 
         }
+
+        .map-port {
+
+            position: absolute;
+
+            top: 5%;
+
+            right: 5%;
+
+            z-index: 10;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border-radius: 999px;
+
+            background: rgba(88, 58, 29, .28);
+
+            backdrop-filter: blur(3px);
+
+            border: 1px solid rgba(120, 80, 40, .25);
+
+            color: #4a2c12;
+
+            font-family: 'Cinzel', serif;
+
+            font-size: .95rem;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition: .25s ease;
+
+        }
+
+        .map-port:hover {
+
+            transform: translateY(-2px);
+
+            background: rgba(110, 70, 30, .38);
+
+            color: #2d1807;
+
+        }
+
+        @media (max-width: 600px) {
+
+            .map-port {
+
+                top: 18px;
+
+                right: 16px;
+
+                padding: 8px 12px;
+
+                font-size: .82rem;
+
+            }
+
+        }
+
+        .map-port {
+
+            animation: harborFloat 4s ease-in-out infinite;
+
+        }
+
+        @keyframes harborFloat {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-2px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+
+        }
     </style>
 </head>
 
 <body>
 
     <div class="map-container">
+
+        <a href="/porto" data-event="porto_open" class="map-port">
+
+            ⚓ Porto
+
+        </a>
 
         <div class="map-title">
             <h1>Mapa do Tesouro</h1>
@@ -254,18 +348,18 @@
         </svg>
 
         <!-- Espaços das missões -->
-        <a id="mission1" class="mission mission-1 pulse" href="/ilha-da-fortuna">
+        <a id="mission1" data-event="mission_1_start" class="mission mission-1 pulse" href="/ilha-da-fortuna">
             <img src="/images/treasure-island.webp" alt="Ilha da Fortuna">
         </a>
 
-        <a id="mission2" class="mission mission-2 locked locked-disabled" href="/navio">
+        <a id="mission2" data-event="mission_2_start" class="mission mission-2 locked locked-disabled" href="/navio">
 
             <img src="/images/treasure-tripulation.webp" alt="Tripulação do Tesouro">
 
         </a>
 
         <!-- Baú final -->
-        <div id="treasureChest" class="chest locked">
+        <div id="treasureChest" data-event="treasure_open" class="chest locked">
             <img src="/images/chest-closed.webp" alt="Baú do Tesouro">
         </div>
 

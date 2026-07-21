@@ -353,7 +353,7 @@
                     <form method="GET" action="/jogo/{{ $game->id }}">
 
 
-                        <button class="free">
+                        <button class="free" data-event="game_start">
 
                             🎮 Jogar Livremente
 
