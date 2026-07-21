@@ -26,6 +26,15 @@ class LinkCaptainService
             $captain->update([
                 'user_id' => $user->id
             ]);
+
+
+            if (!$user->first_treasure_bonus_claimed) {
+
+                $user->update([
+                    'next_treasure_at' => now(),
+                    'first_treasure_bonus_claimed' => true,
+                ]);
+            }
         }
     }
 }

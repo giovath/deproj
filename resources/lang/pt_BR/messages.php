@@ -81,4 +81,6 @@ return [
 
     'anonymous_captain' => 'Capitão Anônimo',
 
+    'voltar_mapa' => 'Voltar ao Mapa',
+
 ];

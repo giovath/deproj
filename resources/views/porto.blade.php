@@ -70,6 +70,10 @@
 
             margin-bottom: 25px;
 
+            flex-wrap: wrap;
+
+            gap: 12px;
+
         }
 
         h1 {
@@ -121,26 +125,33 @@
 
         .login-button {
 
-            border: none;
+            border: 1px solid rgba(212, 170, 74, .4);
+
             cursor: pointer;
 
-            padding: 10px 16px;
+            padding: 10px 18px;
 
-            border-radius: 12px;
+            border-radius: 999px;
 
-            background: #111;
+            background: rgba(212, 170, 74, .15);
 
-            color: white;
+            color: #f0c36a;
+
+            font-family: Arial, sans-serif;
+
+            font-weight: bold;
 
             font-size: .9rem;
 
-            transition: .2s;
+            transition: .25s ease;
 
         }
 
         .login-button:hover {
 
-            background: #222;
+            background: rgba(212, 170, 74, .3);
+
+            transform: translateY(-2px);
 
         }
 
@@ -457,6 +468,45 @@
             margin-top: 12px;
 
         }
+
+        .map-return {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-bottom: 18px;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(212, 170, 74, .15);
+
+            border: 1px solid rgba(212, 170, 74, .25);
+
+            color: #f0c36a;
+
+            font-size: .85rem;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition: .25s ease;
+
+        }
+
+
+        .map-return:hover {
+
+            background: rgba(212, 170, 74, .25);
+
+            transform: translateY(-2px);
+
+        }
     </style>
 
 </head>
@@ -464,6 +514,12 @@
 <body>
 
     <div class="container">
+
+        <a href="/" class="map-return">
+
+            🗺️ {{ __('messages.voltar_mapa') }}
+
+        </a>
 
         <div class="topbar">
 
@@ -787,7 +843,8 @@
 
                 </p>
 
-                <a href="https://www.tiktok.com/d/1/ZS9rAw2P3bv7r-2iQfj/" target="_blank" rel="noopener noreferrer" class="create-account-link">
+                <a href="https://www.tiktok.com/d/1/ZS9rAw2P3bv7r-2iQfj/" target="_blank" rel="noopener noreferrer"
+                    class="create-account-link">
 
                     {{ __('messages.create_account') }} →
 

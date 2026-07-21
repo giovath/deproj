@@ -22,6 +22,9 @@ return new class extends Migration
 
             $table->timestamp('next_treasure_at')->nullable();
 
+            $table->boolean('first_treasure_bonus_claimed')
+                ->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });
