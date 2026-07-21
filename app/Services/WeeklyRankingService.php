@@ -29,26 +29,25 @@ class WeeklyRankingService
             foreach ($ranking as $index => $wallet) {
 
 
-                WeeklyRanking::create([
+                WeeklyRanking::updateOrCreate(
 
-                    'captain_id' => $wallet->captain_id,
+                    [
+                        'captain_id' => $wallet->captain_id,
+                        'week_key' => $weekKey,
+                    ],
 
-                    'week_key' => $weekKey,
+                    [
+                        'position' => $index + 1,
+                        'relics' => $wallet->weekly_relics,
+                        'reward' => match ($index) {
 
-                    'position' => $index + 1,
+                            0 => 20,
+                            1 => 10,
+                            2 => 5,
+                        },
+                    ]
 
-                    'relics' => $wallet->weekly_relics,
-
-                    'reward' => match ($index) {
-
-                        0 => 20,
-
-                        1 => 10,
-
-                        2 => 5,
-                    },
-
-                ]);
+                );
             }
 
 
