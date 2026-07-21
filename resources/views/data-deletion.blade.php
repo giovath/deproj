@@ -6,6 +6,8 @@
     <title>User Data Deletion – Click Premio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    @include('partials.analytics')
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;

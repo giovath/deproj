@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @include('partials.analytics')
+    
     <title>Como Funciona</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
