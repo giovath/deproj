@@ -787,7 +787,7 @@
 
                 </p>
 
-                <a href="SEU_LINK_DE_AFILIADO" target="_blank" rel="noopener noreferrer" class="create-account-link">
+                <a href="https://www.tiktok.com/d/1/ZS9rAw2P3bv7r-2iQfj/" target="_blank" rel="noopener noreferrer" class="create-account-link">
 
                     {{ __('messages.create_account') }} →
 
