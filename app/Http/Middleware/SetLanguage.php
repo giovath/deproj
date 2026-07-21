@@ -12,7 +12,7 @@ class SetLanguage
     {
 
         $language = substr(
-            $request->server('HTTP_ACCEPT_LANGUAGE'),
+            $request->getPreferredLanguage(['pt_BR', 'es']),
             0,
             2
         );

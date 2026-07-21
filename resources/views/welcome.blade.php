@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
@@ -224,7 +224,7 @@
 
             position: absolute;
 
-            top: 5%;
+            top: 10%;
 
             right: 5%;
 
@@ -258,6 +258,11 @@
 
             transition: .25s ease;
 
+            animation: harborFloat 4s ease-in-out infinite;
+
+            text-shadow:
+                1px 1px 2px rgba(255, 240, 200, .3);
+
         }
 
         .map-port:hover {
@@ -274,7 +279,7 @@
 
             .map-port {
 
-                top: 18px;
+                top: 90px;
 
                 right: 16px;
 
@@ -283,12 +288,6 @@
                 font-size: .82rem;
 
             }
-
-        }
-
-        .map-port {
-
-            animation: harborFloat 4s ease-in-out infinite;
 
         }
 
@@ -321,8 +320,11 @@
         </a>
 
         <div class="map-title">
-            <h1>Mapa do Tesouro</h1>
+
+            <h1>{{ __('messages.mapa_tesouro') }}</h1>
+
             <p>clickpremio</p>
+
         </div>
 
         <!-- SVG com caminho e X -->
@@ -349,18 +351,18 @@
 
         <!-- Espaços das missões -->
         <a id="mission1" data-event="mission_1_start" class="mission mission-1 pulse" href="/ilha-da-fortuna">
-            <img src="/images/treasure-island.webp" alt="Ilha da Fortuna">
+            <img src="/images/treasure-island.webp" alt="{{ __('messages.ilha_fortuna') }}">
         </a>
 
         <a id="mission2" data-event="mission_2_start" class="mission mission-2 locked locked-disabled" href="/navio">
 
-            <img src="/images/treasure-tripulation.webp" alt="Tripulação do Tesouro">
+            <img src="/images/treasure-tripulation.webp" alt="{{ __('messages.tripulacao_tesouro') }}">
 
         </a>
 
         <!-- Baú final -->
         <div id="treasureChest" data-event="treasure_open" class="chest locked">
-            <img src="/images/chest-closed.webp" alt="Baú do Tesouro">
+            <img src="/images/chest-closed.webp" alt="{{ __('messages.bau_tesouro') }}">
         </div>
 
     </div>

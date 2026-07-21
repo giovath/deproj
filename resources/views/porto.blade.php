@@ -465,13 +465,13 @@
 
         <div class="topbar">
 
-            <h1>⚓ Porto</h1>
+            <h1>⚓ {{ __('messages.porto') }}</h1>
 
             @guest
 
                 <button class="login-button" data-event="login_click" onclick="openLoginModal()">
 
-                    Entrar
+                    {{ __('messages.entrar') }}
 
                 </button>
             @else
@@ -497,7 +497,7 @@
 
             <div class="wallet-title">
 
-                💰 Ouro do Capitão
+                💰 {{ __('messages.ouro_capitao') }}
 
             </div>
 
@@ -509,7 +509,7 @@
 
             <div>
 
-                moedas disponíveis
+                {{ __('messages.moedas_disponiveis') }}
 
             </div>
 
@@ -521,7 +521,7 @@
 
             <div class="wallet-title">
 
-                🏺 Relíquias
+                🏺 {{ __('messages.reliquias') }}
 
             </div>
 
@@ -533,7 +533,7 @@
 
             <div>
 
-                relíquias conquistadas
+                {{ __('messages.reliquias_conquistadas') }}
 
             </div>
 
@@ -545,22 +545,21 @@
 
             <h2>
 
-                ⚓ Expedições Premiadas
+                ⚓ {{ __('messages.expedicoes_premiadas') }}
 
             </h2>
 
             <p>
 
-                Você possui
-                <strong>{{ $participations }}</strong>
-                participação(ões).
+                {{ __('messages.possui_participacoes', [
+                    'count' => $participations,
+                ]) }}
 
             </p>
 
             <div class="small">
 
-                Use participações para iniciar expedições e conquistar
-                <strong>Relíquias</strong>.
+                {{ __('messages.use_participacoes') }}
 
             </div>
 
@@ -571,15 +570,15 @@
             @if ($treasureState['available'])
                 <div class="section">
 
-                    <h2>🎁 Baú Diário</h2>
+                    <h2>🎁 {{ __('messages.bau_diario') }}</h2>
 
                     <p>
-                        Seu baú diário já está disponível.
+                        {{ __('messages.daily_chest_available') }}
                     </p>
 
                     <a href="/" class="explore-button" style="text-decoration:none;text-align:center;display:block;">
 
-                        🗺️ Buscar Tesouro
+                        🗺️ {{ __('messages.buscar_tesouro') }}
 
                     </a>
 
@@ -587,12 +586,10 @@
             @else
                 <div class="section">
 
-                    <h2>🎁 Baú Diário</h2>
+                    <h2>🎁 {{ __('messages.bau_diario') }}</h2>
 
                     <p>
-
-                        Próximo baú disponível em
-
+                        {{ __('messages.next_chest_available') }}
                     </p>
 
                     <div class="wallet-value" style="font-size:1.4rem">
@@ -611,19 +608,17 @@
 
             <div class="section">
 
-                <h2>🎁 Baú do Tesouro</h2>
+                🎁 {{ __('messages.bau_tesouro') }}
 
                 <p>
 
-                    Explore o mapa para encontrar um novo tesouro.
+                    {{ __('messages.explore_map') }}
 
                 </p>
 
                 <div class="small">
 
-                    Entre com sua conta para desbloquear o
-                    <strong>Baú Diário</strong>
-                    e salvar permanentemente seu progresso.
+                    {{ __('messages.login_unlock') }}
 
                 </div>
 
@@ -634,7 +629,7 @@
         <div class="section reward-box">
 
             <h2>
-                🎁 Recompensas Semanais
+                🎁 {{ __('messages.weekly_rewards') }}
             </h2>
 
 
@@ -643,7 +638,7 @@
                 <div class="reward-item">
 
                     <span>
-                        🥇 1º Capitão
+                        🥇 {{ __('messages.first_captain') }}
                     </span>
 
                     <strong>
@@ -656,7 +651,7 @@
                 <div class="reward-item">
 
                     <span>
-                        🥈 2º Capitão
+                        🥈 {{ __('messages.second_captain') }}
                     </span>
 
                     <strong>
@@ -669,7 +664,7 @@
                 <div class="reward-item">
 
                     <span>
-                        🥉 3º Capitão
+                        🥉 {{ __('messages.third_captain') }}
                     </span>
 
                     <strong>
@@ -684,7 +679,7 @@
 
             <div class="small">
 
-                Acumule relíquias nas expedições e dispute o topo do ranking.
+                {{ __('messages.compete_ranking') }}
 
             </div>
 
@@ -697,7 +692,7 @@
 
             <h2>
 
-                🏆 Ranking dos Capitães
+                🏆 {{ __('messages.ranking_capitaes') }}
 
             </h2>
 
@@ -729,7 +724,7 @@
 
                             <span>
 
-                                {{ $item->captain->user?->name ?? 'Capitão Anônimo' }}
+                                {{ $item->captain->user?->name ?? __('messages.anonymous_captain') }}
 
                             </span>
 
@@ -747,7 +742,7 @@
 
                         <p>
 
-                            Ainda não existem capitães no ranking.
+                            {{ __('messages.no_captains') }}
 
                         </p>
                     @endforelse
@@ -760,7 +755,7 @@
 
             <button class="explore-button" data-event="games_open" onclick="location.href='/jogos'">
 
-                🎮 Explorar Jogos
+                🎮 {{ __('messages.explorar_jogos') }}
 
             </button>
 
@@ -772,33 +767,33 @@
             <div class="modal-box">
 
 
-                <h2>⚓ Entrar no Porto</h2>
+                <h2>⚓ {{ __('messages.enter_port') }}</h2>
 
                 <p>
-                    Entre no Porto para salvar suas moedas, conquistar relíquias e competir entre os maiores capitães.
+                    {{ __('messages.login_description') }}
                 </p>
 
                 <a href="{{ route('auth.tiktok.redirect') }}" class="tiktok-login">
 
-                    🎵 Entrar com TikTok
+                    🎵 {{ __('messages.login_tiktok') }}
 
                 </a>
 
                 <p style="margin:18px 0 6px; font-size:.9rem; opacity:.75;">
 
-                    Ainda não possui uma conta?
+                    {{ __('messages.no_account') }}
 
                 </p>
 
                 <a href="SEU_LINK_DE_AFILIADO" target="_blank" rel="noopener noreferrer" class="create-account-link">
 
-                    Criar conta gratuitamente →
+                    {{ __('messages.create_account') }} →
 
                 </a>
 
                 <div class="close-modal" onclick="closeLoginModal()">
 
-                    Cancelar
+                    {{ __('messages.cancel') }}
 
                 </div>
 
