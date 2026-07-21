@@ -218,6 +218,11 @@ class ExpeditionController extends Controller
             $relics
         );
 
+        $wallet->increment(
+            'weekly_relics',
+            $relics
+        );
+
 
 
 

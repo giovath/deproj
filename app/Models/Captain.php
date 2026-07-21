@@ -23,4 +23,11 @@ class Captain extends Model
     {
         return $this->hasOne(CaptainWallet::class);
     }
+
+    public function weeklyRankings()
+    {
+        return $this->hasMany(
+            WeeklyRanking::class
+        );
+    }
 }

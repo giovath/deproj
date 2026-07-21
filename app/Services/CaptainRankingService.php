@@ -11,8 +11,8 @@ class CaptainRankingService
         return CaptainWallet::with([
             'captain.user'
         ])
-            ->where('relics', '>', 0)
-            ->orderByDesc('relics')
+            ->where('weekly_relics', '>', 0)
+            ->orderByDesc('weekly_relics')
             ->orderByDesc('coins')
             ->limit(10)
             ->get();

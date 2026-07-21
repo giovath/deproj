@@ -29,6 +29,8 @@ return new class extends Migration
             $table->integer('relics')
                 ->default(0);
 
+            $table->integer('weekly_relics')->default(0);
+
 
             $table->timestamps();
 

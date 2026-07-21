@@ -4,19 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CaptainWallet extends Model
+class WeeklyRanking extends Model
 {
     protected $fillable = [
         'captain_id',
-        'coins',
-        'participations',
+        'week_key',
+        'position',
         'relics',
-        'weekly_relics'
+        'reward',
     ];
 
 
     public function captain()
     {
-        return $this->belongsTo(Captain::class);
+        return $this->belongsTo(
+            Captain::class
+        );
     }
 }
