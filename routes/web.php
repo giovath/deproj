@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TikTokAuthController;
-use App\Http\Controllers\ArenaController;
-use App\Models\GameMatch;
 use App\Models\Captain;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,35 +16,35 @@ use App\Services\CaptainService;
 use App\Services\CaptainWalletService;
 use App\Services\CaptainStateService;
 use App\Services\CaptainRankingService;
+use App\Services\TreasureProgressService;
 
-use App\Services\GamezopService;
-use App\Http\Controllers\GamezopWebhookController;
 
 use App\Http\Controllers\ExpeditionController;
 
 Route::get('/', function (
-    CaptainStateService $stateService
+    CaptainService $captainService,
+    TreasureProgressService $progressService
 ) {
 
-    $treasureState = $stateService->treasureState();
 
-    if (Auth::check() && $treasureState['available']) {
+    $captain = $captainService->getOrCreate();
 
-        session()->forget([
-            'mission1_completed',
-            'mission2_completed',
-            'treasure_available',
-            'treasure_collected',
-        ]);
-    }
+
+    $progress =
+        $progressService->getOrCreate(
+            $captain
+        );
+
 
     return view('welcome', [
 
         'mission1Completed' =>
-        session('mission1_completed', false),
+        $progress->mission1_completed,
+
 
         'mission2Completed' =>
-        session('mission2_completed', false),
+        $progress->mission2_completed,
+
 
     ]);
 })->name('home');
