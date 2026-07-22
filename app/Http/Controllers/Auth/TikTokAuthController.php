@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use App\Services\TreasureProgressService;
 
 class TikTokAuthController extends Controller
 {
@@ -20,8 +21,10 @@ class TikTokAuthController extends Controller
             ->redirect();
     }
 
-    public function callback(LinkCaptainService $linkCaptain)
-    {
+    public function callback(
+        LinkCaptainService $linkCaptain,
+        TreasureProgressService $progressService
+    ) {
         try {
 
             $tiktokUser = Socialite::driver('tiktok')->user();
@@ -116,7 +119,10 @@ class TikTokAuthController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $linkCaptain->execute($user);
+        $linkCaptain->execute(
+            $user,
+            $progressService
+        );
 
 
         /*
