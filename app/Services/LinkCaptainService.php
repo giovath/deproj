@@ -12,60 +12,125 @@ class LinkCaptainService
         User $user,
         TreasureProgressService $progressService
     ) {
+
         if (!session()->has('captain_id')) {
             return;
         }
 
-        $captain = Captain::find(
+
+        $sessionCaptain = Captain::find(
             session('captain_id')
         );
 
-        if (!$captain) {
+
+        if (!$sessionCaptain) {
             return;
         }
 
-        if (!$captain->user_id) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | O usuário já possui um capitão?
+        |--------------------------------------------------------------------------
+        */
+
+        $existingCaptain = Captain::where(
+            'user_id',
+            $user->id
+        )->first();
 
 
-            $captain->update([
+        if ($existingCaptain) {
 
-                'user_id' => $user->id
+
+            /*
+            |--------------------------------------------------------------------------
+            | Restaura o capitão oficial
+            |--------------------------------------------------------------------------
+            */
+
+            session([
+                'captain_id' => $existingCaptain->id
+            ]);
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Remove capitão anônimo temporário
+            |--------------------------------------------------------------------------
+            */
+
+            if ($sessionCaptain->id !== $existingCaptain->id) {
+
+                $sessionCaptain->delete();
+            }
+
+
+            return;
+        }
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Primeiro login: vincula capitão anônimo
+        |--------------------------------------------------------------------------
+        */
+
+        $sessionCaptain->update([
+
+            'user_id' => $user->id
+
+        ]);
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Bônus do primeiro login
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$user->first_treasure_bonus_claimed) {
+
+
+            $user->update([
+
+                'next_treasure_at' => now(),
+
+                'first_treasure_bonus_claimed' => true,
 
             ]);
 
 
 
-            if (!$user->first_treasure_bonus_claimed) {
-
-
-                $user->update([
-
-                    'next_treasure_at' => now(),
-
-                    'first_treasure_bonus_claimed' => true,
-
-                ]);
+            $progress =
+                $progressService->getOrCreate(
+                    $sessionCaptain
+                );
 
 
 
-                $progress =
-                    $progressService->getOrCreate(
-                        $captain
-                    );
+            $progress->update([
 
+                'mission1_completed' => false,
 
-                $progress->update([
+                'mission2_completed' => false,
 
-                    'mission1_completed' => false,
+                'treasure_available' => true,
 
-                    'mission2_completed' => false,
+                'treasure_collected' => false,
 
-                    'treasure_available' => true,
-
-                    'treasure_collected' => false,
-
-                ]);
-            }
+            ]);
         }
+
+
+
+        session([
+
+            'captain_id' => $sessionCaptain->id
+
+        ]);
     }
 }
