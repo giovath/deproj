@@ -264,7 +264,7 @@
 
                     <strong id="coins">
 
-                        {{ session('coins', 0) }}
+                        {{ $wallet?->coins ?? 0 }}
 
                     </strong>
 
@@ -281,7 +281,7 @@
 
                     <strong id="participations">
 
-                        {{ session('participations', 0) }}
+                        {{ $wallet?->participations ?? 0 }}
 
                     </strong>
 
@@ -296,7 +296,7 @@
 
                     <strong id="relics">
 
-                        {{ session('expedition_relics', 0) }}
+                        {{ $wallet?->relics ?? 0 }}
 
                     </strong>
 

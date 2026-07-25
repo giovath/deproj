@@ -402,30 +402,29 @@ Route::post('/tesouro/coletar', function (
 });
 
 Route::get('/porto', function (
+    CaptainService $captainService,
     CaptainStateService $stateService,
     CaptainRankingService $rankingService
 ) {
 
-    $coins = session('coins', 0);
-    $participations = session('participations', 0);
-    $relics = session('expedition_relics', 0);
+    $coins = 0;
+    $participations = 0;
+    $relics = 0;
 
 
-    if (session()->has('captain_id')) {
-
-        $captain = Captain::find(
-            session('captain_id')
-        );
+    $captain = $captainService->current();
 
 
-        if ($captain) {
+    if ($captain) {
 
-            $wallet = $stateService->wallet($captain);
+        $wallet = $stateService->wallet($captain);
 
-            $coins = $wallet->coins;
-            $participations = $wallet->participations;
-            $relics = $wallet->relics;
-        }
+
+        $coins = $wallet->coins;
+
+        $participations = $wallet->participations;
+
+        $relics = $wallet->relics;
     }
 
 
