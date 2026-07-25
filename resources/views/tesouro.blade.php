@@ -9,7 +9,7 @@
 
     @include('partials.analytics')
 
-    <title>Tesouro Encontrado</title>
+    <title>{{ __('messages.tesouro_encontrado') }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
@@ -142,13 +142,11 @@
 
     <div class="container">
 
-        <h1>🏆 Tesouro Encontrado</h1>
+        <h1>🏆 {{ __('messages.tesouro_encontrado') }}</h1>
 
         <p class="description">
 
-            Após atravessar a Ilha da Fortuna
-            e reunir sua tripulação,
-            você encontrou o Baú Perdido.
+            {{ __('messages.tesouro_descricao') }}
 
         </p>
 
@@ -160,7 +158,7 @@
 
         <div class="status" id="status">
 
-            O tesouro aguarda sua abertura.
+            {{ __('messages.tesouro_aguarda') }}
 
         </div>
 
@@ -171,7 +169,7 @@
 
         <button id="openButton">
 
-            🗝️ Abrir Baú
+            🗝️ {{ __('messages.abrir_bau') }}
 
         </button>
 
@@ -196,12 +194,12 @@
             openButton.disabled = true;
 
             status.innerText =
-                '🔓 Destravando fechaduras...';
+                "{{ __('messages.destravando_fechaduras') }}";
 
             setTimeout(() => {
 
                 status.innerText =
-                    '✨ Revelando tesouro...';
+                    "{{ __('messages.revelando_tesouro') }}";
 
             }, 1000);
 
@@ -211,7 +209,7 @@
                     '/images/chest-open.webp';
 
                 status.innerText =
-                    '🪙 Tesouro encontrado! Sua recompensa está sendo revelada...';
+                    "{{ __('messages.recompensa_revelada') }}";
 
                 coins.style.display =
                     'block';
@@ -243,7 +241,7 @@
                     if (!data.success) {
 
                         status.innerText =
-                            '⚠️ Tesouro já coletado.';
+                            "{{ __('messages.tesouro_ja_coletado') }}";
 
                         return;
                     }
@@ -269,13 +267,14 @@
                     clearInterval(interval);
 
                     coins.innerText =
-                        target + ' moedas';
+                        target + ' {{ __('messages.moedas') }}';
 
                     status.innerText =
-                        '✨ Você encontrou ' + target + ' moedas!';
+                        "{{ __('messages.encontrou_moedas') }}"
+                        .replace(':count', target);
 
                     openButton.innerText =
-                        '⚓ Ir para as Docas';
+                        "{{ __('messages.ir_docas') }}";
 
                     openButton.disabled = false;
 

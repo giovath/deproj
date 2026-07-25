@@ -8,7 +8,7 @@
 
     @include('partials.analytics')
 
-    <title>Navio da Fortuna</title>
+    <title>{{ __('messages.navio_fortuna') }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
@@ -290,17 +290,11 @@
 
     <div class="container">
 
-        <h1>⚓ Navio da Fortuna</h1>
+        <h1>⚓ {{ __('messages.navio_fortuna') }}</h1>
 
         <p class="description">
 
-            O capitão encontrou o cofre principal,
-            mas a chave foi dividida em duas partes.
-
-            A segunda metade desapareceu pelo oceano.
-
-            Convide um aliado para ajudar sua tripulação
-            a localizar o fragmento final da chave.
+            {{ __('messages.navio_descricao') }}
 
         </p>
 
@@ -314,7 +308,7 @@
                 </div>
 
                 <div class="crew-label">
-                    Capitão pronto
+                    {{ __('messages.capitao_pronto') }}
                 </div>
 
             </div>
@@ -327,7 +321,7 @@
                 </div>
 
                 <div class="crew-label">
-                    Aguardando aliado
+                    {{ __('messages.aguardando_aliado') }}
                 </div>
 
             </div>
@@ -338,7 +332,7 @@
 
             <div class="invite-title">
 
-                Seu chamado da tripulação:
+                {{ __('messages.chamado_tripulacao') }}
 
             </div>
 
@@ -350,7 +344,7 @@
 
             <button id="copyButton" class="invite-button">
 
-                📜 Copiar Convite
+                {{ __('messages.copiar_convite') }}
 
             </button>
 
@@ -358,13 +352,13 @@
 
         <p class="status" id="status">
 
-            ⚓ Sua tripulação precisa de mais um aliado.
+            {{ __('messages.tripulacao_precisa_aliado') }}
 
         </p>
 
         <button id="unlockButton" disabled>
 
-            🔒 Chave incompleta
+            {{ __('messages.chave_incompleta') }}
 
         </button>
 
@@ -404,12 +398,12 @@
                 );
 
                 status.innerText =
-                    '📜 O chamado da tripulação foi copiado. Compartilhe com um aliado.';
+                    @json(__('messages.convite_copiado'));
 
             } catch (error) {
 
                 status.innerText =
-                    '⚠️ Não foi possível copiar o convite.';
+                    @json(__('messages.erro_copiar_convite'));
             }
 
         });
@@ -429,17 +423,17 @@
             slot2.classList.add('active');
 
             slot2.querySelector('.crew-label').innerText =
-                'Aliado recrutado';
+                @json(__('messages.aliado_recrutado'));
 
             status.innerText =
-                '🏴‍☠️ Seu aliado encontrou o fragmento final da chave.';
+                @json(__('messages.aliado_encontrou_fragmento'));
 
             unlockButton.disabled = false;
 
             unlockButton.classList.add('active');
 
             unlockButton.innerText =
-                '🗝️ Abrir Baú do Tesouro';
+                @json(__('messages.abrir_bau_tesouro'));
         }
 
         if (referralCompleted) {
@@ -498,7 +492,7 @@
             unlockButton.disabled = true;
 
             unlockButton.innerText =
-                '🏴‍☠️ Abrindo tesouro...';
+                @json(__('messages.abrindo_tesouro'));
 
             fetch('/mission2/complete', {
 

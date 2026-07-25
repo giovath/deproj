@@ -9,7 +9,7 @@
 
     @include('partials.analytics')
 
-    <title>Ilha da Fortuna</title>
+    <title>{{ __('messages.ilha_fortuna') }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
@@ -247,13 +247,11 @@
 
     <div class="container">
 
-        <h1>Ilha da Fortuna</h1>
+        <h1>{{ __('messages.ilha_fortuna') }}</h1>
 
         <p class="description">
 
-            Os guardiões da ilha esconderam o tesouro principal.
-
-            Antes de retornar ao mapa, explore os locais secretos abaixo para encontrar pistas valiosas.
+            {{ __('messages.ilha_descricao') }}
 
         </p>
 
@@ -261,7 +259,7 @@
 
             <a href="#" id="pushMission" class="mission-link">
 
-                📡 Ativar Mensagens da Ilha
+                📡 {{ __('messages.ativar_mensagens_ilha') }}
 
                 <span>↗</span>
 
@@ -269,7 +267,7 @@
 
             <a href="#" id="exploreMission" class="mission-link">
 
-                ⛏️ Explorar Minas Perdidas
+                ⛏️ {{ __('messages.explorar_minas_perdidas') }}
 
                 <span>↗</span>
 
@@ -279,7 +277,10 @@
 
         <p id="progressText">
 
-            0 / 2 locais explorados
+            {{ __('messages.locais_explorados', [
+                'count' => 0,
+                'total' => 2,
+            ]) }}
 
         </p>
         <div class="progress-bar">
@@ -288,13 +289,13 @@
 
         <p class="status" id="status">
 
-            Explore os locais secretos da ilha.
+            {{ __('messages.explore_locais_secretos') }}
 
         </p>
 
         <button id="completeButton" disabled>
 
-            🔒 Desbloquear Próxima Missão
+            🔒 {{ __('messages.desbloquear_proxima_missao') }}
 
         </button>
 
@@ -329,10 +330,13 @@
 
         function updateProgress() {
 
+            const progressTranslation =
+                @json(__('messages.locais_explorados'));
+
             progressText.innerText =
-                exploredCount + ' / ' +
-                TOTAL_MISSIONS +
-                ' locais explorados';
+                progressTranslation
+                .replace(':count', exploredCount)
+                .replace(':total', TOTAL_MISSIONS);
 
             const progressPercent =
                 (exploredCount / TOTAL_MISSIONS) * 100;
@@ -344,21 +348,21 @@
             if (exploredCount === 1) {
 
                 status.innerText =
-                    '🌊 Você encontrou uma pista rara da Ilha da Fortuna.';
+                    "{{ __('messages.pista_rara') }}";
             }
 
             // conclusão
             if (exploredCount >= TOTAL_MISSIONS) {
 
                 status.innerText =
-                    '🏴‍☠️ O mapa secreto foi desbloqueado.';
+                    "{{ __('messages.mapa_desbloqueado') }}";
 
                 completeButton.disabled = false;
 
                 completeButton.classList.add('active');
 
                 completeButton.innerText =
-                    '🗺️ Desbloquear Próxima Missão';
+                    "{{ __('messages.desbloquear_proxima_missao_ativa') }}";
 
                 completeButton.animate([{
                         transform: 'scale(1)'
@@ -388,12 +392,12 @@
             }
 
             status.innerText =
-                '📡 Ativando mensagens da Ilha...';
+                "{{ __('messages.ativando_mensagens') }}"
 
             if (!('Notification' in window)) {
 
                 status.innerText =
-                    '⚠️ Seu navegador não suporta mensagens da Ilha.';
+                    "{{ __('messages.navegador_sem_mensagens') }}"
 
                 return;
             }
@@ -406,7 +410,7 @@
                 if (permission !== 'granted') {
 
                     status.innerText =
-                        '❌ Você recusou as mensagens da Ilha.';
+                        "{{ __('messages.mensagens_recusadas') }}"
 
                     return;
                 }
@@ -423,7 +427,7 @@
                 pushMission.querySelector('span').innerText = '✔';
 
                 status.innerText =
-                    '📜 As mensagens secretas foram ativadas.';
+                    "{{ __('messages.mensagens_ativadas') }}"
 
                 updateProgress();
 
@@ -432,7 +436,7 @@
                 console.log(error);
 
                 status.innerText =
-                    '⚠️ Não foi possível ativar as mensagens.';
+                    "{{ __('messages.erro_ativar_mensagens') }}"
             }
 
         });
@@ -483,7 +487,7 @@
             completeButton.disabled = true;
 
             completeButton.innerText =
-                '🧭 Retornando ao mapa...';
+                "{{ __('messages.retornando_mapa') }}";
 
             fetch('/mission1/complete', {
 
@@ -500,7 +504,8 @@
 
             }).then(() => {
 
-                window.location.href = '/';
+                window.location.href =
+                    "{{ url('/') }}";
 
             });
 
