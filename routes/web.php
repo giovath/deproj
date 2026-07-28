@@ -26,25 +26,23 @@ Route::get('/', function (
     TreasureProgressService $progressService
 ) {
 
-
     $captain = $captainService->getOrCreate();
 
-
-    $progress =
-        $progressService->getOrCreate(
-            $captain
-        );
-
+    $progress = $progressService->getOrCreate($captain);
 
     return view('welcome', [
 
         'mission1Completed' =>
         $progress->mission1_completed,
 
-
         'mission2Completed' =>
         $progress->mission2_completed,
 
+        'treasureAvailable' =>
+        $progress->treasure_available,
+
+        'treasureCollected' =>
+        $progress->treasure_collected,
 
     ]);
 })->name('home');
@@ -240,7 +238,17 @@ Route::get('/tesouro', function (
     if (!$progress->treasure_available) {
 
 
-        return redirect('/');
+        if (!$progress->treasure_available) {
+
+            dd([
+                'captain_id' => $captain->id,
+                'user_id' => $captain->user_id,
+                'mission1_completed' => $progress->mission1_completed,
+                'mission2_completed' => $progress->mission2_completed,
+                'treasure_available' => $progress->treasure_available,
+                'treasure_collected' => $progress->treasure_collected,
+            ]);
+        }
     }
 
 

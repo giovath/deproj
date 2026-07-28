@@ -375,6 +375,12 @@
 
         const mission2Completed =
             @json($mission2Completed);
+
+        const treasureAvailable =
+            @json($treasureAvailable);
+
+        const treasureCollected =
+            @json($treasureCollected);
     </script>
 
     <script>
@@ -387,7 +393,11 @@
 
             unlockMission2();
 
-            unlockTreasure();
+            if (treasureAvailable && !treasureCollected) {
+
+                unlockTreasure();
+
+            }
 
         } else if (mission1Completed) {
 
@@ -411,11 +421,9 @@
 
         function unlockTreasure() {
 
-            mission2.classList.remove('pulse');
-            mission2.classList.add('completed');
-
             chest.classList.remove('locked');
             chest.classList.add('pulse');
+
 
             chest.innerHTML = `
         <img src="/images/chest-closed.webp"
@@ -423,7 +431,9 @@
     `;
 
             chest.addEventListener('click', () => {
+
                 window.location.href = '/tesouro';
+
             });
         }
     </script>
