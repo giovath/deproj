@@ -177,13 +177,22 @@ Route::post('/mission1/complete', function (
     ]);
 });
 
-Route::post('/mission2/complete', function () {
+Route::post('/mission2/complete', function (
+    CaptainService $captainService,
+    TreasureProgressService $progressService
+) {
 
-    dd([
-        'rota_atingida' => true,
-        'user_id' => Auth::id(),
-        'auth_check' => Auth::check(),
-        'session_captain_id' => session('captain_id'),
+    $captain =
+        $captainService->getOrCreate();
+
+
+    $progressService->completeMission2(
+        $captain
+    );
+
+
+    return response()->json([
+        'success' => true
     ]);
 });
 
