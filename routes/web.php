@@ -182,18 +182,35 @@ Route::post('/mission2/complete', function (
     TreasureProgressService $progressService
 ) {
 
-
     $captain =
         $captainService->getOrCreate();
 
+    $progress =
+        $progressService->getOrCreate($captain);
 
-    $progressService->completeMission2(
-        $captain
-    );
+    dd([
+        'user_id' => Auth::id(),
 
+        'session_captain_id' =>
+            session('captain_id'),
 
-    return response()->json([
-        'success' => true
+        'captain_id' =>
+            $captain->id,
+
+        'captain_user_id' =>
+            $captain->user_id,
+
+        'mission1_completed' =>
+            $progress->mission1_completed,
+
+        'mission2_completed' =>
+            $progress->mission2_completed,
+
+        'treasure_available' =>
+            $progress->treasure_available,
+
+        'treasure_collected' =>
+            $progress->treasure_collected,
     ]);
 });
 
