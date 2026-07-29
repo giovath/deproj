@@ -362,7 +362,7 @@
                 completeButton.classList.add('active');
 
                 completeButton.innerText =
-                    "{{ __('messages.desbloquear_proxima_missao_ativa') }}";
+                    "{{ __('messages.desbloquear_proxima_missao') }}";
 
                 completeButton.animate([{
                         transform: 'scale(1)'
