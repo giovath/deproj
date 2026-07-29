@@ -177,40 +177,13 @@ Route::post('/mission1/complete', function (
     ]);
 });
 
-Route::post('/mission2/complete', function (
-    CaptainService $captainService,
-    TreasureProgressService $progressService
-) {
-
-    $captain =
-        $captainService->getOrCreate();
-
-    $progress =
-        $progressService->getOrCreate($captain);
+Route::post('/mission2/complete', function () {
 
     dd([
+        'rota_atingida' => true,
         'user_id' => Auth::id(),
-
-        'session_captain_id' =>
-            session('captain_id'),
-
-        'captain_id' =>
-            $captain->id,
-
-        'captain_user_id' =>
-            $captain->user_id,
-
-        'mission1_completed' =>
-            $progress->mission1_completed,
-
-        'mission2_completed' =>
-            $progress->mission2_completed,
-
-        'treasure_available' =>
-            $progress->treasure_available,
-
-        'treasure_collected' =>
-            $progress->treasure_collected,
+        'auth_check' => Auth::check(),
+        'session_captain_id' => session('captain_id'),
     ]);
 });
 
