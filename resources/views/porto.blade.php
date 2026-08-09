@@ -843,7 +843,7 @@
 
                 </p>
 
-                <a href="https://www.tiktok.com/d/1/ZS9hyDmJn3Dko-YOXX8/" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/d/1/ZS9hTDmUxseVW-ZJ06M/" target="_blank" rel="noopener noreferrer"
                     class="create-account-link">
 
                     {{ __('messages.create_account') }} →
